@@ -20,7 +20,7 @@
 </head>
 <body>
      <div id="app">
-         @include('layouts.partials.nav-prev')
+         @include('layouts.partials.nav-error')
          @yield('content')
     </div> 
 
