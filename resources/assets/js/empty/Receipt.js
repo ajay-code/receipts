@@ -1,0 +1,20 @@
+module.exports = {
+	created_at:"",
+	id:'',
+	receiver_address:"",
+	receiver_email:"",
+	receiver_name:"",
+	receiver_phone:"",
+	receiver_postcode:"",
+	receiver_product:"",
+	sender_address:"",
+	amount:"",
+	sender_email:"",
+	sender_name:"",
+	sender_phone:"",
+	sender_postcode:"",
+	tracking:"",
+	receiver_product: "",
+	updated_at:"",
+	user_id:''
+}
