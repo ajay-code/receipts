@@ -25,6 +25,12 @@
     
     .page{
     }
+
+    .user-id{
+    	position : absolute;
+        left: {{$user->settings->left_user_id ? $user->settings->left_user_id :  4}}cm;
+		top: {{$user->settings->top_user_id ? $user->settings->top_user_id :  0.5}}cm;
+    }
     	
     .sender{
         position : absolute;
@@ -57,6 +63,11 @@
 
 	@foreach ($receivers as $receiver)
 		<div class="page" id="page" >
+
+			<div class="user-id">
+				{{ $receipt->user->uid }}
+			</div>
+			
 			<div class="sender">
 				{{ $sender['name'] ? $sender['name']:''}} <br>
 				{!! $sender['address'] ? str_replace("|","<br/>", $sender['address'])  : ''!!} <br>
