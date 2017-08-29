@@ -42,6 +42,21 @@
                             </div>
                         </div>
                     </div>
+
+                    <div class="col-md-3 col-sm-12 col-xs-12">
+                        <div class="panel panel-primary text-center no-boder blue">
+                            <div class="col-xs-12">
+
+                              <div class="panel-left pull-left blue">
+                                <i class="fa fa-print fa-5x"></i>
+                                </div>
+                                </div>
+                            <div class="panel-right">
+                            <h3>{{ Receipt::sum('amount') }}</h3>
+                               <strong> Total Revenue</strong>
+                            </div>
+                        </div>
+                    </div>
                     
                 </div>
                 
