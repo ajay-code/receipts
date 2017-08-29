@@ -107,13 +107,13 @@ class HomeController extends Controller
             }else{
                 if(!$data['phone']){
                     if(preg_match($reg, $value)){
-                        if(preg_match('/(^60)\d{10}/', $value)){
+                        if(preg_match('/(^60)\d{9,10}/', $value)){
                             $data['phone'] = '+' . $value;
-                        }elseif (preg_match('/(^0)\d{10}/', $value)) {
+                        }elseif (preg_match('/(^0)\d{9,10}/', $value)) {
                             $data['phone'] = '+6' . $value;
                         }elseif(preg_match('/(^\+)\d{10}/', $value)){
                                 $data['phone'] = $value;
-                        }elseif(preg_match('/\d{10}/', $value)){
+                        }elseif(preg_match('/\d{9,10}/', $value)){
                             $data['phone'] = '+60' . $value;
                         }
                     }else{
@@ -180,13 +180,13 @@ class HomeController extends Controller
                 }else{
                     if(!$data['phone']){
                         if(preg_match($reg, $value)){
-                            if(preg_match('/(^60)\d{10}/', $value)){
+                            if(preg_match('/(^60)\d{9,10}/', $value)){
                                 $data['phone'] = '+' . $value;
-                            }elseif (preg_match('/(^0)\d{10}/', $value)) {
+                            }elseif (preg_match('/(^0)\d{9,10}/', $value)) {
                                 $data['phone'] = '+6' . $value;
                             }elseif(preg_match('/(^\+)\d{10}/', $value)){
-                                $data['phone'] = $value;
-                            }elseif(preg_match('/\d{10}/', $value)){
+                                    $data['phone'] = $value;
+                            }elseif(preg_match('/\d{9,10}/', $value)){
                                 $data['phone'] = '+60' . $value;
                             }
                         }else{
