@@ -52,7 +52,7 @@
                                 </div>
                                 </div>
                             <div class="panel-right">
-                            <h3>{{ Receipt::sum('amount') }}</h3>
+                            <h3>{{ \App\Receipt::sum('amount') }}</h3>
                                <strong> Total Revenue</strong>
                             </div>
                         </div>
