@@ -30,6 +30,7 @@ export default {
                   if(!window.isMobile()){
                     this.loading = false;
                     if(this.loadCount !== 0){
+                        console.log(this.loadCount) 
                         window.frames['frame'].print();
                     this.loadCount++; 
                     }
@@ -144,6 +145,33 @@ export default {
               
               eventHub.$emit('clear-every-receipt');
               this.printList = [];
+            },
+
+            downloadCsv(){
+                if(this.printList.length){
+                  this.loading = true;
+
+                  let inputs = '';
+
+                  this.printList.forEach(function(element) {
+                    inputs += `<input name="receipts[]" value="${element}">`; 
+                  }, this);
+
+                  jQuery(`<form action="${this.scope}/receipts/csv" method="post" target="csv-frame">
+                      <input name="_token" value="${Laravel.csrfToken}">
+                     ${inputs}
+                  </form>`)
+                  .appendTo('body').submit().remove()
+                  this.loading = false;
+
+                  
+                  // axios.post(`${this.scope}/receipts/csv`, { receipts: this.printList }).then( res => {
+                  //       window.file = res.data;
+                  //       this.loading = false;
+                  // })
+                }else{
+                  alert('please select atleast on receipt')
+                }
             }
 
         }

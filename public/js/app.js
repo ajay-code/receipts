@@ -1247,6 +1247,7 @@ module.exports = (_module$exports = {
       if (!window.isMobile()) {
         this.loading = false;
         if (this.loadCount !== 0) {
+          console.log(this.loadCount);
           window.frames['frame'].print();
           this.loadCount++;
         }
@@ -1361,6 +1362,27 @@ module.exports = (_module$exports = {
 
       __WEBPACK_IMPORTED_MODULE_0__eventHub___default.a.$emit('clear-every-receipt');
       this.printList = [];
+    },
+    downloadCsv: function downloadCsv() {
+      if (this.printList.length) {
+        this.loading = true;
+
+        var inputs = '';
+
+        this.printList.forEach(function (element) {
+          inputs += '<input name="receipts[]" value="' + element + '">';
+        }, this);
+
+        jQuery('<form action="' + this.scope + '/receipts/csv" method="post" target="csv-frame">\n                      <input name="_token" value="' + Laravel.csrfToken + '">\n                     ' + inputs + '\n                  </form>').appendTo('body').submit().remove();
+        this.loading = false;
+
+        // axios.post(`${this.scope}/receipts/csv`, { receipts: this.printList }).then( res => {
+        //       window.file = res.data;
+        //       this.loading = false;
+        // })
+      } else {
+        alert('please select atleast on receipt');
+      }
     }
   }
 });
@@ -23065,6 +23087,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 
 
@@ -23428,7 +23452,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "click": _vm.clearPrintList
     }
-  }, [_vm._v("Clear Print List")]) : _vm._e()]), _vm._v(" "), _c('iframe', {
+  }, [_vm._v("Clear Print List")]) : _vm._e(), _vm._v(" "), _c('span', {
+    staticClass: "btn btn-primary",
+    on: {
+      "click": _vm.downloadCsv
+    }
+  }, [_vm._v("Export")])]), _vm._v(" "), _c('iframe', {
     staticClass: "hide",
     attrs: {
       "id": "print-frame",
@@ -23438,6 +23467,14 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     },
     on: {
       "load": _vm.loadingComplete
+    }
+  }), _vm._v(" "), _c('iframe', {
+    staticClass: "hide",
+    attrs: {
+      "id": "csv-frame",
+      "name": "csv-frame",
+      "src": "",
+      "frameborder": "0"
     }
   }), _vm._v(" "), (_vm.loading) ? _c('div', {
     staticClass: "overlay"

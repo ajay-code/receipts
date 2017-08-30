@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use PDF;
+use Excel;
 use App\Receipt;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -147,5 +148,23 @@ class ReceiptController extends Controller
                 $receipts = Receipt::where('user_id', auth()->user()->id)->whereRaw("date(created_at) = '{$date}'")->paginate($records);
         }
         return $receipts;
+    }
+
+    public function csv_download(Request $request){
+        
+        return Excel::create('receipts', function($excel) use($request)  {
+            // Set the title
+            $excel->setTitle('Receipts');
+             $excel->sheet('Sheetname', function($sheet) use($request) {
+                $receipts = Receipt::find($request->receipts);
+                $subset = $receipts->map(function ($user) {
+                    return collect($user->toArray())
+                        ->except(['user_id'])
+                        ->all();
+                });
+                $sheet->fromArray($subset);
+            });
+
+        })->download('csv');
     }
 }

@@ -22,24 +22,23 @@ Route::get('/test/2', function(){
 })->name('test.2');
 
 Route::get('/test/3', function(){
-		 Excel::create('Filename', function($excel) {
+		 Excel::create('receipts', function($excel) {
 
 
 
 		    // Set the title
-		    $excel->setTitle('Our new awesome title');
+		    $excel->setTitle('Receipts');
 
-		    // Chain the setters
-		    $excel->setCreator('Maatwebsite')
-		          ->setCompany('Maatwebsite');
 
-		    // Call them separately
-		    $excel->setDescription('A demonstration to change the file properties');
 
 		     $excel->sheet('Sheetname', function($sheet) {
 		     	$receipts = App\Receipt::all();
-
-		     	$sheet->fromModel($receipts);
+		     	$subset = $receipts->map(function ($user) {
+				    return collect($user->toArray())
+				        ->except(['user_id'])
+				        ->all();
+				});
+		     	$sheet->fromArray($subset);
 		        
 
 		    });
