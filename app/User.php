@@ -4,6 +4,7 @@ namespace App;
 
 use App\Receipt;
 use App\Traits\Uuids;
+use App\Traits\CanExpire;
 use Laravel\Scout\Searchable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -29,6 +30,13 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    /**
+     * The attributes that should be mutated to dates.
+     *
+     * @var array
+     */
+    // protected $dates = ['expire_at'];
 
     /**
      * Get the index name for the model.

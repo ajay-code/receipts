@@ -65,6 +65,7 @@
                     this.loading = true;
                     this.form.post('/print', this.form).then(res => {
                         this.resetReceiver();
+                        console.log(res);
                         this.pdfName = res.pdfName;
                         this.loadPdf(res);
                     }).catch((error) => {
@@ -85,11 +86,8 @@
             loadingComplete(){
                     if(!this.isMobile()){
                         this.loading = false;
-                        console.log(this.loadCount !== 0)
                         if(this.loadCount !== 0){
-                            console.log(this.loadCount);
                             window.frames['frame'].print();
-                            console.log('this.loadCount');
                         }
                         this.loadCount++; 
                     }
@@ -102,9 +100,6 @@
                 return window.isMobile();
             },
 
-            receiptPage(){
-                window.location.href = '/receipts';
-            },
 
             resetReceiver(){
                 this.form.receivers = '';

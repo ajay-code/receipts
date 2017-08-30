@@ -22667,6 +22667,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.loading = true;
             this.form.post('/print', this.form).then(function (res) {
                 _this.resetReceiver();
+                console.log(res);
                 _this.pdfName = res.pdfName;
                 _this.loadPdf(res);
             }).catch(function (error) {
@@ -22685,11 +22686,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         loadingComplete: function loadingComplete() {
             if (!this.isMobile()) {
                 this.loading = false;
-                console.log(this.loadCount !== 0);
                 if (this.loadCount !== 0) {
-                    console.log(this.loadCount);
                     window.frames['frame'].print();
-                    console.log('this.loadCount');
                 }
                 this.loadCount++;
             }
@@ -22700,9 +22698,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
         isMobile: function isMobile() {
             return window.isMobile();
-        },
-        receiptPage: function receiptPage() {
-            window.location.href = '/receipts';
         },
         resetReceiver: function resetReceiver() {
             this.form.receivers = '';

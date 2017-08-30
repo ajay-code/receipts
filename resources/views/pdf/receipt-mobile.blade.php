@@ -65,7 +65,7 @@
 		<div class="page" id="page" >
 
 			<div class="user-id">
-				{{ $receipt->user->uid }}
+				{{ auth()->user()->uid }}
 			</div>
 			
 			<div class="sender">

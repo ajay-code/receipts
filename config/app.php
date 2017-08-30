@@ -173,6 +173,7 @@ return [
         Barryvdh\DomPDF\ServiceProvider::class, 
         UxWeb\SweetAlert\SweetAlertServiceProvider::class,
         Spatie\Fractal\FractalServiceProvider::class,
+        Maatwebsite\Excel\ExcelServiceProvider::class,
         /*
          * Application Service Providers...
          */
@@ -235,6 +236,7 @@ return [
         'Alert' => UxWeb\SweetAlert\SweetAlert::class,
         'Fractal' => Spatie\Fractal\FractalFacade::class,
         'Uuid' => Ramsey\Uuid\Uuid::class,
+        'Excel' => Maatwebsite\Excel\Facades\Excel::class,
     ],
 
 ];
