@@ -106,10 +106,12 @@ class ReferenceController extends Controller
 
         $user->update([
             'type' => $reference->created_for,
-            'user_id' => $reference->creator_id ? $reference->id : null,
+            'user_id' => $reference->creator_id ? $reference->creator_id : null,
         ]);
 
         alert()->success('Reference Code Successfully Used');
+
+        $reference->delete();
 
         return back();
     }

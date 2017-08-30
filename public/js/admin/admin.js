@@ -1270,7 +1270,7 @@ module.exports = (_module$exports = {
       if (this.printList.length) {
         this.loading = true;
 
-        axios.post(url, { receipts: this.printList }).then(function (res) {
+        axios.post(this.scope + '/receipts/print', { receipts: this.printList }).then(function (res) {
           _this3.loadSinglePdf(res.data.pdfName);
         });
       } else {

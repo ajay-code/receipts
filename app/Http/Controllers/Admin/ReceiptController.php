@@ -100,8 +100,6 @@ class ReceiptController extends Controller
 	// Generate pdf for a multiple record to print
     public function print_multiple_receipts(Request $request){
 
-        // dd($request->all());
-
     	$user = auth()->user();
         $user->load('settings');
 

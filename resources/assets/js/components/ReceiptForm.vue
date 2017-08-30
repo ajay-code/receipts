@@ -19,13 +19,12 @@
                 <br>
                 <br>
                 <div class="form-group">
-                    <span class="btn btn-primary" @click="">Import</span>
+                    <span class="btn btn-primary" >Import</span>
                     <span class="btn btn-primary" @click="reset">Reset</span>
                     <span class="btn btn-primary" @click="submit">Print</span>
                 </div>
             </form>
             
-                
                 
 
             <div class="overlay" v-if="loading">

@@ -51,7 +51,7 @@ export default {
               if(this.printList.length){
                 this.loading = true;
                 
-                axios.post(url, { receipts: this.printList }).then( res => {
+                axios.post(`${this.scope}/receipts/print`, { receipts: this.printList }).then( res => {
                         this.loadSinglePdf(res.data.pdfName)
                     })
               }else{

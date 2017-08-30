@@ -1270,7 +1270,7 @@ module.exports = (_module$exports = {
       if (this.printList.length) {
         this.loading = true;
 
-        axios.post(url, { receipts: this.printList }).then(function (res) {
+        axios.post(this.scope + '/receipts/print', { receipts: this.printList }).then(function (res) {
           _this3.loadSinglePdf(res.data.pdfName);
         });
       } else {
@@ -22634,7 +22634,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -22795,10 +22794,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   })]), _vm._v(" "), _c('br'), _vm._v(" "), _c('br'), _vm._v(" "), _c('div', {
     staticClass: "form-group"
   }, [_c('span', {
-    staticClass: "btn btn-primary",
-    on: {
-      "click": function($event) {}
-    }
+    staticClass: "btn btn-primary"
   }, [_vm._v("Import")]), _vm._v(" "), _c('span', {
     staticClass: "btn btn-primary",
     on: {
