@@ -55,9 +55,11 @@
      <div class="form-group">
         <span class="btn btn-primary" @click="print">Print <span v-if="printList.length" v-text="'(' + printList.length + ')'"></span> </span>
         <span class="btn btn-danger" @click="clearPrintList" v-if="printList.length">Clear Print List</span>
+        <span class="btn btn-primary" @click="downloadCsv">Export</span>
         
     </div>
      <iframe id="print-frame" class="hide" name="frame" src="" frameborder="0" @load="loadingComplete"></iframe>
+     <iframe  id="csv-frame" class="hide" name="csv-frame" src="" frameborder="0"></iframe>
     <div class="overlay" v-if="loading">
                 <loader color="#337ab7"></loader>
     </div>

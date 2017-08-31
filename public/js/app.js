@@ -24194,6 +24194,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 
 
@@ -24398,7 +24400,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "click": _vm.clearPrintList
     }
-  }, [_vm._v("Clear Print List")]) : _vm._e()]), _vm._v(" "), _c('iframe', {
+  }, [_vm._v("Clear Print List")]) : _vm._e(), _vm._v(" "), _c('span', {
+    staticClass: "btn btn-primary",
+    on: {
+      "click": _vm.downloadCsv
+    }
+  }, [_vm._v("Export")])]), _vm._v(" "), _c('iframe', {
     staticClass: "hide",
     attrs: {
       "id": "print-frame",
@@ -24408,6 +24415,14 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     },
     on: {
       "load": _vm.loadingComplete
+    }
+  }), _vm._v(" "), _c('iframe', {
+    staticClass: "hide",
+    attrs: {
+      "id": "csv-frame",
+      "name": "csv-frame",
+      "src": "",
+      "frameborder": "0"
     }
   }), _vm._v(" "), (_vm.loading) ? _c('div', {
     staticClass: "overlay"

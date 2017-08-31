@@ -21,6 +21,9 @@ Route::get('/home', 'Admin\MainController@index')->name('home');
 Route::post('receipts/print', 'Admin\ReceiptController@print_multiple_receipts')->name('receipts.print.multiple');
 Route::get('receipts/print/{receipt}', 'Admin\ReceiptController@print_single_receipt')->name('receipts.print.single');
 
+// Export Receipts In CSV
+Route::post('/receipts/csv', 'Admin\ReceiptController@csv_download')->name('receipts.csv');
+
 // Getting and updating Receipts
 Route::get('receipts', 'Admin\ReceiptController@index')->name('receipts');
 Route::post('receipts/{receipt}', 'Admin\ReceiptController@update')->name('receipts.update');

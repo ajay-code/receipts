@@ -156,7 +156,7 @@ class ReceiptController extends Controller
             // Set the title
             $excel->setTitle('Receipts');
              $excel->sheet('Sheetname', function($sheet) use($request) {
-                $receipts = Receipt::find($request->receipts);
+                $receipts = Receipt::find($request->receipts)->where('user_id', auth()->user()->id);
                 $subset = $receipts->map(function ($user) {
                     return collect($user->toArray())
                         ->except(['user_id'])

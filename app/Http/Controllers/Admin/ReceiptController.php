@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 
 use PDF;
+use Excel;
 use App\User;
 use App\Receipt;
 use Carbon\Carbon;
@@ -175,6 +176,24 @@ class ReceiptController extends Controller
             }
         }
         return $users;
+    }
+
+    public function csv_download(Request $request){
+        
+        return Excel::create('receipts', function($excel) use($request)  {
+            // Set the title
+            $excel->setTitle('Receipts');
+             $excel->sheet('Sheetname', function($sheet) use($request) {
+                $receipts = Receipt::find($request->receipts);
+                $subset = $receipts->map(function ($user) {
+                    return collect($user->toArray())
+                        ->except(['user_id'])
+                        ->all();
+                });
+                $sheet->fromArray($subset);
+            });
+
+        })->download('csv');
     }
 }
 
