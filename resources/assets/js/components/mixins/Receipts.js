@@ -142,7 +142,6 @@ export default {
 
             },
             clearPrintList(){
-              
               eventHub.$emit('clear-every-receipt');
               this.printList = [];
             },
@@ -150,9 +149,7 @@ export default {
             downloadCsv(){
                 if(this.printList.length){
                   this.loading = true;
-
                   let inputs = '';
-
                   this.printList.forEach(function(element) {
                     inputs += `<input name="receipts[]" value="${element}">`; 
                   }, this);
@@ -163,12 +160,6 @@ export default {
                   </form>`)
                   .appendTo('body').submit().remove()
                   this.loading = false;
-
-                  
-                  // axios.post(`${this.scope}/receipts/csv`, { receipts: this.printList }).then( res => {
-                  //       window.file = res.data;
-                  //       this.loading = false;
-                  // })
                 }else{
                   alert('please select atleast on receipt')
                 }

@@ -63,16 +63,12 @@ class ReceiptController extends Controller
 
     // Returns array of saved receipts
     public function receipts_by_date_paginated_api(Request $request){
-        $search = $request->search;
         $records = $request->records ? $request->records : 10;
-        $date = $request->date ? $request->date : Carbon::now()->toDateString();
-        $receipts = [];
+        $from = $request->from ? date($request->from . ' 00:00:00', time()) : Carbon::now()->subweek()->setTime(00,00,00)->toDateTimeString();
+        $to = $request->to ? date($request->to . ' 23:59:59', time()) : Carbon::now()->setTime(23,59,59)->toDateTimeString();
 
-        if($search){
-                $receipts = Receipt::search($search)->whereRaw("date(created_at) = '{$date}'")->paginate($records);
-        }else{
-                $receipts = Receipt::whereRaw("date(created_at) = '{$date}'")->paginate($records);
-        }
+        $receipts = Receipt::whereBetween("created_at", [$from, $to])->paginate($records);
+
         return $receipts;
     }
 

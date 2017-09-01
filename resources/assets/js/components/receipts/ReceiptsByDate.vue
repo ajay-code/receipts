@@ -2,17 +2,21 @@
   <div>
     <div class="row">
       <alert></alert>
-      <div class="col-sm-3">
-        <form @submit.prevent="reloadFromFirstPage">
-            <div class="input-group">
-              <input type="date" class="form-control" placeholder="Search for..." v-model="date">
-              <span class="input-group-btn">
-                <button class="btn btn-default" type="submit">Go!</button>
-              </span>
-            </div><!-- /input-group -->
-          </form>
+      <div class="col-sm-12">
+        <form class="form-inline" @submit.prevent="reloadFromFirstPage">
+            <div class="form-group">
+              <label for="from">From</label>
+              <input type="date" class="form-control" id="from" v-model="from">
+            </div>
+            <div class="form-group">
+              <label for="to">To</label>
+              <input type="date" class="form-control" id="to" v-model="to">
+            </div>
+            <button type="submit" class="btn btn-default">Go!</button>
+        </form>
       </div><!-- /.col-xs-6 -->
-      <div class="col-sm-4 col-sm-offset-3" >
+
+      <div class="col-sm-4 margin-20" >
         <div class="input-group">
           <span class="input-group-btn">
             <button class="btn btn-default" type="button"> <span class="small"> RECORDS</span></button>
@@ -190,11 +194,12 @@
 </template>
 
 <script>
+import moment from 'moment';
 import Form from '../../Form/Form';
 import eventHub from '../../eventHub';
+import mixin from '../mixins/Receipts';
 import emptyReceipt from '../../empty/Receipt';
 import emptyPageInfo from '../../empty/PageInfo';
-import mixin from '../mixins/Receipts';
 
     export default {
     	data(){
@@ -203,7 +208,8 @@ import mixin from '../mixins/Receipts';
           loadCount: 0,
           loading: false,
           printList: [],
-          date: '',
+          from: moment().subtract(7, 'days').format('YYYY-MM-DD'),
+          to: moment().format('YYYY-MM-DD'),
           order: 'latest',
           records: 10,
           pageInfo: emptyPageInfo,
@@ -230,10 +236,10 @@ import mixin from '../mixins/Receipts';
         },
         methods: {
           loadReceipts(){
-                axios.get(`${this.scopeApi}/receipts/date`).then( res => {
+                axios.get(`${this.scopeApi}/receipts/date?from=${this.from}&to=${this.to}&records=${this.records}`).then( res => {
                   this.receipts = res.data.data;
                   if(this.receipts.length <= 0){
-                    eventHub.$emit('alert-show', { message: 'No Receipts For Today' , status: 'success'})
+                    eventHub.$emit('alert-show', { message: `No Receipts Between ${this.from} and ${this.to}` , status: 'success'})
                   }
                   this.updatePageInfo(res.data);
                 }).catch( err => {
@@ -246,10 +252,10 @@ import mixin from '../mixins/Receipts';
             },
 
             reload(page){
-              axios.get(`${this.scopeApi}/receipts/date?date=${this.date}&records=${this.records}&page=${page}`).then( res => {
+              axios.get(`${this.scopeApi}/receipts/date?from=${this.from}&to=${this.to}&records=${this.records}&page=${page}`).then( res => {
                   this.receipts = res.data.data;
                   if(this.receipts.length <= 0){
-                    eventHub.$emit('alert-show', { message: 'No Receipts For ' + this.date , status: 'success'})
+                    eventHub.$emit('alert-show', { message: `No Receipts Between ${this.from} and ${this.to}` , status: 'success'})
                   }
                   this.updatePageInfo(res.data);
                 }).catch( err => {
@@ -257,10 +263,10 @@ import mixin from '../mixins/Receipts';
                 })
             },
             reloadFromFirstPage(){
-              axios.get(`${this.scopeApi}/receipts/date?date=${this.date}&records=${this.records}`).then( res => {
+              axios.get(`${this.scopeApi}/receipts/date?from=${this.from}&to=${this.to}&records=${this.records}`).then( res => {
                   this.receipts = res.data.data;
                   if(this.receipts.length <= 0){
-                    eventHub.$emit('alert-show', { message: 'No Receipts For ' + this.date , status: 'success'})
+                    eventHub.$emit('alert-show', { message: `No Receipts Between ${this.from} and ${this.to}` , status: 'success'})
                   }
                   this.updatePageInfo(res.data);
                 }).catch( err => {

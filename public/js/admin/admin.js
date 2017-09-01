@@ -1359,27 +1359,19 @@ module.exports = (_module$exports = {
       });
     },
     clearPrintList: function clearPrintList() {
-
       __WEBPACK_IMPORTED_MODULE_0__eventHub___default.a.$emit('clear-every-receipt');
       this.printList = [];
     },
     downloadCsv: function downloadCsv() {
       if (this.printList.length) {
         this.loading = true;
-
         var inputs = '';
-
         this.printList.forEach(function (element) {
           inputs += '<input name="receipts[]" value="' + element + '">';
         }, this);
 
         jQuery('<form action="' + this.scope + '/receipts/csv" method="post" target="csv-frame">\n                      <input name="_token" value="' + Laravel.csrfToken + '">\n                     ' + inputs + '\n                  </form>').appendTo('body').submit().remove();
         this.loading = false;
-
-        // axios.post(`${this.scope}/receipts/csv`, { receipts: this.printList }).then( res => {
-        //       window.file = res.data;
-        //       this.loading = false;
-        // })
       } else {
         alert('please select atleast on receipt');
       }
@@ -25620,14 +25612,16 @@ module.exports = Component.exports
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Form_Form__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__eventHub__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__eventHub___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__eventHub__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__empty_Receipt__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__empty_Receipt___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__empty_Receipt__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__empty_PageInfo__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__empty_PageInfo___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__empty_PageInfo__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__mixins_Receipts__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_moment__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_moment___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_moment__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Form_Form__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__eventHub__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__eventHub___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__eventHub__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__mixins_Receipts__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__empty_Receipt__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__empty_Receipt___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__empty_Receipt__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__empty_PageInfo__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__empty_PageInfo___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__empty_PageInfo__);
 //
 //
 //
@@ -25819,6 +25813,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+
 
 
 
@@ -25833,18 +25831,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       loadCount: 0,
       loading: false,
       printList: [],
-      date: '',
+      from: __WEBPACK_IMPORTED_MODULE_0_moment___default.a().subtract(7, 'days').format('YYYY-MM-DD'),
+      to: __WEBPACK_IMPORTED_MODULE_0_moment___default.a().format('YYYY-MM-DD'),
       order: 'latest',
       records: 10,
-      pageInfo: __WEBPACK_IMPORTED_MODULE_3__empty_PageInfo___default.a,
-      edit: new __WEBPACK_IMPORTED_MODULE_0__Form_Form__["a" /* default */](__WEBPACK_IMPORTED_MODULE_2__empty_Receipt___default.a),
+      pageInfo: __WEBPACK_IMPORTED_MODULE_5__empty_PageInfo___default.a,
+      edit: new __WEBPACK_IMPORTED_MODULE_1__Form_Form__["a" /* default */](__WEBPACK_IMPORTED_MODULE_4__empty_Receipt___default.a),
       editIndex: '',
       scope: '/admin',
       scopeApi: '/api/admin'
     };
   },
 
-  mixins: [__WEBPACK_IMPORTED_MODULE_4__mixins_Receipts__["a" /* default */]],
+  mixins: [__WEBPACK_IMPORTED_MODULE_3__mixins_Receipts__["a" /* default */]],
   components: {
     receipt: __webpack_require__(61),
     paginator: __webpack_require__(10)
@@ -25852,22 +25851,22 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   },
   mounted: function mounted() {
     this.loadReceipts();
-    __WEBPACK_IMPORTED_MODULE_1__eventHub___default.a.$on('print-single-receipt', this.printSingleReceipt);
-    __WEBPACK_IMPORTED_MODULE_1__eventHub___default.a.$on('add-to-print-list', this.addToPrintList);
-    __WEBPACK_IMPORTED_MODULE_1__eventHub___default.a.$on('remove-from-print-list', this.removeFromPrintList);
-    __WEBPACK_IMPORTED_MODULE_1__eventHub___default.a.$on('load-page', this.reload);
-    __WEBPACK_IMPORTED_MODULE_1__eventHub___default.a.$on('edit-receipt', this.editReceipt);
-    __WEBPACK_IMPORTED_MODULE_1__eventHub___default.a.$on('delete-receipt', this.deleteReceipt);
+    __WEBPACK_IMPORTED_MODULE_2__eventHub___default.a.$on('print-single-receipt', this.printSingleReceipt);
+    __WEBPACK_IMPORTED_MODULE_2__eventHub___default.a.$on('add-to-print-list', this.addToPrintList);
+    __WEBPACK_IMPORTED_MODULE_2__eventHub___default.a.$on('remove-from-print-list', this.removeFromPrintList);
+    __WEBPACK_IMPORTED_MODULE_2__eventHub___default.a.$on('load-page', this.reload);
+    __WEBPACK_IMPORTED_MODULE_2__eventHub___default.a.$on('edit-receipt', this.editReceipt);
+    __WEBPACK_IMPORTED_MODULE_2__eventHub___default.a.$on('delete-receipt', this.deleteReceipt);
   },
 
   methods: {
     loadReceipts: function loadReceipts() {
       var _this = this;
 
-      axios.get(this.scopeApi + '/receipts/date').then(function (res) {
+      axios.get(this.scopeApi + '/receipts/date?from=' + this.from + '&to=' + this.to + '&records=' + this.records).then(function (res) {
         _this.receipts = res.data.data;
         if (_this.receipts.length <= 0) {
-          __WEBPACK_IMPORTED_MODULE_1__eventHub___default.a.$emit('alert-show', { message: 'No Receipts For Today', status: 'success' });
+          __WEBPACK_IMPORTED_MODULE_2__eventHub___default.a.$emit('alert-show', { message: 'No Receipts Between ' + _this.from + ' and ' + _this.to, status: 'success' });
         }
         _this.updatePageInfo(res.data);
       }).catch(function (err) {
@@ -25877,10 +25876,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     reload: function reload(page) {
       var _this2 = this;
 
-      axios.get(this.scopeApi + '/receipts/date?date=' + this.date + '&records=' + this.records + '&page=' + page).then(function (res) {
+      axios.get(this.scopeApi + '/receipts/date?from=' + this.from + '&to=' + this.to + '&records=' + this.records + '&page=' + page).then(function (res) {
         _this2.receipts = res.data.data;
         if (_this2.receipts.length <= 0) {
-          __WEBPACK_IMPORTED_MODULE_1__eventHub___default.a.$emit('alert-show', { message: 'No Receipts For ' + _this2.date, status: 'success' });
+          __WEBPACK_IMPORTED_MODULE_2__eventHub___default.a.$emit('alert-show', { message: 'No Receipts Between ' + _this2.from + ' and ' + _this2.to, status: 'success' });
         }
         _this2.updatePageInfo(res.data);
       }).catch(function (err) {
@@ -25890,10 +25889,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     reloadFromFirstPage: function reloadFromFirstPage() {
       var _this3 = this;
 
-      axios.get(this.scopeApi + '/receipts/date?date=' + this.date + '&records=' + this.records).then(function (res) {
+      axios.get(this.scopeApi + '/receipts/date?from=' + this.from + '&to=' + this.to + '&records=' + this.records).then(function (res) {
         _this3.receipts = res.data.data;
         if (_this3.receipts.length <= 0) {
-          __WEBPACK_IMPORTED_MODULE_1__eventHub___default.a.$emit('alert-show', { message: 'No Receipts For ' + _this3.date, status: 'success' });
+          __WEBPACK_IMPORTED_MODULE_2__eventHub___default.a.$emit('alert-show', { message: 'No Receipts Between ' + _this3.from + ' and ' + _this3.to, status: 'success' });
         }
         _this3.updatePageInfo(res.data);
       }).catch(function (err) {
@@ -25911,8 +25910,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   return _c('div', [_c('div', {
     staticClass: "row"
   }, [_c('alert'), _vm._v(" "), _c('div', {
-    staticClass: "col-sm-3"
+    staticClass: "col-sm-12"
   }, [_c('form', {
+    staticClass: "form-inline",
     on: {
       "submit": function($event) {
         $event.preventDefault();
@@ -25920,33 +25920,69 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }
   }, [_c('div', {
-    staticClass: "input-group"
-  }, [_c('input', {
+    staticClass: "form-group"
+  }, [_c('label', {
+    attrs: {
+      "for": "from"
+    }
+  }, [_vm._v("From")]), _vm._v(" "), _c('input', {
     directives: [{
       name: "model",
       rawName: "v-model",
-      value: (_vm.date),
-      expression: "date"
+      value: (_vm.from),
+      expression: "from"
     }],
     staticClass: "form-control",
     attrs: {
       "type": "date",
-      "placeholder": "Search for..."
+      "id": "from"
     },
     domProps: {
-      "value": (_vm.date)
+      "value": (_vm.from)
     },
     on: {
       "input": function($event) {
         if ($event.target.composing) { return; }
-        _vm.date = $event.target.value
+        _vm.from = $event.target.value
       }
     }
-  }), _vm._v(" "), _vm._m(0)])])]), _vm._v(" "), _c('div', {
-    staticClass: "col-sm-4 col-sm-offset-3"
+  })]), _vm._v(" "), _c('div', {
+    staticClass: "form-group"
+  }, [_c('label', {
+    attrs: {
+      "for": "to"
+    }
+  }, [_vm._v("To")]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.to),
+      expression: "to"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      "type": "date",
+      "id": "to"
+    },
+    domProps: {
+      "value": (_vm.to)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.to = $event.target.value
+      }
+    }
+  })]), _vm._v(" "), _c('button', {
+    staticClass: "btn btn-default",
+    attrs: {
+      "type": "submit"
+    }
+  }, [_vm._v("Go!")])])]), _vm._v(" "), _c('div', {
+    staticClass: "col-sm-4 margin-20"
   }, [_c('div', {
     staticClass: "input-group"
-  }, [_vm._m(1), _vm._v(" "), _c('select', {
+  }, [_vm._m(0), _vm._v(" "), _c('select', {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -25993,7 +26029,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "table-responsive"
   }, [(_vm.receipts.length > 0) ? _c('table', {
     staticClass: "table table-bordered"
-  }, [_c('tbody', [_vm._m(2), _vm._v(" "), _vm._l((_vm.receipts), function(receipt) {
+  }, [_c('tbody', [_vm._m(1), _vm._v(" "), _vm._l((_vm.receipts), function(receipt) {
     return _c('receipt', {
       key: receipt.id,
       attrs: {
@@ -26064,7 +26100,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('div', {
     staticClass: "modal-content"
-  }, [_vm._m(3), _vm._v(" "), _c('div', {
+  }, [_vm._m(2), _vm._v(" "), _c('div', {
     staticClass: "modal-body"
   }, [_c('form', {
     staticClass: "form-horizontal",
@@ -26474,15 +26510,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._v("Save changes")])])])])])])], 1)
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('span', {
-    staticClass: "input-group-btn"
-  }, [_c('button', {
-    staticClass: "btn btn-default",
-    attrs: {
-      "type": "submit"
-    }
-  }, [_vm._v("Go!")])])
-},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('span', {
     staticClass: "input-group-btn"
   }, [_c('button', {
