@@ -20,9 +20,7 @@ class UserController extends Controller
         return view('admin.users.receipts', compact('user'));
     }
 
-    // public function users_with_receipt_info(){
-    //     return view('admin.users.withreceiptsinfo');
-    // }
+    
 
     // Returns array of saved users
     public function users_paginated_api(Request $request){
@@ -83,9 +81,6 @@ class UserController extends Controller
     }
 
     public function users_activation_api(User $user){
-        // $admin = user()->user();
-        // if($admin->can('enable-users')){
-        // }
 
         $user->update([
             'activated' => true
@@ -112,12 +107,14 @@ class UserController extends Controller
                 'required',
                 Rule::in(['user', 'retailer', 'wholesaler', 'manufacturer']),
             ],
+            'expire_at' => 'required',
         ]);
 
         $user->update([
             'name' => $request->name,
             'eamil' => $request->email,
             'type' => $request->type,
+            'expire_at' => $request->expire_at,
         ]);
 
         return 'success';

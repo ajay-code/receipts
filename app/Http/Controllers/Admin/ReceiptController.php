@@ -48,7 +48,7 @@ class ReceiptController extends Controller
                 $receipts = Receipt::search($search)->paginate($records);
             }else{
                 $receipts = Receipt::search($search)->paginate($records);
-            }
+           }
         }else{
             if($order == 'latest'){
                 $receipts = Receipt::latest()->paginate($records);
@@ -135,6 +135,7 @@ class ReceiptController extends Controller
             "receiver_postcode" => $request->receiver_postcode,
             "receiver_product" => $request->receiver_product,
             "amount" => $request->amount,
+            "sender_id" => $request->sender_id,
             "sender_address" => $request->sender_address,
             "sender_name" => $request->sender_name,
             "sender_email" => $request->sender_email,

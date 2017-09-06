@@ -23,7 +23,7 @@ class CreateUsersTable extends Migration
             $table->enum('type', ['user', 'retailer', 'wholesaler', 'manufacturer'])->default('user');
             $table->boolean('verified')->default(true);
             $table->boolean('activated')->default(true);
-            $table->boolean('expire_at');
+            $table->date('expire_at');
 
             $table->rememberToken();
             $table->timestamps();

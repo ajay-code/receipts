@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 class SubuserController extends Controller
 {
     public function __construct(){
-    	$this->middleware(['auth']);
+    	$this->middleware(['auth', 'not-expired']);
     }
 
     // Show Uses Under The Current User

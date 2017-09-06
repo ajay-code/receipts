@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use PDF;
 use Excel;
+use Input;
 use App\Receipt;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -17,7 +18,7 @@ class ReceiptController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware(['auth', 'not-expired']);
     }
 	// Shows list of saved receipts
     public function index(){
@@ -125,6 +126,7 @@ class ReceiptController extends Controller
             "receiver_postcode" => $request->receiver_postcode,
             "receiver_product" => $request->receiver_product,
             "amount" => $request->amount,
+            "sender_id" => $request->sender_id,
             "sender_address" => $request->sender_address,
             "sender_name" => $request->sender_name,
             "sender_email" => $request->sender_email,
@@ -148,6 +150,34 @@ class ReceiptController extends Controller
 
     }
 
+    public function csv_upload(Request $request){
+        // dd($request->all()); 
+        // $this->validate($request,[
+        //     'file' => 'required|mimes:csv,xls'
+        // ]);
+
+        $receipts = Excel::load($request->file, function ($reader){
+        })->get();
+        
+        $user = auth()->user();
+
+        foreach ($receipts as $receipt) {
+            $data = $receipt->toArray();
+            $user->receipts()->create($data);
+        }
+
+        $pdfName = 'receipt-'.str_random(6).'.pdf';
+
+        $path = storage_path('app/public/pdf/').$pdfName;
+
+        PDF::loadHTML(view('print.imported-receipts-print', compact('receipts', 'user')))->save($path);
+        
+        return [
+            'type' => 'url',
+            'pdfName' => $pdfName
+        ];
+    }
+
     public function csv_download(Request $request){
         
         return Excel::create('receipts', function($excel) use($request)  {
@@ -163,6 +193,6 @@ class ReceiptController extends Controller
                 $sheet->fromArray($subset);
             });
 
-        })->download('csv');
+        })->download('xls');
     }
 }

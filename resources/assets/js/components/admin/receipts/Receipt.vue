@@ -4,6 +4,7 @@
                 <input type="checkbox" v-model="addToPrintList" @change="toggleFromPrintList">
             </td>
             <td v-text="receipt.sender_name"> </td>
+            <td v-text="receipt.sender_id"> </td>
             <td v-text="receipt.sender_email"> </td>
             <td v-text="receipt.receiver_name"> </td>
             <td v-text="receipt.receiver_email"> </td>
@@ -42,6 +43,8 @@ import eventHub from '../../../eventHub'
         mounted() {
                 this.localReceipt = this.receipt
                 eventHub.$on('clear-every-receipt', this.clearedFromPrintList);
+                eventHub.$on('select-all', this.selectAll);              
+                eventHub.$on('deselect-all', this.deselectAll);
         },
         methods: {
             print(){
@@ -63,6 +66,14 @@ import eventHub from '../../../eventHub'
             deleteReceipt(){
                 // alert('are you sure you want to delete ' + this.receipt.id);
                 eventHub.$emit('delete-receipt', this.receipt.id);
+            },
+            selectAll(){
+                this.addToPrintList = true;
+                this.toggleFromPrintList()
+            },
+            deselectAll(){
+                this.addToPrintList = false;
+                this.toggleFromPrintList()
             }
         }
     }

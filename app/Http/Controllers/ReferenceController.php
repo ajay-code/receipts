@@ -12,7 +12,7 @@ class ReferenceController extends Controller
 
 	public function __construct()
 	{
-        $this->middleware('auth');
+        $this->middleware(['auth', 'not-expired']);
 	}
 
     public function index()

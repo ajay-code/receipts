@@ -44,6 +44,7 @@
             <th>Total Receipts</th>
             <th>Go To</th>
             <th>Account Created At</th>
+            <th>Expire At</th>
             <th>Status</th>
             <td>Actions</td>
             </tr>
@@ -112,6 +113,7 @@
                             <input type="text" id="total-receipts" v-model="edit.totalReceipts" class="form-control" placeholder="Sender Postcode" disabled>    
                           </div>
                         </div>
+                        
                     </div>
 
                     <div class="">
@@ -119,6 +121,12 @@
                           <div class="form-group">
                             <label for="status">Status</label>
                             <input type="text" id="status" :value="edit.activated ? 'Active': 'Deactive'" class="form-control" disabled> 
+                          </div>
+                        </div>
+                        <div class="col-xs-6">
+                          <div class="form-group">
+                            <label for="total-receipts">Expire At</label>
+                            <input type="date" id="total-receipts" v-model="edit.expire_at" class="form-control" placeholder="Sender Postcode" >    
                           </div>
                         </div>
                     </div>
@@ -225,6 +233,7 @@ import emptyPageInfo from '../../../empty/PageInfo';
                 this.edit.uid = user.uid;
                 this.edit.activated = user.activated;
                 this.edit.type = user.type;
+                this.edit.expire_at = user.expire_at;
                 this.edit.totalReceipts = user.totalReceipts;
             },
             copyFromEdit(){
@@ -236,6 +245,7 @@ import emptyPageInfo from '../../../empty/PageInfo';
               user.uid = this.edit.uid;
               user.activated = this.edit.activated;
               user.type = this.edit.type;
+              user.expire_at = this.edit.expire_at;
               user.totalReceipts = this.edit.totalReceipts;
 
 

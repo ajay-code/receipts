@@ -21,8 +21,8 @@ class SettingsController extends Controller
     	$this->validate($request, [
     		'page_width' => 'required|numeric',
             'page_height' => 'required|numeric',
-            'top_user_id' => 'required|numeric',
-            'left_user_id' => 'required|numeric',
+            'top_sender_id' => 'required|numeric',
+            'left_sender_id' => 'required|numeric',
             'top_sender' => 'required|numeric',
             'left_sender' => 'required|numeric',
             'top_receiver' => 'required|numeric',

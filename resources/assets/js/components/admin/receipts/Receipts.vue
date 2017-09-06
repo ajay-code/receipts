@@ -36,8 +36,9 @@
        <table class="table table-bordered">
        		<tbody>
           <tr>
-            <th></th>
+            <th> <input type="checkbox" @click="selectAll" v-model="selectAllReceipts"> </th>
             <th>Sender Name</th>
+            <th>Sender ID</th>
             <th>Sender Email</th>
             <th>Receiver Name</th>
             <th>Receiver Email</th>
@@ -75,6 +76,14 @@
                   <div class="modal-body">
                   <form action="" class="form-horizontal">
                     <h3>Sender Info</h3>
+                    <div class="">
+                        <div class="col-xs-12">
+                          <div class="form-group">
+                            <label for="sender-id">Sender ID</label>
+                            <input id="sender-id" v-model="edit.sender_id" class="form-control" placeholder="Sender ID (Optional)"></textarea> 
+                          </div>
+                        </div>
+                    </div>
                     <div class="">
                         <div class="col-xs-6">
                           <div class="form-group">
@@ -204,6 +213,7 @@ import mixin from '../../mixins/Receipts';
           loadCount: 0,
           loading: false,
           printList: [],
+          selectAllReceipts: false,
           search: '',
           order: 'latest',
           records: 10,

@@ -23,8 +23,8 @@ class CreateSettingsTable extends Migration
             $table->decimal('page_height')->default(10);
 
             // UserId
-            $table->decimal('top_user_id')->default(0.5);
-            $table->decimal('left_user_id')->default(4);
+            $table->decimal('top_sender_id')->default(0.5);
+            $table->decimal('left_sender_id')->default(4);
 
             // Sender
             $table->decimal('top_sender')->default(1);

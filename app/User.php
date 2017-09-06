@@ -11,7 +11,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-    use Notifiable, Searchable, Uuids;
+    use Notifiable, Searchable, Uuids, CanExpire;
 
     /**
      * The attributes that are mass assignable.
@@ -19,7 +19,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'uid', 'user_id', 'email', 'password', 'type', 'varified', 'activated'
+        'name', 'uid', 'user_id', 'email', 'password', 'type', 'expire_at', 'varified', 'activated'
     ];
 
     /**
@@ -36,7 +36,7 @@ class User extends Authenticatable
      *
      * @var array
      */
-    // protected $dates = ['expire_at'];
+    protected $dates = ['expire_at'];
 
     /**
      * Get the index name for the model.

@@ -18,7 +18,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth', ['except' => ['loadPdf', 'downloadPdf']]);
+        $this->middleware(['auth', 'not-expired'], ['except' => ['loadPdf', 'downloadPdf']]);
     }
 
     /**
@@ -36,12 +36,14 @@ class HomeController extends Controller
     //  Generate and Save the Receipt
     public function generatePdf(Request $request)
     {
+        // dd($request->all()); 
         $this->validate($request, [
             'sender' => 'required',
             'receivers' => 'required',
         ]);
 
         $sender = $this->sender($request->sender);
+        $sender['sender_id'] = $request->sender_id;
         $receivers = $this->receivers($request->receivers);
         $date = Carbon::now();
 
@@ -50,6 +52,7 @@ class HomeController extends Controller
         // Saves the receipt to database
         foreach ($receivers as $receiver) {
             $user->receipts()->create([
+                'sender_id' => $request->sender_id,
                 'sender_name' => $sender['name'],
                 'sender_address' => $sender['address'],
                 'sender_postcode' => $sender['postcode'],

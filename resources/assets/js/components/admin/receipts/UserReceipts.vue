@@ -36,8 +36,9 @@
        <table class="table table-bordered">
           <tbody>
           <tr>
-            <th></th>
+            <th> <input type="checkbox" @click="selectAll" v-model="selectAllReceipts"> </th>
             <th>Sender Name</th>
+            <th>Sender ID</th>
             <th>Sender Email</th>
             <th>Receiver Name</th>
             <th>Receiver Email</th>
@@ -57,8 +58,11 @@
      <div class="form-group">
         <span class="btn btn-primary" @click="print">Print <span v-if="printList.length" v-text="'(' + printList.length + ')'"></span> </span>
         <span class="btn btn-danger" @click="clearPrintList" v-if="printList.length">Clear Print List</span>
+        <span class="btn btn-primary" @click="downloadCsv">Export</span>
+
     </div>
      <iframe id="print-frame" class="hide" name="frame" src="" frameborder="0" @load="loadingComplete"></iframe>
+     <iframe  id="csv-frame" class="hide" name="csv-frame" src="" frameborder="0"></iframe>
     <div class="overlay" v-if="loading">
                 <loader color="#337ab7"></loader>
     </div>
@@ -73,6 +77,14 @@
                   <div class="modal-body">
                   <form action="" class="form-horizontal">
                     <h3>Sender Info</h3>
+                    <div class="">
+                        <div class="col-xs-12">
+                          <div class="form-group">
+                            <label for="sender-id">Sender ID</label>
+                            <input id="sender-id" v-model="edit.sender_id" class="form-control" placeholder="Sender ID (Optional)"></textarea> 
+                          </div>
+                        </div>
+                    </div>
                     <div class="">
                         <div class="col-xs-6">
                           <div class="form-group">
@@ -201,13 +213,16 @@ import mixin from '../../mixins/Receipts';
     			receipts: [],
           loadCount: 0,
           loading: false,
-          printList: [],
+          printList: [],          
+          selectAllReceipts: false,
           search: '',
           order: 'latest',
           records: 10,
           pageInfo: emptyPageInfo,
           edit: new Form(emptyReceipt),
           editIndex: '',
+          scope: '/admin',
+          scopeApi: '/api/admin',
 
     		}
     	},

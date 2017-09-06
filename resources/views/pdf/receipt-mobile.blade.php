@@ -26,10 +26,10 @@
     .page{
     }
 
-    .user-id{
+    .sender-id{
     	position : absolute;
-        left: {{$user->settings->left_user_id ? $user->settings->left_user_id :  4}}cm;
-		top: {{$user->settings->top_user_id ? $user->settings->top_user_id :  0.5}}cm;
+        left: {{$user->settings->left_sender_id ? $user->settings->left_sender_id :  4}}cm;
+		top: {{$user->settings->top_sender_id ? $user->settings->top_sender_id :  0.5}}cm;
     }
     	
     .sender{
@@ -64,8 +64,8 @@
 	@foreach ($receivers as $receiver)
 		<div class="page" id="page" >
 
-			<div class="user-id">
-				{{ auth()->user()->uid }}
+			<div class="sender-id">
+				{{ $sender['sender_id'] ? $sender['sender_id']:''}}
 			</div>
 			
 			<div class="sender">

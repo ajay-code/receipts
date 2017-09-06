@@ -7,9 +7,8 @@ trait CanExpire
     /**
      * Boot function from laravel.
      */
-    protected static function boot()
+    protected static function bootCanExpire()
     {
-        parent::boot();
 
         static::creating(function ($model) {
             $model->expire_at = Carbon::now()->addMonth();

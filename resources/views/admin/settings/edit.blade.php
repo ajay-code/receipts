@@ -32,15 +32,15 @@
                         <h3>Content Position</h3>
 
                         <div class="form-group">
-                            <label for="top_user_id" class="col-sm-2 control-label">ID From Top</label>
+                            <label for="top_sender_id" class="col-sm-2 control-label">ID From Top</label>
                             <div class="col-sm-4">
-                              <input type="number" class="form-control" id="top_user_id" name="top_user_id" value="{{ $user->settings->top_user_id }}" placeholder="">
+                              <input type="number" class="form-control" id="top_sender_id" name="top_sender_id" value="{{ $user->settings->top_sender_id }}" placeholder="">
                             </div>
                         </div>  
                         <div class="form-group">
-                            <label for="left_user_id" class="col-sm-2 control-label">ID From Left</label>
+                            <label for="left_sender_id" class="col-sm-2 control-label">ID From Left</label>
                             <div class="col-sm-4">
-                              <input type="number" class="form-control" id="left_user_id" name="left_user_id" value="{{ $user->settings->left_user_id }}" placeholder="">
+                              <input type="number" class="form-control" id="left_sender_id" name="left_sender_id" value="{{ $user->settings->left_sender_id }}" placeholder="">
                             </div>
                         </div>
 

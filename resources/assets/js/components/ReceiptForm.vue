@@ -1,13 +1,22 @@
 <template>
     <div class="">
+        <alert></alert>   
         <form id="print-form" class="form-horizontal" action="/print" method="post" target="_blank"  >
                 <input v-if="onMobile" type="hidden" name="mobile" value="true">
                 <input type="hidden" name="_token" :value="csrf">
                 <h3>Sender</h3>  
+
+                <div class="form-group">
+                    <input v-model="form.sender_id" class="form-control" name="sender_id" 
+                    placeholder="Sender ID (Optional)"></textarea>
+                </div>
+                
                 <div class="form-group">
                     <textarea v-model="form.sender" class="form-control" rows="10" name="sender" 
                     :placeholder="senderPlaceholder"></textarea>
                 </div>
+                
+
                 
 
                 <h3>Receivers</h3>  
@@ -19,12 +28,33 @@
                 <br>
                 <br>
                 <div class="form-group">
-                    <span class="btn btn-primary" >Import</span>
+                    <span class="btn btn-primary" data-toggle="modal" data-target="#import-receipts">Import</span>
                     <span class="btn btn-primary" @click="reset">Reset</span>
                     <span class="btn btn-primary" @click="submit">Print</span>
                 </div>
             </form>
-            
+
+            <div class="modal fade" id="import-receipts" tabindex="-1" role="dialog">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Import Receipts</h4>
+                  </div>
+                  <div class="modal-body">
+                      <form id="csv-upload" method="post" action="/receipts/csv/upload" @submit.prevent="importReceipts" enctype="multipart/form-data">
+                        <input type="hidden" name="_token" :value="csrf">
+                          <div class="form-group">
+                              <label for="file">Choose file to upload</label>
+                              <input type="file" name="file" @change="fileUploaded">
+                          </div>
+                          <button class="btn btn-primary">Print</button>
+                      </form>
+                  </div>
+                </div> 
+              </div>
+            </div>
+             
                 
 
             <div class="overlay" v-if="loading">
@@ -36,12 +66,17 @@
 
 <script>
     import Form from '../Form/Form';
+    import eventHub from '../eventHub';
     export default {
         data(){
             return {
                 form : new Form({
+                    sender_id: '',
                     sender: '',
                     receivers: '',
+                }),
+                importForm: new Form({
+                    receipts: '',
                 }),
                 loadCount: 0,
                 senderPlaceholder: 'Name \nAddress \nPhone \nEmail',
@@ -110,6 +145,22 @@
             },
             reset(){
                 this.form.reset();
+            },
+            fileUploaded($event){
+                window.file = $event.target;
+            },
+            importReceipts(){
+                let form = $('#csv-upload')[0]
+                var data = new FormData(form);
+                axios.post('/receipts/csv/upload', data, {
+                }).then(res => {
+                    console.log(res);
+                    $('#import-receipts').modal('hide');
+                    this.pdfName = res.data.pdfName;
+                    this.loadPdf(res.data);
+                }).catch(error => {
+                    eventHub.$emit('alert-show', {message: error.response.data.file , status : 'error'});
+                });
             }
         }
 }

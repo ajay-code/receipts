@@ -47,3 +47,13 @@ Route::get('users/{user}/receipts', 'Admin\UserController@user_receipts')->name(
 
 Route::get('/settings', 'Admin\SettingsController@index')->name('settings');
 Route::post('/settings', 'Admin\SettingsController@update')->name('settings.update');
+
+/*
+	Profile Routes
+*/
+
+Route::get('/profile', 'Admin\ProfileController@show')->name('profile');
+Route::get('/profile/edit', 'Admin\ProfileController@edit')->name('profile.edit');
+Route::post('/profile/edit', 'Admin\ProfileController@update')->name('profile.update');
+
+Route::post('/password/change', 'Admin\ProfileController@change_password')->name('profile.change_password');

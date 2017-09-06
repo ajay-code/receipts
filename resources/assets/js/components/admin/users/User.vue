@@ -9,14 +9,15 @@
                 <a @click.prevent="userSendToReceipts">Receipts..</a>
             </td>
             <td v-text="createdAt"></td>
+            <td v-text="expireAt"></td>
             <td>
-                <span v-if="active" class="text-success" v-text="'Active'"></span>
-                <span v-else="active" class="text-danger" v-text="'Deavtive'"></span>
+                <span v-if="active" class="text-success" >Active</span>
+                <span v-else class="text-danger" >Deavtive</span>
             </td>
             <td>
-                <button class="btn btn-primary btn-sm" v-text="'Edit'" @click="edit"></button>
-                <button v-if="active" class="btn btn-danger btn-sm" v-text="'Deavtivate'" @click="deactivateUser"></button>
-                <button v-else="active" class="btn btn-success btn-sm" v-text="'Activate'" @click="activateUser"></button>
+                <button class="btn btn-primary btn-sm"  @click="edit">Edit</button>
+                <button v-if="active" class="btn btn-danger btn-sm"  @click="deactivateUser">Deavtivate</button>
+                <button v-else class="btn btn-success btn-sm"  @click="activateUser">Activate</button>
 
             </td>
         </tr>
@@ -38,7 +39,10 @@ import eventHub from '../../../eventHub'
         props: ['user'],
         computed: {
             createdAt(){
-                return moment(this.user.create_at).format("MMM Do YY");
+                return moment(this.user.created_at).format("MMM Do YY");
+            },
+            expireAt(){
+                return moment(this.user.expire_at).format("MMM Do YY");
             },
             active(){
                 return this.user.activated;

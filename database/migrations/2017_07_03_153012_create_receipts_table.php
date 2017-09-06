@@ -16,6 +16,7 @@ class CreateReceiptsTable extends Migration
         Schema::create('receipts', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->unsigned();
+            $table->string('sender_id')->nullable();
             $table->string('sender_name');
             $table->string('sender_address');
             $table->string('sender_postcode')->nullable();

@@ -16,8 +16,10 @@ Route::get('/pdf/{pdf}/download', 'HomeController@downloadPdf')->name('pdf.downl
 Route::post('/receipts/print', 'ReceiptController@print_multiple_receipts')->name('receipts.print.multiple');
 Route::get('/receipts/print/{receipt}', 'ReceiptController@print_single_receipt')->name('receipts.print.single');
 
+// Import Receipts In CSV
+Route::post('/receipts/csv/upload', 'ReceiptController@csv_upload')->name('receipts.csv.import');
 // Export Receipts In CSV
-Route::post('/receipts/csv', 'ReceiptController@csv_download')->name('receipts.csv');
+Route::post('/receipts/csv', 'ReceiptController@csv_download')->name('receipts.csv.download');
 
 Route::get('/receipts', 'ReceiptController@index')->name('receipts');
 // Get Receipts By Dates
@@ -70,3 +72,8 @@ Route::post('/profile/edit', 'ProfileController@update')->name('profile.update')
 Route::post('/password/set', 'ProfileController@set_password')->name('profile.set_password');
 Route::post('/password/change', 'ProfileController@change_password')->name('profile.change_password');
 
+/*
+	Payments
+*/
+
+Route::get('/payments', 'PaymentController@index')->name('payment');

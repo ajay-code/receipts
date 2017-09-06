@@ -91,6 +91,7 @@ export default {
                 this.edit.receiver_postcode = receipt.receiver_postcode;
                 this.edit.receiver_product = receipt.receiver_product;
                 this.edit.sender_address = receipt.sender_address.replace('|', "\n");
+                this.edit.sender_id = receipt.sender_id;
                 this.edit.sender_email = receipt.sender_email;
                 this.edit.sender_name = receipt.sender_name;
                 this.edit.sender_phone = receipt.sender_phone;
@@ -109,6 +110,7 @@ export default {
               receipt.receiver_postcode = this.edit.receiver_postcode;
               receipt.receiver_product = this.edit.receiver_product;
               receipt.sender_address = this.edit.sender_address;
+              receipt.sender_id = this.edit.sender_id;
               receipt.sender_email = this.edit.sender_email;
               receipt.sender_name = this.edit.sender_name;
               receipt.sender_phone = this.edit.sender_phone;
@@ -163,6 +165,15 @@ export default {
                 }else{
                   alert('please select atleast on receipt')
                 }
+            },
+
+            selectAll(){
+              console.log(this.selectAllReceipts);
+              if(this.selectAllReceipts){
+                eventHub.$emit('select-all');
+              }else{
+                eventHub.$emit('deselect-all');
+              }
             }
 
         }

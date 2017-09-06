@@ -89,7 +89,11 @@
 				</div>
 
 				<div class="date">
-					{{ $receipt->created_at->formatLocalized('%A, %B %d, %Y') }}
+					@if ($receipt->created_at)
+						{{ (new \Carbon\Carbon($receipt->created_at))->formatLocalized('%A, %B %d, %Y') }}
+					@else
+						{{ \Carbon\Carbon::now()->formatLocalized('%A, %B %d, %Y') }}
+					@endif
 				</div>
 
 			</div>

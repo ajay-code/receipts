@@ -1,52 +1,53 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
-use App\User;
+use App\Admin;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class ProfileController extends Controller
 {
-
     public function __construct(){
-        $this->middleware(['auth', 'not-expired']);
+        $this->middleware('auth:admin');
     } 
     /**
      * Display the specified resource.
      *
-     * @param  \App\User  $user
+     * @param  \App\Admin  $admin
      * @return \Illuminate\Http\Response
      */
-    public function show(User $user)
+    public function show(Admin $admin)
     {
-        $user = auth()->user();
+        $admin = auth()->user();
 
-        return view('profile.index', compact('user'));
+        return view('admin.profile.index', compact('admin'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\User  $user
+     * @param  \App\Admin  $admin
      * @return \Illuminate\Http\Response
      */
-    public function edit(User $user)
+    public function edit(Admin $admin)
     {
-        $user = auth()->user();
+        $admin = auth()->user();
 
-        return view('profile.edit', compact('user'));
+        return view('admin.profile.edit', compact('admin'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\User  $user
+     * @param  \App\Admin  $admin
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request)
     {
         $this->validate($request, [
+            'name' => 'required'
         ]);
         auth()->user()->update($request->all());
 
@@ -55,21 +56,6 @@ class ProfileController extends Controller
         return back();
     }
 
-    public function set_password(Request $request){
-        $this->validate($request, [
-            'password' => 'required|string|min:6|confirmed',
-        ]);
-
-        auth()->user()->update([
-            'password' => bcrypt($request->password)
-        ]);
-
-        alert()->success('Password Successfully Set');
-
-        return back();
-
-
-    }
 
     public function change_password(Request $request){
         $this->validate($request, [
