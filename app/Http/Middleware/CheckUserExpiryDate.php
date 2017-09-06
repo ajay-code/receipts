@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use Auth;
 use Closure;
 use Carbon\Carbon;
 
@@ -16,10 +17,11 @@ class CheckUserExpiryDate
      */
     public function handle($request, Closure $next)
     {
-        $diff = auth()->user()->expire_at->diffInDays(Carbon::now(), false);
-        
-        if($diff > 0){
-            return redirect('/payments');
+        if(Auth::check()){
+            $diff = auth()->user()->expire_at->diffInDays(Carbon::now(), false);
+            if($diff > 0){
+                return redirect('/payments');
+            }
         }
         return $next($request);
     }

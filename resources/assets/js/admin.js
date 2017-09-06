@@ -14,13 +14,17 @@ window.Vue = require('vue');
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
+const AdminReceipts = () =>  System.import('./components/admin/receipts/Receipts.vue');
+const AdminUsers = () =>  System.import('./components/admin/users/Users.vue');
+const AdminUserReceipts = () =>  System.import('./components/admin/receipts/UserReceipts.vue');
+const AdminReceiptsByDate = () =>  System.import('./components/admin/receipts/ReceiptsByDate.vue');
 
 Vue.component('loader', require('vue-spinner/src/MoonLoader.vue'));
 Vue.component('alert', require('./components/global/Alert.vue'));
-Vue.component('admin-receipts', require('./components/admin/receipts/Receipts.vue'));
-Vue.component('admin-users', require('./components/admin/users/Users.vue'));
-Vue.component('admin-users-receipts', require('./components/admin/receipts/UserReceipts.vue'));
-Vue.component('admin-receipts-bydate', require('./components/admin/receipts/ReceiptsByDate.vue'));
+Vue.component('admin-receipts', AdminReceipts);
+Vue.component('admin-users', AdminUsers);
+Vue.component('admin-users-receipts', AdminUserReceipts);
+Vue.component('admin-receipts-bydate', AdminReceiptsByDate);
 
 
 

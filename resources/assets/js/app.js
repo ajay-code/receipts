@@ -15,13 +15,15 @@ window.Vue = require('vue');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-// Vue.component('example', require('./components/Example.vue'));
-Vue.component('receipt-form', require('./components/ReceiptForm.vue'));
+const ReceiptForm = () =>  System.import('./components/ReceiptForm.vue');
+const Receipts = () =>  System.import('./components/receipts/Receipts.vue');
+const ReceiptsByDate = () =>  System.import('./components/receipts/ReceiptsByDate.vue');
+
+Vue.component('receipt-form', ReceiptForm);
 Vue.component('loader', require('vue-spinner/src/MoonLoader.vue'));
 Vue.component('alert', require('./components/global/Alert.vue'));
-Vue.component('receipts', require('./components/receipts/Receipts.vue'));
-Vue.component('receipts-bydate', require('./components/receipts/ReceiptsByDate.vue'));
-
+Vue.component('receipts', Receipts);
+Vue.component('receipts-bydate', ReceiptsByDate);
 
 
 const app = new Vue({

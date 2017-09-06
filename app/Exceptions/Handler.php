@@ -44,9 +44,6 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
-        if($e instanceof UserExpired){
-            return $e->render();
-        }
         return parent::render($request, $exception);
     }
 

@@ -7,7 +7,7 @@
         <form @submit.prevent="reloadFromFirstPage">
             <div class="input-group">
               <input type="text" class="form-control" placeholder="Search for..." v-model="search">
-              <span class="input-group-btn">
+              <span class="input-group-btn"> 
                 <button class="btn btn-default" type="submit">Go!</button>
               </span>
             </div><!-- /input-group -->

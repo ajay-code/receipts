@@ -10,7 +10,12 @@ let mix = require('laravel-mix');
  | file for the application as well as bundling up all the JS files.
  |
  */
-
+mix.webpackConfig({
+    output: {
+        chunkFilename: 'chunk/[name].[chunkhash].js',
+        publicPath: '/'
+    },
+});
 mix.js('resources/assets/js/admin.js', 'public/js/admin');
 
 mix.js('resources/assets/js/app.js', 'public/js')
