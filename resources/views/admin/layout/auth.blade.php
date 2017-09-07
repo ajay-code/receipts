@@ -11,7 +11,7 @@
     <title>{{ config('app.name', 'Laravel Multi Auth Guard') }}</title>
 
     <!-- Styles -->
-    <link href="/css/app.css" rel="stylesheet">
+    <link href="/css/auth.css" rel="stylesheet">
 
     <!-- Scripts -->
     <script>
@@ -80,6 +80,5 @@
     @yield('content')
 
     <!-- Scripts -->
-    <script src="/js/app.js"></script>
 </body>
 </html>
