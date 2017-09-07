@@ -1,6 +1,6 @@
 <template>
     <div class="">
-        <alert></alert>   
+        <notifications group="notice" classes="vue-notification z-index"  />
         <form id="print-form" class="form-horizontal" action="/print" method="post" target="_blank"  >
                 <input v-if="onMobile" type="hidden" name="mobile" value="true">
                 <input type="hidden" name="_token" :value="csrf">
@@ -159,7 +159,15 @@
                     this.pdfName = res.data.pdfName;
                     this.loadPdf(res.data);
                 }).catch(error => {
-                    eventHub.$emit('alert-show', {message: error.response.data.file , status : 'error'});
+                    let message = error.response.data.file.toString();
+                    this.$notify({
+                                group: 'notice',
+                                type: 'error',
+                                title: 'Error ',
+                                text: message,
+                                duration: 10000,
+                                speed: 1000
+                    });
                 });
             }
         }

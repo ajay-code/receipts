@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use PDF;
 use Excel;
 use Input;
+use Validator;
 use App\Receipt;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -152,13 +153,18 @@ class ReceiptController extends Controller
 
     public function csv_upload(Request $request){
         // dd($request->all()); 
-        // $this->validate($request,[
-        //     'file' => 'required|mimes:csv,xls'
-        // ]);
+        Validator::make([
+              'file'      => $request->file,
+              'extension' => strtolower($request->file->getClientOriginalExtension()),
+          ],
+          [
+              'file'          => 'required',
+              'extension'      => 'required|in:csv,xlsx,xls',
+          ]);
 
         $receipts = Excel::load($request->file, function ($reader){
         })->get();
-        
+
         $user = auth()->user();
 
         foreach ($receipts as $receipt) {
@@ -193,6 +199,6 @@ class ReceiptController extends Controller
                 $sheet->fromArray($subset);
             });
 
-        })->download('xls');
+        })->download('csv');
     }
 }

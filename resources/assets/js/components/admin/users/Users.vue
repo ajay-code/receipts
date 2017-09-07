@@ -1,8 +1,8 @@
 <template>
   <div>
     <div class="row">
-      <alert></alert>
-      <!-- <loader></loader> -->
+      <!-- <alert></alert> -->
+      <notifications group="notice" classes="vue-notification z-index"  />
       <div class="col-xs-6">
         <form @submit.prevent="reloadFromFirstPage">
             <div class="input-group">
@@ -54,7 +54,7 @@
     </div>
      <paginator :page-info="pageInfo"></paginator>
      <div class="form-group">
-        <span class="btn btn-primary" @click="">Print <span v-if="printList.length" v-text="'(' + printList.length + ')'"></span> </span>
+        <span class="btn btn-primary" >Print <span v-if="printList.length" v-text="'(' + printList.length + ')'"></span> </span>
     </div>
      <iframe id="print-frame" class="hide" name="frame" src="" frameborder="0" @load="loadingComplete"></iframe>
     <div class="overlay" v-if="loading">
@@ -179,7 +179,6 @@ import emptyPageInfo from '../../../empty/PageInfo';
             this.loadUsers();
             eventHub.$on('load-page', this.reload);
             eventHub.$on('edit-user', this.editUser);
-            eventHub.$on('show-alert', { message: 'user success fully activates', status: 'success' });
 
         },
         methods: {
@@ -259,7 +258,14 @@ import emptyPageInfo from '../../../empty/PageInfo';
 
                 $('#edit-user').modal('hide');
 
-                eventHub.$emit('alert-show', {message: 'receipt successfully edited' , status : 'success'});
+                this.$notify({
+                                group: 'notice',
+                                type: 'success',
+                                title: 'Action successful',
+                                text: "Receipt edited <b>successfully</b>",
+                                duration: 10000,
+                                speed: 1000
+                    });
 
               }).catch( err => {
                 this.loading = false;
@@ -269,7 +275,14 @@ import emptyPageInfo from '../../../empty/PageInfo';
                   message.push(this.edit.errors.get(name));
                 }
                 console.log
-                eventHub.$emit('alert-show', {message: message , status : 'error'});
+                this.$notify({
+                                group: 'notice',
+                                type: 'error',
+                                title: 'Error ',
+                                text: "Can't complete the action as something went <b>wrong</b>",
+                                duration: 10000,
+                                speed: 1000
+                    });
                 
               })
 

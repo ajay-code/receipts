@@ -6,8 +6,9 @@
  */
 
 require('./bootstrap');
-
+import Notifications from 'vue-notification'
 window.Vue = require('vue');
+Vue.use(Notifications);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

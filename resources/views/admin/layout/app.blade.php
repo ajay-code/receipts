@@ -15,7 +15,7 @@
 
     <!-- Styles -->
     <!-- Bootstrap Styles-->
-    <link href="{{ asset('css/admin/admin.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <!-- Google Fonts-->
     <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
     @yield('links')

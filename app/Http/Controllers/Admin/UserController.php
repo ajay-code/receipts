@@ -81,7 +81,6 @@ class UserController extends Controller
     }
 
     public function users_activation_api(User $user){
-
         $user->update([
             'activated' => true
         ]);

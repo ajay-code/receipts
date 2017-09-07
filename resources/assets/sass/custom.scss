@@ -30,7 +30,7 @@
 	position: fixed;
 	top: 10px;
 	right: 5px;
-	z-index: 9999999999;
+	z-index: 999;
 	span p{
 	padding: 5px 40px;
 
@@ -41,7 +41,7 @@
 	margin : 80px 0;
 }
 .modal{
-	z-index: 99999999;
+	z-index: 1999;
 }
 
 .user-name{
@@ -52,4 +52,8 @@
 
 .borderless td, .borderless th {
     border: none;
+}
+
+.z-index{
+	z-index: 9999999999;
 }
