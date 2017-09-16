@@ -4,17 +4,13 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 	<style>
 	@page{ 
-        size: {{$user->settings->page_width}}cm {{$user->settings->page_height}}cm;
+        size: {{$user->settings->page_width}}mm {{$user->settings->page_height}}mm;
         margin: 0;
       }
-     @font-face {
-          font-family: "Arial";
-          src: url('fonts/arial/Arial.ttf') format('truetype');
-        }
     
-     body{
-        font-family: "Arial";
-        font-size: 12px;
+    body{
+        font-family: {{$user->settings->font ? $user->settings->font : "arial"}};
+        font-size: {{$user->settings->font_size ? $user->settings->font_size : 12}}px;
         font-weight: normal;
         margin: 0;
     }
@@ -24,35 +20,37 @@
     }
 
     
-    .page{
-    }
-    
     .sender-id{
     	position : absolute;
-        left: {{$user->settings->left_sender_id ? $user->settings->left_sender_id :  4}}cm;
-		top: {{$user->settings->top_sender_id ? $user->settings->top_sender_id :  0.5}}cm;
+        left: {{$user->settings->left_sender_id ? $user->settings->left_sender_id :  4}}mm;
+		top: {{$user->settings->top_sender_id ? $user->settings->top_sender_id :  0.5}}mm;
     }
     	
     .sender{
         position : absolute;
-        left: {{$user->settings->left_sender ? $user->settings->left_sender :  4}}cm;
-		top: {{$user->settings->top_sender ? $user->settings->top_sender :  1}}cm;
+        left: {{$user->settings->left_sender ? $user->settings->left_sender :  4}}mm;
+		top: {{$user->settings->top_sender ? $user->settings->top_sender :  1}}mm;
     }
     .receiver{
 	    position : absolute;
-	    left: {{$user->settings->left_receiver ? $user->settings->left_receiver :  4}}cm;
-		top: {{$user->settings->top_receiver ? $user->settings->top_receiver :  6}}cm;
+	    left: {{$user->settings->left_receiver ? $user->settings->left_receiver :  4}}mm;
+		top: {{$user->settings->top_receiver ? $user->settings->top_receiver :  6}}mm;
     }
 
     .products{
     	position: absolute;
-    	left: {{$user->settings->left_product ? $user->settings->left_product :  11}}cm;
-		top: {{$user->settings->top_product ? $user->settings->top_product :  3.5}}cm;
+    	left: {{$user->settings->left_product ? $user->settings->left_product :  11}}mm;
+		top: {{$user->settings->top_product ? $user->settings->top_product :  3.5}}mm;
     }
     .date{
     	position: absolute;
-    	left: {{$user->settings->left_date ? $user->settings->left_date :  14}}cm;
-		top: {{$user->settings->top_date ? $user->settings->top_date :  1}}cm;
+    	left: {{$user->settings->left_date ? $user->settings->left_date :  14}}mm;
+		top: {{$user->settings->top_date ? $user->settings->top_date :  1}}mm;
+    }
+    .amount{
+    	position: absolute;
+    	left: {{$user->settings->left_amount ? $user->settings->left_amount :  110}}mm;
+		top: {{$user->settings->top_amount ? $user->settings->top_amount :  42}}mm;
     }
    
 		
@@ -63,41 +61,55 @@
 <body  >
 		@foreach ($receipts as $receipt)
 		<div class="page" id="page" >
-				<div class="sender-id">
-					{{ $receipt->sender_id ? $receipt->sender_id : ''}} 
-				</div>
-				<div class="sender">
-					{{ $receipt->sender_name ? $receipt->sender_name : ''}} <br>
-					{!! $receipt->sender_address ? str_replace("|","<br/>", $receipt->sender_address)  : ''!!} <br>
-					{{ $receipt->sender_phone ? $receipt->sender_phone : ''}} <br>
-					@if (!!$receipt->sender_email)
-						{{ $receipt->sender_email}} <br>
-					@endif
-				</div>
-				<div class="receiver">
-					{{ $receipt->receiver_name ? $receipt->receiver_name : ''}} <br>
-					{!! $receipt->receiver_address ? str_replace("|","<br/>", $receipt->receiver_address)  : ''!!} <br>
-					{{ $receipt->receiver_phone ? $receipt->receiver_phone : ''}} <br>
-					@if (!!$receipt->receiver_email)
-						{{ $receipt->receiver_email}} <br>
-					@endif
-				</div>
+				@if ($user->settings->top_sender_id != 0 && $user->settings->left_sender_id != 0)
+					<div class="sender-id">
+						{{ $receipt->sender_id ? $receipt->sender_id : ''}} 
+					</div>
+				@endif
+				@if ($user->settings->top_sender != 0 && $user->settings->left_sender != 0)
+					<div class="sender">
+						{{ $receipt->sender_name ? $receipt->sender_name : ''}} <br>
+						{!! $receipt->sender_address ? str_replace("|","<br/>", $receipt->sender_address)  : ''!!} <br>
+						{{ $receipt->sender_phone ? $receipt->sender_phone : ''}} <br>
+						@if (!!$receipt->sender_email)
+							{{ $receipt->sender_email}} <br>
+						@endif
+					</div>
+				@endif
+				
+				@if ($user->settings->top_receiver != 0 && $user->settings->left_receiver != 0)
+					<div class="receiver">
+						{{ $receipt->receiver_name ? $receipt->receiver_name : ''}} <br>
+						{!! $receipt->receiver_address ? str_replace("|","<br/>", $receipt->receiver_address)  : ''!!} <br>
+						{{ $receipt->receiver_phone ? $receipt->receiver_phone : ''}} <br>
+						@if (!!$receipt->receiver_email)
+							{{ $receipt->receiver_email}} <br>
+						@endif
+					</div>
+				@endif
 
-				<div class="products">
-					{{ $receipt->receiver_product ? $receipt->receiver_product : ''}} <br>
-					
-				</div>
-
-				<div class="date">
-					@if ($receipt->created_at)
-						{{ (new \Carbon\Carbon($receipt->created_at))->formatLocalized('%A, %B %d, %Y') }}
-					@else
-						{{ \Carbon\Carbon::now()->formatLocalized('%A, %B %d, %Y') }}
-					@endif
-				</div>
+				@if ($user->settings->top_product != 0 && $user->settings->left_product != 0)
+					<div class="products">
+						{{ $receipt->receiver_product ? $receipt->receiver_product : ''}}
+					</div>
+				@endif
+				@if ($user->settings->top_amount != 0 && $user->settings->left_amount != 0)
+					<div class="amount">
+						${{ $receipt->amount ? $receipt->amount : ''}}
+					</div>
+				@endif
+				
+				@if ($user->settings->top_date != 0 && $user->settings->left_date != 0)
+					<div class="date">
+						@if ($receipt->created_at)
+							{{ (new \Carbon\Carbon($receipt->created_at))->format('D, d M Y') }}
+						@else
+							{{ \Carbon\Carbon::now()->format('D, d M Y') }}
+						@endif
+					</div>
+				@endif
 
 			</div>
-		</div>
 
 		@if (!$loop->last)
 			<div class="page-break"></div>

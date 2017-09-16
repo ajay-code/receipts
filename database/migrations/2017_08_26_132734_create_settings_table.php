@@ -18,33 +18,37 @@ class CreateSettingsTable extends Migration
             $table->integer('admin_id')->nullable();
             $table->integer('user_id')->nullable();
 
+            // Font
+            $table->enum('font', ['courier', 'times-roman', 'arial'])->default('arial');
+            $table->integer('font_size')->default(12);
+
             // Page
-            $table->decimal('page_width')->default(21);
-            $table->decimal('page_height')->default(10);
+            $table->integer('page_width')->default(210);
+            $table->integer('page_height')->default(100);
 
             // UserId
-            $table->decimal('top_sender_id')->default(0.5);
-            $table->decimal('left_sender_id')->default(4);
+            $table->integer('top_sender_id')->default(5);
+            $table->integer('left_sender_id')->default(40);
 
             // Sender
-            $table->decimal('top_sender')->default(1);
-            $table->decimal('left_sender')->default(4);
+            $table->integer('top_sender')->default(10);
+            $table->integer('left_sender')->default(40);
 
             // Receiver
-            $table->decimal('top_receiver')->default(6);
-            $table->decimal('left_receiver')->default(4);
+            $table->integer('top_receiver')->default(60);
+            $table->integer('left_receiver')->default(40);
 
             // Product
-            $table->decimal('left_product')->default(11);
-            $table->decimal('top_product')->default(3.5);
+            $table->integer('left_product')->default(110);
+            $table->integer('top_product')->default(35);
 
             // Date
-            $table->decimal('top_date')->default(1);
-            $table->decimal('left_date')->default(14);
+            $table->integer('top_date')->default(10);
+            $table->integer('left_date')->default(140);
 
             // Ammount
-            $table->decimal('left_amount')->default(3);
-            $table->decimal('top_amount')->default(14);
+            $table->integer('top_amount')->default(42);
+            $table->integer('left_amount')->default(110);
 
         });
     }

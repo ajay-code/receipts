@@ -73,10 +73,9 @@ class ReceiptController extends Controller
     	$pdfName = 'receipt-'.str_random(6).'.pdf';
 
         $path = storage_path('app/public/pdf/').$pdfName;
-
-
-
-    	PDF::loadHTML(view('print.stored-receipt-print', compact('receipt', 'user')))->save($path);
+        $html = view('print.stored-receipt-print', compact('receipt', 'user'));
+        $html = compress_html($html);
+    	PDF::loadHTML($html)->save($path);
 
 
         return [
@@ -95,8 +94,9 @@ class ReceiptController extends Controller
     	$pdfName = 'receipt-'.str_random(6).'.pdf';
 
         $path = storage_path('app/public/pdf/').$pdfName;
-
-    	PDF::loadHTML(view('print.stored-receipts-print', compact('receipts', 'user')))->save($path);
+        $html = view('print.stored-receipts-print', compact('receipts', 'user'));
+        $html = compress_html($html);
+    	PDF::loadHTML($html)->save($path);
 
         return [
             'type' => 'url',
@@ -175,8 +175,10 @@ class ReceiptController extends Controller
         $pdfName = 'receipt-'.str_random(6).'.pdf';
 
         $path = storage_path('app/public/pdf/').$pdfName;
-
-        PDF::loadHTML(view('print.imported-receipts-print', compact('receipts', 'user')))->save($path);
+        $html = view('print.imported-receipts-print', compact('receipts', 'user'));
+        // return $html;
+        $html = compress_html($html);
+        PDF::loadHTML($html)->save($path);
         
         return [
             'type' => 'url',

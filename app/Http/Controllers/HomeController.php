@@ -71,8 +71,11 @@ class HomeController extends Controller
         $pdfName = 'receipt-'.str_random(6).'.pdf';
 
         $path = storage_path('app/public/pdf/').$pdfName;
+        
+        $html = view('pdf.receipt-mobile', compact('sender', 'receivers', 'user', 'date'));
+        $html = compress_html($html);
+        PDF::loadHTML($html)->save($path);
 
-        PDF::loadHTML(view('pdf.receipt-mobile', compact('sender', 'receivers', 'user', 'date')))->save($path);
         return [
             'type' => 'url',
             'pdfName' => $pdfName
