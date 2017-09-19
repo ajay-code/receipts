@@ -77,6 +77,47 @@
                     
                 </div>
 
+                <div class="row">
+
+                    <table class="table">
+
+                        <caption>
+                            <div class="col-sm-6">
+                                STATISTIC
+                            </div>
+                            {{--  <div class="col-sm-4 col-sm-offset-2">
+                                <select class="form-control">
+                                    <option value="0">this month</option>  
+                                    <option value="1">last month</option>  
+                                </select>
+                            </div>  --}}
+                        </caption>
+
+                        <tr>
+                            <th> Total Sales </th>
+                            <td> ${{ auth()->user()->receipts->sum('amount') }} </td>
+                        </tr>
+                        <tr>
+                            <th> Total Product Cost </th>
+                            <td> ${{ auth()->user()->receipts->sum('product_cost') }} </td>
+                        </tr>
+                        <tr>
+                            <th> Total Postage Cost </th>
+                            <td> ${{ auth()->user()->receipts->sum('postage_cost') }} </td>
+                        </tr>
+
+                        <tr>
+                            <th>
+                                Net
+                            </th>  
+                            <td>
+                                ${{ auth()->user()->receipts->sum('amount') - (auth()->user()->receipts->sum('product_cost') + auth()->user()->receipts->sum('postage_cost')) }}
+                            </td>
+                        </tr>
+                    </table>    
+                    
+                </div>
+
             </div>
         <!-- /. PAGE INNER  -->
         
