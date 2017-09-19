@@ -64,16 +64,16 @@
                                 <i class="fa fa-trophy fa-5x"></i>
                                 </div>
                                 </div>
-                            @php
-                                $maxAmount = auth()->user()->receipts->max('amount');
-                                $topSelling = auth()->user()->receipts->where('amount', $maxAmount)->first();
-                            @endphp
-                            @if($topSelling)
+                                @php
+                                    $maxAmount = auth()->user()->receipts->max('amount');
+                                    $topSelling = auth()->user()->receipts->where('amount', $maxAmount)->first();
+                                @endphp
                                 <div class="panel-right">
-                                <h4>{{ $topSelling->amount }} - <small class="inherit-color">{{ $topSelling->receiver_product }}</small></h4>
-                                <strong> Top Selling</strong>
+                                    @if($topSelling)
+                                        <h4>{{ $topSelling->amount }} - <small class="inherit-color">{{ $topSelling->receiver_product }}</small></h4>
+                                    @endif
+                                    <strong> Top Selling</strong>
                                 </div>
-                            @endif
                         </div>
                     </div>
                     

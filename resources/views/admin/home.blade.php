@@ -73,8 +73,8 @@
                             @endphp
                             @if($topSelling)
                                 <h4>{{ $topSelling->amount }} - <small class="inherit-color">{{ $topSelling->receiver_product }}</small></h4>
-                               <strong> Top Selling</strong>
                             @endif
+                               <strong> Top Selling</strong>
                             
                             </div>
                         </div>
@@ -82,7 +82,7 @@
                     
                 </div>
                 
-                @if(auth()->user()->has('receipts'))
+                @if(App\Receipt::count() > 0)
                     <div class="row">
 
                     <table class="table">
