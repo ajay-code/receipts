@@ -9,6 +9,8 @@ module.exports = {
 	receiver_product:"",
 	sender_address:"",
 	amount:"",
+	product_cost:"",
+	postage_cost:"",
 	sender_id:"",
 	sender_email:"",
 	sender_name:"",

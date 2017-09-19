@@ -23,7 +23,7 @@
                                 </div>
                             </div>
                             <div class="panel-right">
-                                <h3>{{ $usersCount }}</h3>
+                                <h4>{{ $usersCount }}</h4>
                                <strong> Total Users</strong>
                             </div>
                         </div>
@@ -37,7 +37,7 @@
                                 </div>
                                 </div>
                             <div class="panel-right">
-                            <h3>{{$receiptsCount}}</h3>
+                            <h4>{{$receiptsCount}}</h4>
                                <strong> Total Receipts</strong>
                             </div>
                         </div>
@@ -48,12 +48,31 @@
                             <div class="col-xs-12">
 
                               <div class="panel-left pull-left blue">
-                                <i class="fa fa-print fa-5x"></i>
+                                <i class="fa fa-usd fa-5x"></i>
                                 </div>
                                 </div>
                             <div class="panel-right">
-                            <h3>{{ \App\Receipt::sum('amount') }}</h3>
+                            <h4>{{ \App\Receipt::sum('amount') }}</h4>
                                <strong> Total Revenue</strong>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3 col-sm-12 col-xs-12">
+                        <div class="panel panel-primary text-center no-boder blue">
+                            <div class="col-xs-12">
+
+                              <div class="panel-left pull-left blue">
+                                <i class="fa fa-trophy fa-5x"></i>
+                                </div>
+                                </div>
+                            <div class="panel-right">
+                            @php
+                                $maxAmount = \App\Receipt::max('amount');
+                                $topSelling = \App\Receipt::where('amount', $maxAmount)->first();
+                            @endphp
+                            <h4>{{ $topSelling->amount }} - <small class="inherit-color">{{ $topSelling->receiver_product }}</small></h4>
+                               <strong> Top Selling</strong>
                             </div>
                         </div>
                     </div>

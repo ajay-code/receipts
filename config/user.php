@@ -1,5 +1,6 @@
 <?php
 
 return [
-	'types' => ['user', 'retailer', 'wholesaler', 'manufacturer']
+	'types' => ['user', 'retailer', 'wholesaler', 'manufacturer'],
+	'fonts' => ['courier', 'times-roman', 'arial']
 ];

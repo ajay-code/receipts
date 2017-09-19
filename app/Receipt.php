@@ -15,8 +15,8 @@ class Receipt extends Model
      * @var array
      */
     protected $fillable = [
-    'sender_name', 'sender_id', 'sender_address', 'sender_postcode', 'sender_phone', 'sender_email', 
-    'receiver_name', 'receiver_address', 'receiver_postcode', 'receiver_phone', 'receiver_email', 'receiver_product', 'amount',
+    'sender_name', 'sender_id', 'sender_address', 'sender_postcode', 'sender_phone', 'sender_email',
+    'receiver_name', 'receiver_address', 'receiver_postcode', 'receiver_phone', 'receiver_email', 'receiver_product', 'amount', 'product_cost', 'postage_cost',
     'tracking'
     ];
 

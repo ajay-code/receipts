@@ -119,22 +119,9 @@ class ReceiptController extends Controller
             "sender_phone" => "required",
             "sender_postcode" => "required",
         ]);
-        $receipt->update([
-            "receiver_address" => $request->receiver_address,
-            "receiver_name" => $request->receiver_name,
-            "receiver_email" => $request->receiver_email,
-            "receiver_phone" => $request->receiver_phone,
-            "receiver_postcode" => $request->receiver_postcode,
-            "receiver_product" => $request->receiver_product,
-            "amount" => $request->amount,
-            "sender_id" => $request->sender_id,
-            "sender_address" => $request->sender_address,
-            "sender_name" => $request->sender_name,
-            "sender_email" => $request->sender_email,
-            "sender_phone" => $request->sender_phone,
-            "sender_postcode" => $request->sender_postcode,
-            "tracking" => $request->tracking,
-        ]);
+
+        $receipt->update($request->all());
+        
         return 'success';
     }
 
@@ -176,7 +163,6 @@ class ReceiptController extends Controller
 
         $path = storage_path('app/public/pdf/').$pdfName;
         $html = view('print.imported-receipts-print', compact('receipts', 'user'));
-        // return $html;
         $html = compress_html($html);
         PDF::loadHTML($html)->save($path);
         

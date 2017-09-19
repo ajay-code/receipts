@@ -61,7 +61,7 @@
             </li>
 
             <li>
-                <a class="{{ \Request::is('subusers') ? 'active-menu':''}}" href="{{ url('/subusers') }}"><i class="fa fa-calendar"></i>Users Under You </a>
+                <a class="{{ \Request::is('subusers') ? 'active-menu':''}}" href="{{ url('/subusers') }}"><i class="fa fa-users"></i>Users Under You </a>
             </li>
             
             @if (auth()->user()->type !== 'user')

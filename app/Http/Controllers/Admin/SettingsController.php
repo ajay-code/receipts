@@ -19,22 +19,23 @@ class SettingsController extends Controller
 
     public function update(Request $request){
     	$this->validate($request, [
-    		'page_width' => 'required|numeric',
-            'page_height' => 'required|numeric',
-            'top_sender_id' => 'required|numeric',
-            'left_sender_id' => 'required|numeric',
-            'top_sender' => 'required|numeric',
-            'left_sender' => 'required|numeric',
-            'top_receiver' => 'required|numeric',
-            'left_receiver' => 'required|numeric',
-            'left_product' => 'required|numeric',
-            'top_product' => 'required|numeric',
-            'top_date' => 'required|numeric',
-            'left_date' => 'required|numeric',
-            'left_amount' => 'required|numeric',
-            'top_amount' => 'required|numeric',
+            'font' => 'required', 
+            'font_size' => 'required|integer',
+    		'page_width' => 'required|integer',
+            'page_height' => 'required|integer',
+            'top_sender_id' => 'required|integer',
+            'left_sender_id' => 'required|integer',
+            'top_sender' => 'required|integer',
+            'left_sender' => 'required|integer',
+            'top_receiver' => 'required|integer',
+            'left_receiver' => 'required|integer',
+            'left_product' => 'required|integer',
+            'top_product' => 'required|integer',
+            'top_date' => 'required|integer',
+            'left_date' => 'required|integer',
+            'left_amount' => 'required|integer',
+            'top_amount' => 'required|integer',
     	]);
-
 
     	auth()->user()->settings()->update($request->except(['_token']));
 

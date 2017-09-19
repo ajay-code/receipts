@@ -99,12 +99,31 @@
             submit(){
                     this.loading = true;
                     this.form.post('/print', this.form).then(res => {
-                        this.resetReceiver();
+                        // this.resetReceiver();
                         console.log(res);
-                        this.pdfName = res.pdfName;
-                        this.loadPdf(res);
+                        if(res.pdfName){
+                            this.pdfName = res.pdfName;
+                            this.loadPdf(res);
+                        }else{
+                            this.loading = false;
+                            this.$notify({
+                                    group: 'notice',
+                                    type: 'error',
+                                    title: 'Error ',
+                                    text: 'Something went wrong',
+                                    duration: 10000,
+                                    speed: 1000
+                            }); 
+                        }
                     }).catch((error) => {
-                        this.loadingFail();
+                        this.$notify({
+                                    group: 'notice',
+                                    type: 'error',
+                                    title: 'Error ',
+                                    text: 'Something went wrong',
+                                    duration: 10000,
+                                    speed: 1000
+                        });
                       });
             },
 

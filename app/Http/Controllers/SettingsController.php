@@ -18,6 +18,8 @@ class settingsController extends Controller
 
     public function update(Request $request){
     	$this->validate($request, [
+            'font' => 'required', 
+            'font_size' => 'required|integer',
             'page_width' => 'required|numeric',
             'page_height' => 'required|numeric',
             'top_sender_id' => 'required|numeric',
@@ -33,8 +35,6 @@ class settingsController extends Controller
     		'left_amount' => 'required|numeric',
     		'top_amount' => 'required|numeric',
     	]);
-
-    	// dd($request->all());
 
     	auth()->user()->settings()->update($request->except(['_token']));
 

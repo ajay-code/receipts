@@ -1,5 +1,6 @@
 import eventHub from '../../eventHub';
 export default {
+        
         methods: {
             loadReceipts(){
                 axios.get(`${this.scopeApi}/receipts`).then( res => {
@@ -97,7 +98,10 @@ export default {
                 this.edit.sender_phone = receipt.sender_phone;
                 this.edit.sender_postcode = receipt.sender_postcode;
                 this.edit.amount = receipt.amount;
+                this.edit.product_cost = receipt.product_cost;
+                this.edit.postage_cost = receipt.postage_cost;
                 this.edit.tracking = receipt.tracking;
+                this.edit.created_at = receipt.created_at;
             },
             copyFromEdit(){
               let receipt = this.receipts[this.editIndex];
@@ -116,8 +120,11 @@ export default {
               receipt.sender_phone = this.edit.sender_phone;
               receipt.sender_postcode = this.edit.sender_postcode;
               receipt.amount = this.edit.amount;
+              receipt.product_cost = this.edit.product_cost;
+              receipt.postage_cost = this.edit.postage_cost;
               receipt.tracking = this.edit.tracking;
-
+              receipt.created_at = this.edit.created_at ;
+              
             },
 
             update(){

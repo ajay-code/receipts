@@ -13,9 +13,36 @@
             <div id="page-inner">
                 <div class="row">
                     <h2>Set Position In The Receipts</h2>
+
+                    @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
                     <form action="/settings" method="post" class="form-horizontal">
                         {{ csrf_field() }}
-                        <h4>Page Dimentios</h4>
+                        <h4>Fonts</h4>
+                        <div class="form-group">
+                            <label for="font" class="col-sm-2 control-label">Font</label>
+                            <div class="col-sm-4">
+                                <select class="form-control" name="font" >
+                                    @foreach (config('user.fonts') as $font)
+                                        <option value="{{$font}}" {{ $user->settings->font == $font ? 'selected': ''}}>{{$font}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div> 
+                        <div class="form-group">
+                            <label for="font_size" class="col-sm-2 control-label">Font Size</label>
+                            <div class="col-sm-4">
+                              <input type="number" class="form-control" id="font_size" name="font_size" value="{{ $user->settings->font_size }}" placeholder="">
+                            </div>
+                        </div> 
+                        <h4>Page Dimentios (in mm)</h4>
                         <div class="form-group">
                             <label for="page_width" class="col-sm-2 control-label">Page Width</label>
                             <div class="col-sm-4">
@@ -29,7 +56,7 @@
                             </div>
                         </div>
 
-                        <h3>Content Position</h3>
+                        <h4>Content Position (in mm)</h4>
 
                         <div class="form-group">
                             <label for="top_sender_id" class="col-sm-2 control-label">ID From Top</label>
@@ -119,15 +146,7 @@
                         </div>
                     </form>
                 </div>
-                @if ($errors->any())
-                    <div class="alert alert-danger">
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endif
+                
 
                 <div class="bg-danger">
                     

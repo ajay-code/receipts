@@ -10,10 +10,13 @@
             <td v-text="receipt.receiver_email"> </td>
             <td v-text="address"></td>
             <td v-text="receipt.receiver_postcode"></td>
-            <td v-text="receipt.receiver_phone"></td>
+            <td > <a :href="'tel:' + receipt.receiver_phone" v-text="receipt.receiver_phone"></a> </td>
             <td v-text="receipt.receiver_product"></td>
             <td v-text="receipt.amount"></td>
+            <td v-text="receipt.product_cost"></td>
+            <td v-text="receipt.postage_cost"></td>
             <td v-text="receipt.tracking"></td>
+            <td v-text="createdAt"></td>
             <td>
                 <span class="pointer" @click="edit"><i class="fa fa-edit" title="edit"></i> </span>
                 <span class="pointer" @click="print"> <i class="fa fa-print"  title="print"></i> </span>
@@ -25,6 +28,8 @@
 
 <script>
 import eventHub from '../../eventHub'
+import moment from 'moment';
+
 
     export default {
         data(){
@@ -37,7 +42,10 @@ import eventHub from '../../eventHub'
         computed: {
             address(){
                 return this.receipt.receiver_address.replace(/\|/g, ", ")
-            }
+            },
+            createdAt(){
+                return moment(this.receipt.created_at).format('DD-MM-YYYY  HH:mm');
+            }  
         },
         mounted() {
                 this.localReceipt = this.receipt
@@ -46,6 +54,7 @@ import eventHub from '../../eventHub'
                 eventHub.$on('deselect-all', this.deselectAll);
 
         },
+        
         methods: {
             print(){
                 eventHub.$emit('print-single-receipt', this.receipt.id)
@@ -74,3 +83,12 @@ import eventHub from '../../eventHub'
         }
     }
 </script>
+
+<style>
+    td:not(:first-child){
+        min-width: 140px;
+    }
+    td{
+        text-align: center;
+    }
+</style>

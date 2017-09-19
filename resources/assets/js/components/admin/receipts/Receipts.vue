@@ -1,7 +1,8 @@
 <template>
   <div>
     <div class="row">
-      <alert></alert>
+      <notifications group="notice" classes="vue-notification z-index"  />
+
       <div class="col-xs-6">
         <form @submit.prevent="reloadFromFirstPage">
             <div class="input-group">
@@ -24,9 +25,11 @@
             <option value="5">5</option>
             <option value="10">10</option>
             <option value="25">25</option>
+            <option value="50">50</option>
             <option value="100">100</option>
-            <option value="100">500</option>
-            <option value="100">1000</option>
+            <option value="250">250</option>
+            <option value="500">500</option>
+            <option value="1000">1000</option>
           </select>
         </div><!-- /input-group -->
       </div>
@@ -47,7 +50,10 @@
             <th>Phone Number</th>
             <th>Item</th>
             <th>Amount</th>
+            <th>Product Cost</th>
+            <th>Postage Cost</th>
             <th>Tracking</th>
+            <th>Date & Time</th>
             <th>Actions</th>
             </tr>
        			<receipt v-for="receipt in receipts" :receipt="receipt" :key="receipt.id"></receipt>  
@@ -174,6 +180,21 @@
                           </div>
                         </div>
 
+                        <div>
+                          <div class="col-xs-6">
+                            <div class="form-group">
+                              <label for="product_cost">Product Cost</label>
+                              <input id="product_cost" v-model="edit.product_cost" class="form-control" placeholder="Product Cost">
+                            </div>
+                          </div>
+                          <div class="col-xs-6">
+                            <div class="form-group">
+                              <label for="postage_cost">Postage Cost</label>
+                              <input id="postage_cost" v-model="edit.postage_cost" class="form-control" placeholder="Postage Cost">
+                            </div>
+                          </div>
+                        </div>
+
                         <div class="col-xs-12">
                           <div class="form-group">
                             <label for="tracking">Tracking</label>
@@ -265,8 +286,35 @@ import mixin from '../../mixins/Receipts';
                 }).catch( err => {
                   alert(err);
                 })
+            },
+
+            deleteReceipt(ReceiptId){
+              
+              axios.get(`${this.scopeApi}/receipts/delete/${ReceiptId}`)
+                .then(res => {
+                    this.$notify({
+                            group: 'notice',
+                            type: 'success',
+                            title: 'Success ',
+                            text: 'Receipt Deleted Successfully',
+                            duration: 10000,
+                            speed: 1000
+                    });
+                    let index = this.receipts.map(function(x) {return x.id; }).indexOf(ReceiptId); 
+                    this.receipts.splice(index, 1);
+                })
+                .catch(err => {
+                        this.$notify({
+                                    group: 'notice',
+                                    type: 'error',
+                                    title: 'Error ',
+                                    text: 'Something went wrong',
+                                    duration: 10000,
+                                    speed: 1000
+                        });
+                })
             }
 
-                    }
+        }
     }
 </script>

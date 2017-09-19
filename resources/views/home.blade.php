@@ -21,7 +21,7 @@
                                 </div>
                             </div>
                             <div class="panel-right">
-                                <h3>{{ auth()->user()->users->count() + auth()->user()->retailers->count() + auth()->user()->wholesalers->count()  }}</h3>
+                                <h4>{{ auth()->user()->users->count() + auth()->user()->retailers->count() + auth()->user()->wholesalers->count()  }}</h4>
                                <strong>Users Under You</strong>
                             </div>
                         </div>
@@ -35,7 +35,7 @@
                                 </div>
                                 </div>
                             <div class="panel-right">
-                            <h3>{{auth()->user()->receipts->count()}}</h3>
+                            <h4>{{auth()->user()->receipts->count()}}</h4>
                                <strong> Total Receipts</strong>
                             </div>
                         </div>
@@ -50,8 +50,27 @@
                                 </div>
                                 </div>
                             <div class="panel-right">
-                            <h3>{{ auth()->user()->receipts->sum('amount') }}</h3>
+                            <h4>{{ auth()->user()->receipts->sum('amount') }}</h4>
                                <strong> Total Revenue</strong>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3 col-sm-12 col-xs-12">
+                        <div class="panel panel-primary text-center no-boder blue">
+                            <div class="col-xs-12">
+
+                              <div class="panel-left pull-left blue">
+                                <i class="fa fa-trophy fa-5x"></i>
+                                </div>
+                                </div>
+                            @php
+                                $maxAmount = auth()->user()->receipts->max('amount');
+                                $topSelling = auth()->user()->receipts->where('amount', $maxAmount)->first();
+                            @endphp
+                            <div class="panel-right">
+                            <h4>{{ $topSelling->amount }} - <small class="inherit-color">{{ $topSelling->receiver_product }}</small></h4>
+                               <strong> Top Selling</strong>
                             </div>
                         </div>
                     </div>

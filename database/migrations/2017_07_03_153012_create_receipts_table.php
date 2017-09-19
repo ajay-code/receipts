@@ -30,6 +30,8 @@ class CreateReceiptsTable extends Migration
             $table->string('receiver_email')->nullable();
             $table->string('receiver_product');
             $table->integer('amount');
+            $table->integer('product_cost')->nullable();
+            $table->integer('postage_cost')->nullable();
             
             $table->string('tracking')->nullable();
 

@@ -46,13 +46,12 @@ class HomeController extends Controller
         $sender['sender_id'] = $request->sender_id;
         $receivers = $this->receivers($request->receivers);
         $date = Carbon::now();
-
         $user = auth()->user();
         $user->load('settings');
         // Saves the receipt to database
         foreach ($receivers as $receiver) {
             $user->receipts()->create([
-                'sender_id' => $request->sender_id,
+                'sender_id' => $sender['sender_id'],
                 'sender_name' => $sender['name'],
                 'sender_address' => $sender['address'],
                 'sender_postcode' => $sender['postcode'],
@@ -112,17 +111,8 @@ class HomeController extends Controller
                 $data['name'] = $value;
             }else{
                 if(!$data['phone']){
-
                     if(preg_match($reg, $value)){
-                        if(preg_match('/(^60)\d{9,10}/', $value)){
-                            $data['phone'] = '+' . $value;
-                        }elseif (preg_match('/(^0)\d{9,10}/', $value)) {
-                            $data['phone'] = '+6' . $value;
-                        }elseif(preg_match('/(^\+)\d{9,10}/', $value)){
-                                $data['phone'] = $value;
-                        }elseif(preg_match('/\d{9,10}/', $value)){
-                            $data['phone'] = '+60' . $value;
-                        }
+                        $data['phone'] = $this->phone_number($value);
                     }else{
                         if($data['address'] == ''){
                             $data['address'] .= $value;
@@ -188,19 +178,10 @@ class HomeController extends Controller
 
                     if(!$data['phone']){
                         if(preg_match($reg, $value)){
-                            if(preg_match('/(^60)\d{9,10}/', $value)){
-                                $data['phone'] = '+' . $value;
-                            }elseif (preg_match('/(^0)\d{9,10}/', $value)) {
-                                $data['phone'] = '+6' . $value;
-                            }elseif(preg_match('/(^\+)\d{9,10}/', $value)){
-                                    $data['phone'] = $value;
-                            }elseif(preg_match('/\d{9,10}/', $value)){
-                                $data['phone'] = '+60' . $value;
-                            }
+                            $data['phone'] = $this->phone_number($value);
                         }else{
                             if($data['address'] == ''){
                                 $data['address'] .= $value;
-
                                 $postcodeRegex = "!\d{5,6}!";
                                 if (preg_match($postcodeRegex, $value, $matches))
                                 {
@@ -247,5 +228,22 @@ class HomeController extends Controller
             $rslt[] = $data;
         }
         return $rslt;
+    }
+
+
+    protected function phone_number($phone){
+        $finalNumber = '';
+        if(preg_match('/(^60)\d{9,10}/', $phone)){
+            $finalNumber = '+' . $phone;
+        }elseif (preg_match('/(^0)\d{9,10}/', $phone)) {
+            $finalNumber = '+6' . $phone;
+        }elseif(preg_match('/(^\+)\d{9,10}/', $phone)){
+                $finalNumber = $phone;
+        }elseif(preg_match('/\d{9,10}/', $phone)){
+            $finalNumber = '+60' . $phone;
+        }
+
+        return $finalNumber;
+
     }
 }
