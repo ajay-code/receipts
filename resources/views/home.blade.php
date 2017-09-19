@@ -76,6 +76,7 @@
                     </div>
                     
                 </div>
+                @if(auth()->user()->has('receipts'))
 
                 <div class="row">
 
@@ -117,6 +118,7 @@
                     </table>    
                     
                 </div>
+                @endif
 
             </div>
         <!-- /. PAGE INNER  -->
