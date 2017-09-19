@@ -121,12 +121,10 @@ class ReceiptController extends Controller
             "receiver_address" => "required",
             "receiver_name" => "required",
             "receiver_phone" => "required",
-            "receiver_postcode" => "required",
             "receiver_product" => "required",
             "sender_address" => "required",
             "sender_name" => "required",
             "sender_phone" => "required",
-            "sender_postcode" => "required",
         ]);
         $receipt->update([
             "receiver_address" => $request->receiver_address,

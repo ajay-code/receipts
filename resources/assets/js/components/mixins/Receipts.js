@@ -134,19 +134,32 @@ export default {
                 this.copyFromEdit();
 
                 $('#edit-receipt').modal('hide');
-
-                eventHub.$emit('alert-show', {message: 'receipt successfully edited' , status : 'success'});
+                this.$notify({
+                        group: 'notice',
+                        type: 'success',
+                        title: 'Success ',
+                        text: 'Receipt successfully edited',
+                        duration: 10000,
+                        speed: 1000
+                });
 
               }).catch( err => {
                 this.loading = false;
-                let message = [];
+                let message = '<ul>';
                 for(let name in this.edit.errors.errors){
                   console.log(name)
-                  message.push(this.edit.errors.get(name));
+                  message += '<li>' + this.edit.errors.get(name) + '</li>';
                 }
-                console.log
+                message += '</ul>';
                 eventHub.$emit('alert-show', {message: message , status : 'error'});
-                
+                   this.$notify({
+                          group: 'notice',
+                          type: 'error',
+                          title: 'Error ',
+                          text: message,
+                          duration: 10000,
+                          speed: 1000
+                  });
               })
 
             },
