@@ -68,10 +68,12 @@
                                 $maxAmount = auth()->user()->receipts->max('amount');
                                 $topSelling = auth()->user()->receipts->where('amount', $maxAmount)->first();
                             @endphp
-                            <div class="panel-right">
-                            <h4>{{ $topSelling->amount }} - <small class="inherit-color">{{ $topSelling->receiver_product }}</small></h4>
-                               <strong> Top Selling</strong>
-                            </div>
+                            @if($topSelling)
+                                <div class="panel-right">
+                                <h4>{{ $topSelling->amount }} - <small class="inherit-color">{{ $topSelling->receiver_product }}</small></h4>
+                                <strong> Top Selling</strong>
+                                </div>
+                            @endif
                         </div>
                     </div>
                     

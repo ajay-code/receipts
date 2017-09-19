@@ -71,8 +71,11 @@
                                 $maxAmount = \App\Receipt::max('amount');
                                 $topSelling = \App\Receipt::where('amount', $maxAmount)->first();
                             @endphp
-                            <h4>{{ $topSelling->amount }} - <small class="inherit-color">{{ $topSelling->receiver_product }}</small></h4>
+                            @if($topSelling)
+                                <h4>{{ $topSelling->amount }} - <small class="inherit-color">{{ $topSelling->receiver_product }}</small></h4>
                                <strong> Top Selling</strong>
+                            @endif
+                            
                             </div>
                         </div>
                     </div>
