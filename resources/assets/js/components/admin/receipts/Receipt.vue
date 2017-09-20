@@ -10,7 +10,7 @@
             <td v-text="receipt.receiver_email"> </td>
             <td v-text="address"></td>
             <td v-text="receipt.receiver_postcode"></td>
-            <td v-text="receipt.receiver_phone"></td>
+            <td > <a :href="'tel:' + receipt.receiver_phone" v-text="receipt.receiver_phone"></a> </td>
             <td v-text="receipt.receiver_product"></td>
             <td v-text="receipt.amount"></td>
             <td v-text="receipt.product_cost"></td>

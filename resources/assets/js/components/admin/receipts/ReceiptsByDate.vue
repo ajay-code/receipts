@@ -247,7 +247,7 @@ export default {
       from: moment().subtract(7, 'days').format('YYYY-MM-DD'),
       to: moment().format('YYYY-MM-DD'),
       order: 'latest',
-      records: 10,
+      records: 100,
       pageInfo: emptyPageInfo,
       edit: new Form(emptyReceipt),
       editIndex: '',

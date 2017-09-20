@@ -25,7 +25,7 @@ class UserController extends Controller
     // Returns array of saved users
     public function users_paginated_api(Request $request){
         $search = $request->search;
-        $records = $request->records ? $request->records : 10;
+        $records = $request->records ? $request->records : 100;
         $order = $request->order ? $request->order : 'latest';
 
         if($search){
@@ -54,7 +54,7 @@ class UserController extends Controller
     public function users_receipts_paginated_api(Request $request, User $user){
         // return $request->all();
         $search = $request->search;
-        $records = $request->records ? $request->records : 10;
+        $records = $request->records ? $request->records : 100;
         $order = $request->order ? $request->order : 'latest';
 
         if($search){

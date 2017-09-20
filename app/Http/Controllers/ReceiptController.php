@@ -45,7 +45,7 @@ class ReceiptController extends Controller
     public function receipts_paginated_api(Request $request){
         // return $request->all();  
         $search = $request->search;
-        $records = $request->records ? $request->records : 10;
+        $records = $request->records ? $request->records : 100;
         $order = $request->order ? $request->order : 'latest';
 
         if($search){
@@ -126,7 +126,7 @@ class ReceiptController extends Controller
     // Returns array of saved receipts
     public function receipts_by_date_paginated_api(Request $request){
 
-        $records = $request->records ? $request->records : 10;
+        $records = $request->records ? $request->records : 100;
         $from = $request->from ? date($request->from . ' 00:00:00', time()) : Carbon::now()->subweek()->setTime(00,00,00)->toDateTimeString();
         $to = $request->to ? date($request->to . ' 23:59:59', time()) : Carbon::now()->setTime(23,59,59)->toDateTimeString();
 

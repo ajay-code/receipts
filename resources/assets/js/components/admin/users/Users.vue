@@ -163,7 +163,7 @@ import emptyPageInfo from '../../../empty/PageInfo';
           printList: [],
           search: '',
           order: 'latest',
-          records: 10,
+          records: 100,
           pageInfo: emptyPageInfo,
           edit: new Form(emptyUser),
           editIndex: '',

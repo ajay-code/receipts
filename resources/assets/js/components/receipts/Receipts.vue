@@ -236,7 +236,7 @@ import mixin from '../mixins/Receipts';
           selectAllReceipts: false,
           search: '',
           order: 'latest',
-          records: 10,
+          records: 100,
           pageInfo: emptyPageInfo,
           edit: new Form(emptyReceipt),
           editIndex: '',
