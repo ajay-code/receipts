@@ -32,6 +32,10 @@
                 </tr>
             </tbody>
         </table>
+
+        <div class="overlay" v-if="loading">
+                <loader></loader>
+        </div>
     </div>
 </template>
 
@@ -44,6 +48,7 @@ export default {
             totalPostageCost: 0,
             month:'current',
             firstLoad: true,
+            loading: false
         }
     },
     mounted(){
@@ -58,12 +63,17 @@ export default {
 
     methods: {
         load(){
+            this.loading = true;
             axios.get(`${this.scopeApi}/net/amount?net=${this.month}`).then(res => {
                 this.totalAmount = parseInt(res.data.totalAmount);
                 this.totalProductCost = parseInt(res.data.totalProductCost);
                 this.totalPostageCost = parseInt(res.data.totalPostageCost);
                 this.firstLoad = false;
+                this.loading = false;
+                
             }).catch(err => {
+                this.loading = false;
+                
                 if(this.firstLoad){
                     this.firstLoad = false;
                     return 0;
@@ -72,7 +82,7 @@ export default {
                             group: 'notice',
                             type: 'error',
                             title: 'Error ',
-                            text: 'No receipts ' + this.month,
+                            text: 'Something Went Wrong',
                             duration: 10000,
                             speed: 1000
                     });

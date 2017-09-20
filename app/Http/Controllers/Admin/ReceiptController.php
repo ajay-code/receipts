@@ -214,9 +214,9 @@ class ReceiptController extends Controller
         $from->setTime(0,0,0);
         $to->setTime(23,59,59);
 
-        $totalAmount = Receipt::whereBetween("created_at", [$from, $to])->sum('amount');
-        $totalProductCost = Receipt::whereBetween("created_at", [$from, $to])->sum('product_cost');
-        $totalPostageCost = Receipt::whereBetween("created_at", [$from, $to])->sum('postage_cost');
+        $totalAmount = auth()->user()->whereBetween("created_at", [$from, $to])->sum('amount');
+        $totalProductCost = auth()->user()->whereBetween("created_at", [$from, $to])->sum('product_cost');
+        $totalPostageCost = auth()->user()->whereBetween("created_at", [$from, $to])->sum('postage_cost');
 
 		return [
 			'totalAmount' => $totalAmount,

@@ -7,7 +7,7 @@
                         </h1>
                         <ol class="breadcrumb">
                           <li class="active"><a href="/">Home</a></li>
-                          <li class="active"><a href="/create">Grnerate Receipts</a></li>
+                          <li class="active"><a href="/create">Generate Receipts</a></li>
                         </ol> 
                                     
         </div>
