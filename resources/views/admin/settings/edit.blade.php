@@ -42,7 +42,7 @@
                               <input type="number" class="form-control" id="font_size" name="font_size" value="{{ $user->settings->font_size }}" placeholder="">
                             </div>
                         </div> 
-                        <h4>Page Dimentios (in mm)</h4>
+                        <h4>Page Dimentioms (in mm)</h4>
                         <div class="form-group">
                             <label for="page_width" class="col-sm-2 control-label">Page Width</label>
                             <div class="col-sm-4">
