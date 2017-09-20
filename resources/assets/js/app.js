@@ -19,12 +19,14 @@ Vue.use(Notifications);
 const ReceiptForm = () =>  System.import('./components/ReceiptForm.vue');
 const Receipts = () =>  System.import('./components/receipts/Receipts.vue');
 const ReceiptsByDate = () =>  System.import('./components/receipts/ReceiptsByDate.vue');
+const NetAmount = () =>  System.import('./components/global/NetAmount.vue');
 
 Vue.component('receipt-form', ReceiptForm);
 Vue.component('loader', require('vue-spinner/src/MoonLoader.vue'));
 Vue.component('alert', require('./components/global/Alert.vue'));
 Vue.component('receipts', Receipts);
 Vue.component('receipts-bydate', ReceiptsByDate);
+Vue.component('net-amount', NetAmount);
 
 
 const app = new Vue({

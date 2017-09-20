@@ -15,10 +15,16 @@ Route::get('receipts/date', 'Admin\ReceiptController@receipts_by_date_paginated_
 
 
 // 
-// admin user routes
+// Admin user routes
 // 
 Route::get('users/', 'Admin\UserController@users_paginated_api')->name('users.paginated');
 Route::get('/users/{user}/receipts', 'Admin\UserController@users_receipts_paginated_api');
 Route::get('/users/{user}/activate', 'Admin\UserController@users_activation_api');
 Route::get('/users/{user}/deactivate', 'Admin\UserController@users_deactivation_api');
 Route::post('/users/{user}/update', 'Admin\UserController@update_api');
+
+
+// 
+// Admin Net Amount
+// 
+Route::get('net/amount', 'Admin\ReceiptController@net_amount_api')->name('receipts.netamount.api');

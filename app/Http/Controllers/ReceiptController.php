@@ -187,4 +187,38 @@ class ReceiptController extends Controller
 
         })->download('csv');
     }
+
+    public function net_amount_api(Request $request){
+		$net = $request->net;
+		$totalAmount = '';
+		$totalProductCost = '';
+		$totalPostageCost = '';
+
+        $from = '';
+        $to = new Carbon('last day of this month');
+
+		if($net == 'current'){
+			$from = new Carbon('first day of this month');     
+		}elseif($net == 'last'){
+			$from = new Carbon('first day of last month');     
+			$to = new Carbon('last day of last month');  
+		}else{
+            $from = new Carbon('last day of this month');
+            $from->subMonths(3);
+        }
+
+        $from->setTime(0,0,0);
+        $to->setTime(23,59,59);
+
+        $totalAmount = Receipt::whereBetween("created_at", [$from, $to])->sum('amount');
+        $totalProductCost = Receipt::whereBetween("created_at", [$from, $to])->sum('product_cost');
+        $totalPostageCost = Receipt::whereBetween("created_at", [$from, $to])->sum('postage_cost');
+
+		return [
+			'totalAmount' => $totalAmount,
+			'totalProductCost' => $totalProductCost,
+			'totalPostageCost' => $totalPostageCost
+		];
+
+	}
 }

@@ -79,50 +79,11 @@
                             </div>
                         </div>
                     </div>
-                    
                 </div>
                 
                 @if(App\Receipt::count() > 0)
-                    <div class="row">
-
-                    <table class="table">
-
-                        <caption>
-                            <div class="col-sm-6">
-                                STATISTIC
-                            </div>
-                            {{--  <div class="col-sm-4 col-sm-offset-2">
-                                <select class="form-control">
-                                    <option value="0">this month</option>  
-                                    <option value="1">last month</option>  
-                                </select>
-                            </div>  --}}
-                        </caption>
-
-                        <tr>
-                            <th> Total Sales </th>
-                            <td> ${{ \App\Receipt::sum('amount') }} </td>
-                        </tr>
-                        <tr>
-                            <th> Total Product Cost </th>
-                            <td> ${{ \App\Receipt::sum('product_cost') }} </td>
-                        </tr>
-                        <tr>
-                            <th> Total Postage Cost </th>
-                            <td> ${{ \App\Receipt::sum('postage_cost') }} </td>
-                        </tr>
-
-                        <tr>
-                            <th>
-                                Net
-                            </th>  
-                            <td>
-                                ${{ \App\Receipt::sum('amount') - (\App\Receipt::sum('product_cost') + \App\Receipt::sum('postage_cost')) }}
-                            </td>
-                        </tr>
-                    </table>    
                     
-                </div>
+                    <net-amount scope-api="/api/admin"></net-amount>
                 @endif
 
             </div>

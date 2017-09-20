@@ -246,4 +246,6 @@ class HomeController extends Controller
         return $finalNumber;
 
     }
+
+    
 }
