@@ -1,3 +1,5 @@
+import Paginate from 'vuejs-paginate'
+import Notifications from 'vue-notification'
 
 /**
  * First we will load all of this project's JavaScript dependencies which
@@ -6,7 +8,6 @@
  */
 
 require('./bootstrap');
-import Notifications from 'vue-notification'
 window.Vue = require('vue');
 Vue.use(Notifications);
 
@@ -24,6 +25,7 @@ const NetAmount = () =>  System.import('./components/global/NetAmount.vue');
 Vue.component('receipt-form', ReceiptForm);
 Vue.component('loader', require('vue-spinner/src/MoonLoader.vue'));
 Vue.component('alert', require('./components/global/Alert.vue'));
+Vue.component('paginate', Paginate)
 Vue.component('receipts', Receipts);
 Vue.component('receipts-bydate', ReceiptsByDate);
 Vue.component('net-amount', NetAmount);

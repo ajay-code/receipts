@@ -5,12 +5,18 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-require('./bootstrap');
-
+import Paginate from 'vuejs-paginate'
 import Notifications from 'vue-notification'
+
+/**
+ * First we will load all of this project's JavaScript dependencies which
+ * includes Vue and other libraries. It is a great starting point when
+ * building robust, powerful web applications using Vue and Laravel.
+ */
+
+require('./bootstrap');
 window.Vue = require('vue');
 Vue.use(Notifications);
-
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -24,6 +30,7 @@ const NetAmount = () =>  System.import('./components/global/NetAmount.vue');
 
 Vue.component('loader', require('vue-spinner/src/MoonLoader.vue'));
 Vue.component('alert', require('./components/global/Alert.vue'));
+Vue.component('paginate', Paginate)
 Vue.component('admin-receipts', AdminReceipts);
 Vue.component('admin-users', AdminUsers);
 Vue.component('admin-users-receipts', AdminUserReceipts);
