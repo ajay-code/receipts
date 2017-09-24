@@ -12,14 +12,18 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    {{-- <link rel="stylesheet" href="{{ asset("css/admin/custom-styles.css") }}">  --}}
     <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' lazyload="1"/>
 
+    <style type="text/css">
+        .container{
+            padding-top: 100px
+        }    
+    </style>
     @yield('links')
 
 </head>
 <body>
-     <div id="app">
+    <div id="app">
          @include('layouts.partials.nav-error')
          @yield('content')
     </div> 
