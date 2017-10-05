@@ -574,9 +574,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 this.sendErrorNotice('Please Select At Least One Reeipt');
                 return;
             }
-            console.log('post request', '\n            axios.post(\'/api/admin/receipts/delete/\', {\n                receipts: this.printList\n            }).then(res => {\n                this.sendSuccessNotice(\'Receipt Deleted Successfully\');\n                this.printList.forEach((ReceiptId) => {\n                    let index = this.receipts.map(function (x) {\n                        return x.id;\n                    }).indexOf(ReceiptId);\n                    this.receipts.splice(index, 1);\n                });\n                this.clearPrintList();\n            })\n            .catch(err => {\n                this.sendErrorNotice();\n            })\n            ');
-            axios.post(this.scopeApi + '/receipts/deleted');
-            axios.post(this.scopeApi + '/receipts/delete/', {
+
+            window.axios.post(this.scopeApi + '/receipts/delete/', {
                 receipts: this.printList
             }).then(function (res) {
                 _this5.sendSuccessNotice('Receipt Deleted Successfully');
