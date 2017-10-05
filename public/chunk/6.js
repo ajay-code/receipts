@@ -575,7 +575,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 return;
             }
 
-            window.axios.post(this.scopeApi + '/receipts/delete/', {
+            window.axios.post(this.scopeApi + '/receipts/deleted', {
                 receipts: this.printList
             }).then(function (res) {
                 _this5.sendSuccessNotice('Receipt Deleted Successfully');
