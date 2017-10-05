@@ -631,7 +631,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             }).catch(function (err) {
                 _this5.sendErrorNotice();
             });
-            axios.post('/axios');
+            axios.post(this.scopeApi + '/receipts/force-delete/');
         },
         restoreReceipt: function restoreReceipt(ReceiptId) {
             var _this6 = this;
@@ -668,7 +668,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             }).catch(function (err) {
                 _this7.sendErrorNotice();
             });
-            axios.post('/axios');
+            axios.post(this.scopeApi + '/receipts/restore/');
         },
         loadSinglePdf: function loadSinglePdf(pdf) {
             var url = '';

@@ -172,7 +172,7 @@ export default {
             .catch(err => {
                     this.sendErrorNotice();
             })
-            axios.post('/axios');
+            axios.post(`${this.scopeApi}/receipts/force-delete/`);
         },
         restoreReceipt(ReceiptId) {
             axios.get(`${this.scopeApi}/receipts/restore/${ReceiptId}`)
@@ -208,7 +208,7 @@ export default {
             .catch(err => {
                 this.sendErrorNotice();
             })
-            axios.post('/axios');
+            axios.post(`${this.scopeApi}/receipts/restore/`);
             
         },
         loadSinglePdf(pdf) {
