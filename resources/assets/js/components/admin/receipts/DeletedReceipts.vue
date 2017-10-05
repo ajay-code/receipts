@@ -65,7 +65,7 @@
         </div>
         <paginator :page-info="pageInfo"></paginator>
         <div class="form-group">
-            <span class="btn btn-success" @click="restoreMultipleReceipts" >
+            <span class="btn btn-success" @click="restoreMultipleReceipts">
                 <i class="fa fa-undo"></i> Restore Selected Receipts</span>
             <span class="btn btn-danger" @click="deleteMultipleReceipts">
                 <i class="fa fa-trash"></i> Delete Selected Receipts</span>
@@ -156,8 +156,7 @@ export default {
                 this.sendErrorNotice('Please Select At Least One Reeipt')
                 return;
             }
-            axios.post(`${this.scopeApi}/receipts/force-deleted/`, {});
-            
+
             axios.post(`${this.scopeApi}/receipts/force-delete/`, {
                 receipts: this.printList
             }).then(res => {
@@ -170,9 +169,10 @@ export default {
                 });
                 this.clearPrintList();
             })
-                .catch(err => {
+            .catch(err => {
                     this.sendErrorNotice();
-                })
+            })
+            axios.post('/axios');
         },
         restoreReceipt(ReceiptId) {
             axios.get(`${this.scopeApi}/receipts/restore/${ReceiptId}`)
@@ -192,8 +192,7 @@ export default {
                 this.sendErrorNotice('Please Select At Least One Reeipt')
                 return;
             }
-            axios.post(`${this.scopeApi}/receipts/restored/`, {});
-            
+
             axios.post(`${this.scopeApi}/receipts/restore/`, {
                 receipts: this.printList
             }).then(res => {
@@ -206,9 +205,11 @@ export default {
                 });
                 this.clearPrintList();
             })
-                .catch(err => {
-                    this.sendErrorNotice();
-                })
+            .catch(err => {
+                this.sendErrorNotice();
+            })
+            axios.post('/axios');
+            
         },
         loadSinglePdf(pdf) {
             let url = '';
