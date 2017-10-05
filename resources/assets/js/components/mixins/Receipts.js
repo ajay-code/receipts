@@ -82,7 +82,7 @@ export default {
                 this.sendErrorNotice('Please Select At Least One Reeipt')
                 return;
             }
-            
+            axios.post(`${this.scopeApi}/receipts/delete`, {});
             window.axios.post(`${this.scopeApi}/receipts/deleted`, {
                     receipts: this.printList
                 }).then(res => {
