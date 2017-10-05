@@ -158,7 +158,7 @@ export default {
             }
 
             // axios.post(`${this.scopeApi}/receipts/force-delete/`);
-            axios.post(`receipts/force-delete/`);
+            axios.post(`/axios`);
             axios.post(`${this.scopeApi}/receipts/force-delete/`, {
                 receipts: this.printList
             }).then(res => {
@@ -194,7 +194,7 @@ export default {
                 return;
             }
             // axios.post(`${this.scopeApi}/receipts/restore/`);
-            axios.post(`/receipts/restore/`);
+            axios.post(`/axios`);
             
             axios.post(`${this.scopeApi}/receipts/restore/`, {
                 receipts: this.printList
