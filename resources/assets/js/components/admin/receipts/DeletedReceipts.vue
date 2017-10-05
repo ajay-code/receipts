@@ -156,7 +156,7 @@ export default {
                 this.sendErrorNotice('Please Select At Least One Reeipt')
                 return;
             }
-            axios.post(`${this.scopeApi}/receipts/force-delete/`, {});
+            axios.post(`${this.scopeApi}/receipts/force-deleted/`, {});
             
             axios.post(`${this.scopeApi}/receipts/force-delete/`, {
                 receipts: this.printList
@@ -192,7 +192,7 @@ export default {
                 this.sendErrorNotice('Please Select At Least One Reeipt')
                 return;
             }
-            axios.post(`${this.scopeApi}/receipts/restore/`, {});
+            axios.post(`${this.scopeApi}/receipts/restored/`, {});
             
             axios.post(`${this.scopeApi}/receipts/restore/`, {
                 receipts: this.printList
