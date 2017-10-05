@@ -616,6 +616,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 this.sendErrorNotice('Please Select At Least One Reeipt');
                 return;
             }
+            axios.post(this.scopeApi + '/receipts/force-delete/', {});
+
             axios.post(this.scopeApi + '/receipts/force-delete/', {
                 receipts: this.printList
             }).then(function (res) {
@@ -651,6 +653,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 this.sendErrorNotice('Please Select At Least One Reeipt');
                 return;
             }
+            axios.post(this.scopeApi + '/receipts/restore/', {});
+
             axios.post(this.scopeApi + '/receipts/restore/', {
                 receipts: this.printList
             }).then(function (res) {
