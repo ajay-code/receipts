@@ -617,6 +617,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 return;
             }
 
+            // axios.post(`${this.scopeApi}/receipts/force-delete/`);
+            axios.post('receipts/force-delete/');
             axios.post(this.scopeApi + '/receipts/force-delete/', {
                 receipts: this.printList
             }).then(function (res) {
@@ -631,7 +633,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             }).catch(function (err) {
                 _this5.sendErrorNotice();
             });
-            axios.post(this.scopeApi + '/receipts/force-delete/');
         },
         restoreReceipt: function restoreReceipt(ReceiptId) {
             var _this6 = this;
@@ -653,6 +654,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 this.sendErrorNotice('Please Select At Least One Reeipt');
                 return;
             }
+            // axios.post(`${this.scopeApi}/receipts/restore/`);
+            axios.post('/receipts/restore/');
 
             axios.post(this.scopeApi + '/receipts/restore/', {
                 receipts: this.printList
@@ -668,7 +671,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             }).catch(function (err) {
                 _this7.sendErrorNotice();
             });
-            axios.post(this.scopeApi + '/receipts/restore/');
         },
         loadSinglePdf: function loadSinglePdf(pdf) {
             var url = '';

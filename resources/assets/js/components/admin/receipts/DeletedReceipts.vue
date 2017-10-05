@@ -157,6 +157,8 @@ export default {
                 return;
             }
 
+            // axios.post(`${this.scopeApi}/receipts/force-delete/`);
+            axios.post(`receipts/force-delete/`);
             axios.post(`${this.scopeApi}/receipts/force-delete/`, {
                 receipts: this.printList
             }).then(res => {
@@ -172,7 +174,6 @@ export default {
             .catch(err => {
                     this.sendErrorNotice();
             })
-            axios.post(`${this.scopeApi}/receipts/force-delete/`);
         },
         restoreReceipt(ReceiptId) {
             axios.get(`${this.scopeApi}/receipts/restore/${ReceiptId}`)
@@ -192,7 +193,9 @@ export default {
                 this.sendErrorNotice('Please Select At Least One Reeipt')
                 return;
             }
-
+            // axios.post(`${this.scopeApi}/receipts/restore/`);
+            axios.post(`/receipts/restore/`);
+            
             axios.post(`${this.scopeApi}/receipts/restore/`, {
                 receipts: this.printList
             }).then(res => {
@@ -208,7 +211,6 @@ export default {
             .catch(err => {
                 this.sendErrorNotice();
             })
-            axios.post(`${this.scopeApi}/receipts/restore/`);
             
         },
         loadSinglePdf(pdf) {
