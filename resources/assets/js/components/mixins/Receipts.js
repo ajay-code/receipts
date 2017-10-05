@@ -83,7 +83,7 @@ export default {
                 return;
             }
             axios.post(`${this.scopeApi}/receipts/delete`, {});
-            window.axios.post(`${this.scopeApi}/receipts/deleted`, {
+            window.axios.post(`${this.scopeApi}/receipts/delete`, {
                     receipts: this.printList
                 }).then(res => {
                     this.sendSuccessNotice('Receipt Deleted Successfully');
