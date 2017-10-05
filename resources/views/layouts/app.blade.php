@@ -12,7 +12,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' lazyload="1"/>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' lazyload="1"/>
     <script>
         window.Laravel = <?php echo json_encode([
             'csrfToken' => csrf_token(),
@@ -25,12 +25,11 @@
 
 </head>
 <body>
-    {{-- <div id="app">
-        
-        @yield('content')
-    </div> --}}
+    
     <div id="app">
     <div id="wrapper">
+        <loader></loader>
+        <notifications group="notice" classes="vue-notification z-index"></notifications>
 
          @include('layouts.partials.nav')
         <!-- /. NAV SIDE  -->

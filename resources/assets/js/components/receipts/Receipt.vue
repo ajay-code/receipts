@@ -19,7 +19,8 @@
             <td v-text="createdAt"></td>
             <td>
                 <span class="pointer" @click="edit"><i class="fa fa-edit" title="edit"></i> </span>
-                <span class="pointer" @click="print"> <i class="fa fa-print"  title="print"></i> </span>
+                <span class="pointer" @click="print"> <i class="fa fa-print text-primary"  title="print"></i> </span>
+                <span class="pointer" @click="deleteReceipt"> <i class="fa fa-trash-o text-danger"  title="print"></i> </span>
             </td>
         </tr>
 
@@ -29,7 +30,6 @@
 <script>
 import eventHub from '../../eventHub'
 import moment from 'moment';
-
 
     export default {
         data(){
@@ -52,9 +52,7 @@ import moment from 'moment';
                 eventHub.$on('clear-every-receipt', this.clearedFromPrintList);
                 eventHub.$on('select-all', this.selectAll);              
                 eventHub.$on('deselect-all', this.deselectAll);
-
         },
-        
         methods: {
             print(){
                 eventHub.$emit('print-single-receipt', this.receipt.id)
@@ -71,6 +69,10 @@ import moment from 'moment';
             },
             edit(){
                 eventHub.$emit('edit-receipt', this.receipt.id);
+            },
+            deleteReceipt(){
+                // alert('are you sure you want to delete ' + this.receipt.id);
+                eventHub.$emit('delete-receipt', this.receipt.id);
             },
             selectAll(){
                 this.addToPrintList = true;

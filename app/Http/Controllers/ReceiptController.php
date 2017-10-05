@@ -84,6 +84,19 @@ class ReceiptController extends Controller
         ];
     }
 
+    public function receipts_delete_api(Receipt $receipt){
+        if(auth()->user()->id !== $receipt->user_id){
+            throw new \Exception('Not Authorized'); 
+        }
+        $receipt->delete();
+        return 'success';
+    }
+
+    public function multiple_receipts_delete_api(Request $request){
+        Receipt::where('id', $request->receipts)->where('user_id', auth()->user()->id)->delete();
+        return 'success';
+    }
+
 	// Generate pdf for a multiple record to print
     public function print_multiple_receipts(Request $request){
     	$user = auth()->user();

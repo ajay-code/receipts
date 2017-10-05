@@ -13,6 +13,7 @@
             <div id="page-inner">
                 
                 <div class="row" >
+                    @if(auth()->user()->type != 'user')
                     <div class="col-md-3 col-sm-12 col-xs-12">
                         <div class="panel panel-primary text-center no-boder blue">
                             <div class="col-xs-12">
@@ -26,6 +27,7 @@
                             </div>
                         </div>
                     </div>
+                    @endif
                     <div class="col-md-3 col-sm-12 col-xs-12">
                         <div class="panel panel-primary text-center no-boder blue">
                             <div class="col-xs-12">

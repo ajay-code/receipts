@@ -26,15 +26,19 @@ const AdminReceipts = () =>  System.import('./components/admin/receipts/Receipts
 const AdminUsers = () =>  System.import('./components/admin/users/Users.vue');
 const AdminUserReceipts = () =>  System.import('./components/admin/receipts/UserReceipts.vue');
 const AdminReceiptsByDate = () =>  System.import('./components/admin/receipts/ReceiptsByDate.vue');
+const DeletedReceipts = () =>  System.import('./components/admin/receipts/DeletedReceipts.vue');
+const EditReceipt = () =>  System.import('./components/receipts/EditReceipt.vue');
 const NetAmount = () =>  System.import('./components/global/NetAmount.vue');
 
-Vue.component('loader', require('vue-spinner/src/MoonLoader.vue'));
+Vue.component('loader', require('./components/loader/Loader.vue'));
 Vue.component('alert', require('./components/global/Alert.vue'));
 Vue.component('paginate', Paginate)
 Vue.component('admin-receipts', AdminReceipts);
 Vue.component('admin-users', AdminUsers);
 Vue.component('admin-users-receipts', AdminUserReceipts);
 Vue.component('admin-receipts-bydate', AdminReceiptsByDate);
+Vue.component('deleted-receipts', DeletedReceipts);
+Vue.component('edit-receipt', EditReceipt);
 Vue.component('net-amount', NetAmount);
 
 

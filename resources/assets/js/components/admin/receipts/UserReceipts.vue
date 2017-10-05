@@ -1,7 +1,6 @@
 <template>
   <div>
     <div class="row">
-      <notifications group="notice" classes="vue-notification z-index" />
 
       <div class="col-xs-6">
         <form @submit.prevent="reloadFromFirstPage">

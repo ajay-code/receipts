@@ -26,6 +26,7 @@ Route::post('/receipts/csv', 'Admin\ReceiptController@csv_download')->name('rece
 
 // Getting and updating Receipts
 Route::get('receipts', 'Admin\ReceiptController@index')->name('receipts');
+Route::get('receipts/deleted', 'Admin\ReceiptController@deleted_receipts')->name('receipts.deleted');
 Route::post('receipts/{receipt}', 'Admin\ReceiptController@update')->name('receipts.update');
 
 // Get Receipts By Dates

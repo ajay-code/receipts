@@ -17,7 +17,7 @@
     <!-- Bootstrap Styles-->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <!-- Google Fonts-->
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+    <link href='//fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
     @yield('links')
 
     <script>
@@ -29,6 +29,9 @@
 
 <body>
     <div id="app">
+        <loader></loader>
+        <notifications group="notice" classes="vue-notification z-index"></notifications>
+
     <div id="wrapper">
 
         @include('admin.layout.partials.nav')

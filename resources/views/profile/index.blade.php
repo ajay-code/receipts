@@ -31,6 +31,10 @@
                         <td>{{ $user->email }}</td>
                     </tr>
                     <tr>
+                        <th>Type</th>
+                        <td>{{ $user->type }}</td>
+                    </tr>
+                    <tr>
                         <th>Total Receipts</th>
                         <td>{{ $user->receipts()->count() }}</td>
                     </tr>

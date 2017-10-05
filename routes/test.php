@@ -17,8 +17,7 @@ Route::get('/test', function(){
 	}
 })->name('test');
 Route::get('/test/2', function(){
-	$user = App\User::find(1)->load('manufacturer', 'wholesaler', 'retailer', 'retailers', 'wholesalers', 'users', 'references');
-	return $user;
+	return App::environmentPath();
 })->name('test.2');
 
 Route::get('/test/3', function(){

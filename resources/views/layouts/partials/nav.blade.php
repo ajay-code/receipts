@@ -59,11 +59,11 @@
             <li>
                 <a class="{{ \Request::is('receipts/date') ? 'active-menu':''}}" href="{{ url('/receipts/date') }}"><i class="fa fa-calendar"></i> Receipts By Date</a>
             </li>
-
-            <li>
-                <a class="{{ \Request::is('subusers') ? 'active-menu':''}}" href="{{ url('/subusers') }}"><i class="fa fa-users"></i>Users Under You </a>
-            </li>
-            
+            @if(auth()->user()->type !== 'user')
+                <li>
+                    <a class="{{ \Request::is('subusers') ? 'active-menu':''}}" href="{{ url('/subusers') }}"><i class="fa fa-users"></i>Users Under You </a>
+                </li>
+            @endif
             @if (auth()->user()->type !== 'user')
                 <li>
                     <a class="{{ \Request::is('references') ? 'active-menu':''}}" href="{{ url('/references') }}"><i class="fa fa-barcode"></i> References</a>

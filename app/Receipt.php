@@ -5,10 +5,11 @@ namespace App;
 use App\User;
 use Laravel\Scout\Searchable;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Receipt extends Model
 {
-    use Searchable;
+    use Searchable, SoftDeletes;
     /**
      * The attributes that are mass assignable.
      *
@@ -27,6 +28,8 @@ class Receipt extends Model
      */
     protected $hidden = [
     ];
+
+    protected $dates = ['deleted_at'];
 
     /**
      * Get the index name for the model.

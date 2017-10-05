@@ -20,7 +20,7 @@
             <td>
                 <span class="pointer" @click="edit"><i class="fa fa-edit" title="edit"></i> </span>
                 <span class="pointer" @click="print"> <i class="fa fa-print text-primary"  title="print"></i> </span>
-                <span class="pointer" @click="deleteReceipt"> <i class="fa fa-trash-o text-danger"  title="print"></i> </span>
+                <span class="pointer" @click="deleteReceipt"> <i class="fa fa-trash-o text-danger"  title="delete"></i> </span>
             </td>
         </tr>
 

@@ -59,6 +59,11 @@
             <li>
                 <a class="{{ \Request::is('admin/receipts/date') ? 'active-menu':''}}" href="{{ url('/admin/receipts/date') }}"><i class="fa fa-calendar"></i> Receipts By Date</a>
             </li>
+
+            <li>
+                <a class="{{ \Request::is('admin/receipts/deleted') ? 'active-menu':''}}" href="{{ url('/admin/receipts/deleted') }}"><i class="fa fa-trash"></i> Deleted Receipts</a>
+            </li>
+
         </ul>
 
     </div>

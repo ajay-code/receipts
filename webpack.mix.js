@@ -12,7 +12,7 @@ let mix = require('laravel-mix');
  */
 mix.webpackConfig({
     output: {
-        chunkFilename: 'chunk/[name].[chunkhash].js',
+        chunkFilename: 'chunk/[name].js',
         publicPath: '/'
     },
 });

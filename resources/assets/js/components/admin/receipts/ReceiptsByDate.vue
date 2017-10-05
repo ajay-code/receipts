@@ -1,7 +1,6 @@
 <template>
   <div>
     <div class="row">
-      <notifications group="notice" classes="vue-notification z-index" />
 
       <div class="col-sm-12">
         <form class="form-inline" @submit.prevent="reloadFromFirstPage">
@@ -77,9 +76,7 @@
     </div>
     <iframe id="print-frame" class="hide" name="frame" src="" frameborder="0" @load="loadingComplete"></iframe>
     <iframe id="csv-frame" class="hide" name="csv-frame" src="" frameborder="0"></iframe>
-    <div class="overlay" v-if="loading">
-      <loader color="#337ab7"></loader>
-    </div>
+   
 
     <div class="modal fade" id="edit-receipt" tabindex="-1" role="dialog">
       <div class="modal-dialog" role="document">

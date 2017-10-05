@@ -15,7 +15,7 @@
                 <!-- /. ROW  --> 
 
                 <div class="row" >
-            		<admin-receipts></admin-receipts> 
+            		<admin-receipts admin></admin-receipts> 
                 </div> 
 
             </div>

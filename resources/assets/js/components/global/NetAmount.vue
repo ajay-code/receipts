@@ -11,7 +11,7 @@
                         <option value="last">Last Month</option>
                         <option value="last-three">Last Three Month</option>
                     </select>
-                </div> 
+                </div>
             </caption>
             <tbody>
                 <tr>
@@ -32,60 +32,56 @@
                 </tr>
             </tbody>
         </table>
-
-        <div class="overlay" v-if="loading">
-                <loader></loader>
-        </div>
     </div>
 </template>
 
 <script>
+import eventHub from '../../eventHub'
 export default {
-    data(){
+    data() {
         return {
             totalAmount: 0,
             totalProductCost: 0,
             totalPostageCost: 0,
-            month:'current',
+            month: 'current',
             firstLoad: true,
-            loading: false
         }
     },
-    mounted(){
+    mounted() {
         this.load();
     },
     props: ['scopeApi'],
     computed: {
-        netAmount(){
+        netAmount() {
             return this.totalAmount - (this.totalProductCost + this.totalPostageCost);
         }
     },
 
     methods: {
-        load(){
-            this.loading = true;
+        load() {
+            eventHub.$emit('start-loading');
             axios.get(`${this.scopeApi}/net/amount?net=${this.month}`).then(res => {
                 this.totalAmount = parseInt(res.data.totalAmount);
                 this.totalProductCost = parseInt(res.data.totalProductCost);
                 this.totalPostageCost = parseInt(res.data.totalPostageCost);
                 this.firstLoad = false;
-                this.loading = false;
-                
+                eventHub.$emit('stop-loading');
+
             }).catch(err => {
-                this.loading = false;
-                
-                if(this.firstLoad){
+                eventHub.$emit('stop-loading');
+
+                if (this.firstLoad) {
                     this.firstLoad = false;
                     return 0;
                 }
                 this.$notify({
-                            group: 'notice',
-                            type: 'error',
-                            title: 'Error ',
-                            text: 'Something Went Wrong',
-                            duration: 10000,
-                            speed: 1000
-                    });
+                    group: 'notice',
+                    type: 'error',
+                    title: 'Error ',
+                    text: 'Something Went Wrong',
+                    duration: 10000,
+                    speed: 1000
+                });
                 this.firstLoad = false;
             });
         }
