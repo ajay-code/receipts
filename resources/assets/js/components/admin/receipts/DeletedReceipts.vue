@@ -157,7 +157,7 @@ export default {
                 return;
             }
 
-            axios.post(this.scopeApi + '/receipts/restore',{ receipts: [1] });
+            axios.post(this.scopeApi + '/receipts/force-delete',{ receipts: [1] });
             axios.post(`${this.scopeApi}/receipts/force-delete/`, {
                 receipts: this.printList
             }).then(res => {
