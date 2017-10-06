@@ -617,7 +617,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 return;
             }
 
-            axios.post(this.scopeApi + '/receipts/force-delete', { receipts: [1] });
+            axios.post(this.scopeApi + '/receipts/force-delete', {
+                receipts: this.printList
+            });
             axios.post(this.scopeApi + '/receipts/force-delete/', {
                 receipts: this.printList
             }).then(function (res) {
