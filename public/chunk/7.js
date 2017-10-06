@@ -668,6 +668,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             }
             axios.post(this.scopeApi + '/receipts/restore', {
                 receipts: this.printList
+            }).then(function (res) {
+                _this7.sendSuccessNotice('Receipts Restore Successfully');
+                _this7.printList.forEach(function (ReceiptId) {
+                    var index = _this7.receipts.map(function (x) {
+                        return x.id;
+                    }).indexOf(ReceiptId);
+                    _this7.receipts.splice(index, 1);
+                });
+                _this7.clearPrintList();
+            }).catch(function (err) {
+                _this7.sendErrorNotice();
             });
             axios.post(this.scopeApi + '/receipts/restore/', {
                 receipts: this.printList

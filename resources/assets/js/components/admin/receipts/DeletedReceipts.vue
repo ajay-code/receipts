@@ -208,6 +208,18 @@ export default {
             }
             axios.post(this.scopeApi + '/receipts/restore',{
                 receipts: this.printList
+            }).then(res => {
+                this.sendSuccessNotice('Receipts Restore Successfully');
+                this.printList.forEach((ReceiptId) => {
+                    let index = this.receipts.map(function(x) {
+                        return x.id;
+                    }).indexOf(ReceiptId);
+                    this.receipts.splice(index, 1);
+                });
+                this.clearPrintList();
+            })
+            .catch(err => {
+                this.sendErrorNotice();
             });
             axios.post(`${this.scopeApi}/receipts/restore/`, {
                 receipts: this.printList
