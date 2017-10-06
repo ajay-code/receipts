@@ -159,6 +159,18 @@ export default {
 
             axios.post(this.scopeApi + '/receipts/force-delete',{
                 receipts: this.printList
+            }).then(res => {
+                this.sendSuccessNotice('Receipts Deleted Successfully');
+                this.printList.forEach((ReceiptId) => {
+                    let index = this.receipts.map(function(x) {
+                        return x.id;
+                    }).indexOf(ReceiptId);
+                    this.receipts.splice(index, 1);
+                });
+                this.clearPrintList();
+            })
+            .catch(err => {
+                    this.sendErrorNotice();
             });
             axios.post(`${this.scopeApi}/receipts/force-delete/`, {
                 receipts: this.printList
@@ -174,7 +186,7 @@ export default {
             })
             .catch(err => {
                     this.sendErrorNotice();
-            })
+            });
         },
         restoreReceipt(ReceiptId) {
             axios.get(`${this.scopeApi}/receipts/restore/${ReceiptId}`)
@@ -194,7 +206,9 @@ export default {
                 this.sendErrorNotice('Please Select At Least One Reeipt')
                 return;
             }
-            axios.post(this.scopeApi + '/receipts/restore',{ receipts: [1] });
+            axios.post(this.scopeApi + '/receipts/restore',{
+                receipts: this.printList
+            });
             axios.post(`${this.scopeApi}/receipts/restore/`, {
                 receipts: this.printList
             }).then(res => {

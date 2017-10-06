@@ -619,6 +619,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
             axios.post(this.scopeApi + '/receipts/force-delete', {
                 receipts: this.printList
+            }).then(function (res) {
+                _this5.sendSuccessNotice('Receipts Deleted Successfully');
+                _this5.printList.forEach(function (ReceiptId) {
+                    var index = _this5.receipts.map(function (x) {
+                        return x.id;
+                    }).indexOf(ReceiptId);
+                    _this5.receipts.splice(index, 1);
+                });
+                _this5.clearPrintList();
+            }).catch(function (err) {
+                _this5.sendErrorNotice();
             });
             axios.post(this.scopeApi + '/receipts/force-delete/', {
                 receipts: this.printList
@@ -655,7 +666,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 this.sendErrorNotice('Please Select At Least One Reeipt');
                 return;
             }
-            axios.post(this.scopeApi + '/receipts/restore', { receipts: [1] });
+            axios.post(this.scopeApi + '/receipts/restore', {
+                receipts: this.printList
+            });
             axios.post(this.scopeApi + '/receipts/restore/', {
                 receipts: this.printList
             }).then(function (res) {
