@@ -157,8 +157,7 @@ export default {
                 return;
             }
 
-            // axios.post(`${this.scopeApi}/receipts/force-delete/`);
-            axios.post(`/axios`);
+            axios.get(`${this.scopeApi}/receipts/force-delete/`);
             axios.post(`${this.scopeApi}/receipts/force-delete/`, {
                 receipts: this.printList
             }).then(res => {
@@ -193,9 +192,7 @@ export default {
                 this.sendErrorNotice('Please Select At Least One Reeipt')
                 return;
             }
-            // axios.post(`${this.scopeApi}/receipts/restore/`);
-            axios.post(`/axios`);
-            
+            axios.get(`${this.scopeApi}/receipts/restore/`);
             axios.post(`${this.scopeApi}/receipts/restore/`, {
                 receipts: this.printList
             }).then(res => {
