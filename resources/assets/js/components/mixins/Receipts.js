@@ -224,11 +224,11 @@ export default {
         selectAll() {
             if (this.selectAllReceipts) {
                 for(let receipt in this.receipts){
-                    eventHub.$emit(`select-${receipt.id}`);
+                    eventHub.$emit(`select-${this.receipts[receipt].id}`);
                 }
             } else {
                 for(let receipt in this.receipts){
-                    eventHub.$emit(`deselect-${receipt.id}`);
+                    eventHub.$emit(`deselect-${this.receipts[receipt].id}`);
                 }
             }
         },

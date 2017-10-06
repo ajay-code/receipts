@@ -713,11 +713,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }), _defineProperty(_methods, 'selectAll', function selectAll() {
         if (this.selectAllReceipts) {
             for (var receipt in this.receipts) {
-                __WEBPACK_IMPORTED_MODULE_1__eventHub___default.a.$emit('select-' + receipt.id);
+                __WEBPACK_IMPORTED_MODULE_1__eventHub___default.a.$emit('select-' + this.receipts[receipt].id);
             }
         } else {
             for (var _receipt in this.receipts) {
-                __WEBPACK_IMPORTED_MODULE_1__eventHub___default.a.$emit('deselect-' + _receipt.id);
+                __WEBPACK_IMPORTED_MODULE_1__eventHub___default.a.$emit('deselect-' + this.receipts[_receipt].id);
             }
         }
     }), _defineProperty(_methods, 'sendErrorNotice', function sendErrorNotice(message) {
@@ -894,8 +894,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     mounted: function mounted() {
         this.localReceipt = this.receipt;
         __WEBPACK_IMPORTED_MODULE_0__eventHub___default.a.$on('clear-every-receipt', this.clearedFromPrintList);
-        __WEBPACK_IMPORTED_MODULE_0__eventHub___default.a.$on('select-' + this.id, this.selectAll);
-        __WEBPACK_IMPORTED_MODULE_0__eventHub___default.a.$on('deselect-' + this.id, this.deselectAll);
+        __WEBPACK_IMPORTED_MODULE_0__eventHub___default.a.$on('select-' + this.receipt.id, this.selectAll);
+        __WEBPACK_IMPORTED_MODULE_0__eventHub___default.a.$on('deselect-' + this.receipt.id, this.deselectAll);
     },
 
     methods: {
