@@ -238,14 +238,6 @@ export default {
             this.pageInfo.next_page_url = info.next_page_url;
             this.pageInfo.prev_page_url = info.prev_page_url;
         },
-        reload(page) {
-            axios.get(`${this.scopeApi}/receipts?search=${this.search}&records=${this.records}&page=${page}`).then(res => {
-                this.receipts = res.data.data;
-                this.updatePageInfo(res.data);
-            }).catch(err => {
-                this.sendErrorNotice();
-            })
-        },
 
         clearPrintList() {
             eventHub.$emit('clear-every-receipt');

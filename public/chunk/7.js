@@ -445,10 +445,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__eventHub___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__eventHub__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__empty_PageInfo__ = __webpack_require__(199);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__empty_PageInfo___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__empty_PageInfo__);
-var _methods;
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 //
 //
 //
@@ -565,7 +561,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
 
 
-    methods: (_methods = {
+    methods: {
         loadReceipts: function loadReceipts() {
             var _this = this;
 
@@ -692,62 +688,58 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             this.pageInfo.total = info.total;
             this.pageInfo.next_page_url = info.next_page_url;
             this.pageInfo.prev_page_url = info.prev_page_url;
-        }
-    }, _defineProperty(_methods, 'reload', function reload(page) {
-        var _this8 = this;
-
-        axios.get(this.scopeApi + '/receipts?search=' + this.search + '&records=' + this.records + '&page=' + page).then(function (res) {
-            _this8.receipts = res.data.data;
-            _this8.updatePageInfo(res.data);
-        }).catch(function (err) {
-            _this8.sendErrorNotice();
-        });
-    }), _defineProperty(_methods, 'clearPrintList', function clearPrintList() {
-        __WEBPACK_IMPORTED_MODULE_1__eventHub___default.a.$emit('clear-every-receipt');
-        this.printList = [];
-    }), _defineProperty(_methods, 'downloadCsv', function downloadCsv() {
-        if (this.printList.length) {
-            __WEBPACK_IMPORTED_MODULE_1__eventHub___default.a.$emit('start-loading');
-            var inputs = '';
-            this.printList.forEach(function (element) {
-                inputs += '<input name="receipts[]" value="' + element + '">';
-            }, this);
-            jQuery('<form action="' + this.scope + '/receipts/csv" method="post" target="csv-frame">\n                      <input name="_token" value="' + Laravel.csrfToken + '">\n                     ' + inputs + '\n                  </form>').appendTo('body').submit().remove();
-            __WEBPACK_IMPORTED_MODULE_1__eventHub___default.a.$emit('stop-loading');
-        } else {
-            alert('please select atleast on receipt');
-        }
-    }), _defineProperty(_methods, 'selectAll', function selectAll() {
-        if (this.selectAllReceipts) {
-            for (var receipt in this.receipts) {
-                __WEBPACK_IMPORTED_MODULE_1__eventHub___default.a.$emit('select-' + receipt.id);
+        },
+        clearPrintList: function clearPrintList() {
+            __WEBPACK_IMPORTED_MODULE_1__eventHub___default.a.$emit('clear-every-receipt');
+            this.printList = [];
+        },
+        downloadCsv: function downloadCsv() {
+            if (this.printList.length) {
+                __WEBPACK_IMPORTED_MODULE_1__eventHub___default.a.$emit('start-loading');
+                var inputs = '';
+                this.printList.forEach(function (element) {
+                    inputs += '<input name="receipts[]" value="' + element + '">';
+                }, this);
+                jQuery('<form action="' + this.scope + '/receipts/csv" method="post" target="csv-frame">\n                      <input name="_token" value="' + Laravel.csrfToken + '">\n                     ' + inputs + '\n                  </form>').appendTo('body').submit().remove();
+                __WEBPACK_IMPORTED_MODULE_1__eventHub___default.a.$emit('stop-loading');
+            } else {
+                alert('please select atleast on receipt');
             }
-        } else {
-            for (var _receipt in this.receipts) {
-                __WEBPACK_IMPORTED_MODULE_1__eventHub___default.a.$emit('deselect-' + _receipt.id);
+        },
+        selectAll: function selectAll() {
+            if (this.selectAllReceipts) {
+                for (var receipt in this.receipts) {
+                    __WEBPACK_IMPORTED_MODULE_1__eventHub___default.a.$emit('select-' + receipt.id);
+                }
+            } else {
+                for (var _receipt in this.receipts) {
+                    __WEBPACK_IMPORTED_MODULE_1__eventHub___default.a.$emit('deselect-' + _receipt.id);
+                }
             }
+        },
+        sendErrorNotice: function sendErrorNotice(message) {
+            message = message || 'Something Went Wrong';
+            this.$notify({
+                group: 'notice',
+                type: 'error',
+                title: 'Error ',
+                text: message,
+                duration: 5000,
+                speed: 1000
+            });
+        },
+        sendSuccessNotice: function sendSuccessNotice(message) {
+            message = message || 'Action Was Persormed Successfully';
+            this.$notify({
+                group: 'notice',
+                type: 'success',
+                title: 'Success ',
+                text: message,
+                duration: 5000,
+                speed: 1000
+            });
         }
-    }), _defineProperty(_methods, 'sendErrorNotice', function sendErrorNotice(message) {
-        message = message || 'Something Went Wrong';
-        this.$notify({
-            group: 'notice',
-            type: 'error',
-            title: 'Error ',
-            text: message,
-            duration: 5000,
-            speed: 1000
-        });
-    }), _defineProperty(_methods, 'sendSuccessNotice', function sendSuccessNotice(message) {
-        message = message || 'Action Was Persormed Successfully';
-        this.$notify({
-            group: 'notice',
-            type: 'success',
-            title: 'Success ',
-            text: message,
-            duration: 5000,
-            speed: 1000
-        });
-    }), _methods)
+    }
 });
 
 /***/ }),
