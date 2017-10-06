@@ -50,8 +50,8 @@ import moment from 'moment';
         mounted() {
                 this.localReceipt = this.receipt
                 eventHub.$on('clear-every-receipt', this.clearedFromPrintList);
-                eventHub.$on('select-all', this.selectAll);              
-                eventHub.$on('deselect-all', this.deselectAll);
+                eventHub.$on(`select-${this.id}`, this.selectAll);              
+                eventHub.$on(`deselect-${this.id}`, this.deselectAll);
         },
         methods: {
             print(){

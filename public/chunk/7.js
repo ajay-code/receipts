@@ -678,7 +678,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             $('#print-frame').attr('src', url);
         },
         addToPrintList: function addToPrintList(receiptId) {
-            this.printList.push(receiptId);
+            if (this.printList.indexOf(receiptId) === -1) {
+                this.printList.push(receiptId);
+            }
         },
         removeFromPrintList: function removeFromPrintList(receiptId) {
             var index = this.printList.indexOf(receiptId);
@@ -717,9 +719,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }
     }), _defineProperty(_methods, 'selectAll', function selectAll() {
         if (this.selectAllReceipts) {
-            __WEBPACK_IMPORTED_MODULE_1__eventHub___default.a.$emit('select-all');
+            for (var receipt in this.receipts) {
+                __WEBPACK_IMPORTED_MODULE_1__eventHub___default.a.$emit('select-' + receipt.id);
+            }
         } else {
-            __WEBPACK_IMPORTED_MODULE_1__eventHub___default.a.$emit('deselect-all');
+            for (var _receipt in this.receipts) {
+                __WEBPACK_IMPORTED_MODULE_1__eventHub___default.a.$emit('deselect-' + _receipt.id);
+            }
         }
     }), _defineProperty(_methods, 'sendErrorNotice', function sendErrorNotice(message) {
         message = message || 'Something Went Wrong';
@@ -894,8 +900,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     mounted: function mounted() {
         this.localReceipt = this.receipt;
         __WEBPACK_IMPORTED_MODULE_0__eventHub___default.a.$on('clear-every-receipt', this.clearedFromPrintList);
-        __WEBPACK_IMPORTED_MODULE_0__eventHub___default.a.$on('select-all', this.selectAll);
-        __WEBPACK_IMPORTED_MODULE_0__eventHub___default.a.$on('deselect-all', this.deselectAll);
+        __WEBPACK_IMPORTED_MODULE_0__eventHub___default.a.$on('select-' + this.id, this.selectAll);
+        __WEBPACK_IMPORTED_MODULE_0__eventHub___default.a.$on('deselect-' + this.id, this.deselectAll);
     },
 
     methods: {

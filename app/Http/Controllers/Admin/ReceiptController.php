@@ -280,8 +280,8 @@ class ReceiptController extends Controller
 
     public function multiple_receipts_force_delete_api(Request $request)
     {
-        Receipt::whereIn('id', $request->receipts)->forceDelete();
-        return 'success';
+        $count = Receipt::onlyTrashed()->whereIn('id', $request->receipts)->forceDelete();
+        return 'success ' . $count  ;
     }
 
     // Restore Delete Receipts
@@ -294,7 +294,7 @@ class ReceiptController extends Controller
 
     public function multiple_receipts_restore_api(Request $request)
     {
-        Receipt::whereIn('id', $request->receipts)->restore();
-        return 'success';
+        $count = Receipt::onlyTrashed()->whereIn('id', $request->receipts)->restore();
+        return 'success ' . $count  ;
     }
 }

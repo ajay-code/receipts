@@ -130,7 +130,9 @@ export default {
             alert('Loading Failed')
         },
         addToPrintList(receiptId) {
-            this.printList.push(receiptId);
+            if( this.printList.indexOf(receiptId) === -1){
+                this.printList.push(receiptId);
+            }
         },
         removeFromPrintList(receiptId) {
             var index = this.printList.indexOf(receiptId);
@@ -220,11 +222,14 @@ export default {
             }
         },
         selectAll() {
-            console.log(this.selectAllReceipts);
             if (this.selectAllReceipts) {
-                eventHub.$emit('select-all');
+                for(let receipt in this.receipts){
+                    eventHub.$emit(`select-${receipt.id}`);
+                }
             } else {
-                eventHub.$emit('deselect-all');
+                for(let receipt in this.receipts){
+                    eventHub.$emit(`deselect-${receipt.id}`);
+                }
             }
         },
         sendErrorNotice(message) {
