@@ -83,149 +83,8 @@
             <loader color="#337ab7"></loader>
         </div>
 
-        <div class="modal fade" id="edit-receipt" tabindex="-1" role="dialog">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                        <h4 class="modal-title">Edit Receipt</h4>
-                    </div>
-                    <div class="modal-body">
-                        <form action="" class="form-horizontal">
-                            <h3>Sender Info</h3>
-                            <div class="">
-                                <div class="">
-                                    <div class="col-xs-12">
-                                        <div class="form-group">
-                                            <label for="sender-id">Sender ID</label>
-                                            <input id="sender-id" v-model="edit.sender_id" class="form-control" placeholder="Sender ID (Optional)"></textarea>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xs-6">
-                                    <div class="form-group">
-                                        <label for="sender-name">Sender Name</label>
-                                        <input type="text" id="sender-name" v-model="edit.sender_name" class="form-control" placeholder="Sender Name">
-                                    </div>
-                                </div>
-                                <div class="col-xs-6">
-                                    <div class="form-group">
-                                        <label for="sender-email">Sender Email</label>
-                                        <input type="text" id="sender-email" v-model="edit.sender_email" class="form-control" placeholder="Sender Email">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="">
-                                <div class="col-xs-6">
-                                    <div class="form-group">
-                                        <label for="sender-phone">Sender Phone</label>
-                                        <input type="text" id="sender-phone" v-model="edit.sender_phone" class="form-control" placeholder="Sender PhoneNumber">
-                                    </div>
-                                </div>
-                                <div class="col-xs-6">
-                                    <div class="form-group">
-                                        <label for="sender-postcode">Sender Postcode</label>
-                                        <input type="text" id="sender-postcode" v-model="edit.sender_postcode" class="form-control" placeholder="Sender Postcode">
-                                    </div>
-                                </div>
-                            </div>
+        <edit-receipt @update="updateReceipt"></edit-receipt>
 
-                            <div class="">
-                                <div class="col-xs-12">
-                                    <div class="form-group">
-                                        <label for="sender-address">Sender Address</label>
-                                        <textarea id="sender-address" v-model="edit.sender_address" class="form-control" placeholder="Sender Name"></textarea>
-                                    </div>
-                                </div>
-                            </div>
-                            <br>
-                            <h3>Receiver Info</h3>
-                            <div class="">
-                                <div class="col-xs-6">
-                                    <div class="form-group">
-                                        <label for="receiver-name">Receiver Name</label>
-                                        <input type="text" id="receiver-name" v-model="edit.receiver_name" class="form-control" placeholder="receiver Name">
-                                    </div>
-                                </div>
-                                <div class="col-xs-6">
-                                    <div class="form-group">
-                                        <label for="receiver-email">Receiver Email</label>
-                                        <input type="text" id="receiver-email" v-model="edit.receiver_email" class="form-control" placeholder="receiver Email">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="">
-                                <div class="col-xs-6">
-                                    <div class="form-group">
-                                        <label for="receiver-phone">Receiver Phone</label>
-                                        <input type="text" id="receiver-phone" v-model="edit.receiver_phone" class="form-control" placeholder="receiver PhoneNumber">
-                                    </div>
-                                </div>
-                                <div class="col-xs-6">
-                                    <div class="form-group">
-                                        <label for="receiver-postcode">Receiver Postcode</label>
-                                        <input type="text" id="receiver-postcode" v-model="edit.receiver_postcode" class="form-control" placeholder="receiver Postcode">
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="">
-                                <div class="col-xs-12">
-                                    <div class="form-group">
-                                        <label for="receiver-address">Receiver Address</label>
-                                        <textarea id="receiver-address" v-model="edit.receiver_address" class="form-control" placeholder="Sender Name"></textarea>
-                                    </div>
-                                </div>
-
-                                <div class="col-xs-12">
-                                    <div class="form-group">
-                                        <label for="receiver-product">Item</label>
-                                        <input id="receiver-product" v-model="edit.receiver_product" class="form-control" placeholder="Item">
-                                    </div>
-                                </div>
-
-                                <div class="col-xs-12">
-                                    <div class="form-group">
-                                        <label for="amount">Amount</label>
-                                        <input id="amount" v-model="edit.amount" class="form-control" placeholder="Amount">
-                                    </div>
-                                </div>
-
-                                <div>
-                                    <div class="col-xs-6">
-                                        <div class="form-group">
-                                            <label for="product_cost">Product Cost</label>
-                                            <input id="product_cost" v-model="edit.product_cost" class="form-control" placeholder="Product Cost">
-                                        </div>
-                                    </div>
-                                    <div class="col-xs-6">
-                                        <div class="form-group">
-                                            <label for="postage_cost">Postage Cost</label>
-                                            <input id="postage_cost" v-model="edit.postage_cost" class="form-control" placeholder="Postage Cost">
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-xs-12">
-                                    <div class="form-group">
-                                        <label for="tracking">Tracking</label>
-                                        <input id="tracking" v-model="edit.tracking" class="form-control" placeholder="Tracking">
-                                    </div>
-                                </div>
-
-                            </div>
-                        </form>
-
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary" @click="update">Save changes</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
 
     </div>
 </template>
@@ -263,15 +122,7 @@ export default {
         paginator: require('../Paginator.vue')
 
     },
-    mounted() {
-        this.loadReceipts();
-        eventHub.$on('print-single-receipt', this.printSingleReceipt)
-        eventHub.$on('add-to-print-list', this.addToPrintList)
-        eventHub.$on('remove-from-print-list', this.removeFromPrintList)
-        eventHub.$on('load-page', this.reload);
-        eventHub.$on('edit-receipt', this.editReceipt);
-        eventHub.$on('delete-receipt', this.deleteReceipt);
-    },
+   
     methods: {
         loadReceipts() {
             axios.get(`${this.scopeApi}/receipts/date?from=${this.from}&to=${this.to}&records=${this.records}`).then(res => {
@@ -290,10 +141,6 @@ export default {
                     speed: 1000
                 });
             })
-        },
-
-        indexPage() {
-            window.location.href = '/';
         },
 
         reload(page) {

@@ -1,14 +1,14 @@
 webpackJsonp([3],{
 
-/***/ 195:
+/***/ 188:
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var Component = __webpack_require__(5)(
   /* script */
-  __webpack_require__(240),
+  __webpack_require__(212),
   /* template */
-  __webpack_require__(241),
+  __webpack_require__(218),
   /* styles */
   null,
   /* scopeId */
@@ -16,9 +16,9 @@ var Component = __webpack_require__(5)(
   /* moduleIdentifier (server only) */
   null
 )
-Component.options.__file = "/Users/ajaysingh/code/laravel/app/resources/assets/js/components/receipts/Receipts.vue"
+Component.options.__file = "/Users/ajaysingh/code/laravel/app/resources/assets/js/components/admin/receipts/DeletedReceipts.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] Receipts.vue: functional components are not supported with templates, they should use render functions.")}
+if (Component.options.functional) {console.error("[vue-loader] DeletedReceipts.vue: functional components are not supported with templates, they should use render functions.")}
 
 /* hot reload */
 if (false) {(function () {
@@ -27,9 +27,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-84322954", Component.options)
+    hotAPI.createRecord("data-v-504a46ae", Component.options)
   } else {
-    hotAPI.reload("data-v-84322954", Component.options)
+    hotAPI.reload("data-v-504a46ae", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -41,11 +41,11 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 197:
+/***/ 193:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Errors__ = __webpack_require__(198);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Errors__ = __webpack_require__(194);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -206,7 +206,7 @@ var Form = function () {
 
 /***/ }),
 
-/***/ 198:
+/***/ 194:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -299,7 +299,7 @@ var Errors = function () {
 
 /***/ }),
 
-/***/ 199:
+/***/ 195:
 /***/ (function(module, exports) {
 
 module.exports = {
@@ -313,45 +313,15 @@ module.exports = {
 
 /***/ }),
 
-/***/ 200:
-/***/ (function(module, exports) {
-
-var _module$exports;
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-module.exports = (_module$exports = {
-	created_at: "",
-	id: '',
-	receiver_address: "",
-	receiver_email: "",
-	receiver_name: "",
-	receiver_phone: "",
-	receiver_postcode: "",
-	receiver_product: "",
-	sender_address: "",
-	amount: "",
-	product_cost: "",
-	postage_cost: "",
-	sender_id: "",
-	sender_email: "",
-	sender_name: "",
-	sender_phone: "",
-	sender_postcode: "",
-	tracking: ""
-}, _defineProperty(_module$exports, "receiver_product", ""), _defineProperty(_module$exports, "updated_at", ""), _defineProperty(_module$exports, "user_id", ''), _module$exports);
-
-/***/ }),
-
-/***/ 201:
+/***/ 197:
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var Component = __webpack_require__(5)(
   /* script */
-  __webpack_require__(202),
+  __webpack_require__(198),
   /* template */
-  __webpack_require__(203),
+  __webpack_require__(199),
   /* styles */
   null,
   /* scopeId */
@@ -384,12 +354,12 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 202:
+/***/ 198:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__eventHub__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__eventHub__ = __webpack_require__(9);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__eventHub___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__eventHub__);
 //
 //
@@ -441,7 +411,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 
-/***/ 203:
+/***/ 199:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -465,26 +435,101 @@ if (false) {
 
 /***/ }),
 
-/***/ 204:
+/***/ 212:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Form_Form__ = __webpack_require__(197);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__eventHub__ = __webpack_require__(7);
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Form_Form__ = __webpack_require__(193);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__eventHub__ = __webpack_require__(9);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__eventHub___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__eventHub__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__empty_Receipt__ = __webpack_require__(200);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__empty_Receipt___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__empty_Receipt__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__empty_PageInfo__ = __webpack_require__(199);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__empty_PageInfo___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__empty_PageInfo__);
-var _methods;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__empty_PageInfo__ = __webpack_require__(195);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__empty_PageInfo___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__empty_PageInfo__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 
 
 
-
-/* harmony default export */ __webpack_exports__["a"] = ({
+/* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
             receipts: [],
@@ -494,40 +539,33 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             search: '',
             order: 'latest',
             records: 100,
-            pageInfo: __WEBPACK_IMPORTED_MODULE_3__empty_PageInfo___default.a,
-            edit: new __WEBPACK_IMPORTED_MODULE_0__Form_Form__["a" /* default */](__WEBPACK_IMPORTED_MODULE_2__empty_Receipt___default.a),
-            editIndex: '',
-            scope: '',
-            scopeApi: '/api'
+            pageInfo: __WEBPACK_IMPORTED_MODULE_2__empty_PageInfo___default.a,
+            scope: '/admin',
+            scopeApi: '/api/admin'
         };
     },
 
-    props: {
-        admin: {
-            type: Boolean
-        }
+    components: {
+        receipt: __webpack_require__(213),
+        paginator: __webpack_require__(197)
     },
-    created: function created() {
-        if (this.admin) {
-            this.scope = '/admin';
-            this.scopeApi = '/api/admin';
-        }
-    },
+
     mounted: function mounted() {
         this.loadReceipts();
         __WEBPACK_IMPORTED_MODULE_1__eventHub___default.a.$on('print-single-receipt', this.printSingleReceipt);
         __WEBPACK_IMPORTED_MODULE_1__eventHub___default.a.$on('add-to-print-list', this.addToPrintList);
         __WEBPACK_IMPORTED_MODULE_1__eventHub___default.a.$on('remove-from-print-list', this.removeFromPrintList);
         __WEBPACK_IMPORTED_MODULE_1__eventHub___default.a.$on('load-page', this.reload);
-        __WEBPACK_IMPORTED_MODULE_1__eventHub___default.a.$on('edit-receipt', this.editReceipt);
         __WEBPACK_IMPORTED_MODULE_1__eventHub___default.a.$on('delete-receipt', this.deleteReceipt);
+        __WEBPACK_IMPORTED_MODULE_1__eventHub___default.a.$on('restore-receipt', this.restoreReceipt);
     },
 
-    methods: (_methods = {
+
+    methods: {
         loadReceipts: function loadReceipts() {
             var _this = this;
 
-            axios.get(this.scopeApi + '/receipts').then(function (res) {
+            axios.get(this.scopeApi + '/receipts/deleted').then(function (res) {
                 _this.receipts = res.data.data;
                 _this.updatePageInfo(res.data);
             }).catch(function (err) {
@@ -537,7 +575,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         reload: function reload(page) {
             var _this2 = this;
 
-            axios.get(this.scopeApi + '/receipts?search=' + this.search + '&records=' + this.records + '&page=' + page).then(function (res) {
+            axios.get(this.scopeApi + '/receipts/deleted?search=' + this.search + '&records=' + this.records + '&page=' + page).then(function (res) {
                 _this2.receipts = res.data.data;
                 _this2.updatePageInfo(res.data);
             }).catch(function (err) {
@@ -547,7 +585,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         reloadFromFirstPage: function reloadFromFirstPage() {
             var _this3 = this;
 
-            axios.get(this.scopeApi + '/receipts?search=' + this.search + '&records=' + this.records).then(function (res) {
+            axios.get(this.scopeApi + '/receipts/deleted?search=' + this.search + '&records=' + this.records).then(function (res) {
                 _this3.receipts = res.data.data;
                 _this3.updatePageInfo(res.data);
             }).catch(function (err) {
@@ -557,7 +595,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         deleteReceipt: function deleteReceipt(ReceiptId) {
             var _this4 = this;
 
-            axios.get(this.scopeApi + '/receipts/delete/' + ReceiptId).then(function (res) {
+            axios.get(this.scopeApi + '/receipts/force-delete/' + ReceiptId).then(function (res) {
                 _this4.sendSuccessNotice('Receipt Deleted Successfully');
                 var index = _this4.receipts.map(function (x) {
                     return x.id;
@@ -574,10 +612,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 this.sendErrorNotice('Please Select At Least One Reeipt');
                 return;
             }
-            window.axios.post(this.scopeApi + '/receipts/delete', {
+
+            axios.post(this.scopeApi + '/receipts/force-delete', {
                 receipts: this.printList
             }).then(function (res) {
-                _this5.sendSuccessNotice('Receipt Deleted Successfully');
+                _this5.sendSuccessNotice('Receipts Deleted Successfully');
                 _this5.printList.forEach(function (ReceiptId) {
                     var index = _this5.receipts.map(function (x) {
                         return x.id;
@@ -589,12 +628,39 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 _this5.sendErrorNotice();
             });
         },
-        printSingleReceipt: function printSingleReceipt(receiptId) {
+        restoreReceipt: function restoreReceipt(ReceiptId) {
             var _this6 = this;
 
-            __WEBPACK_IMPORTED_MODULE_1__eventHub___default.a.$emit('start-loading');
-            axios.get(this.scope + '/receipts/print/' + receiptId).then(function (res) {
-                _this6.loadSinglePdf(res.data.pdfName);
+            axios.get(this.scopeApi + '/receipts/restore/' + ReceiptId).then(function (res) {
+                _this6.sendSuccessNotice('Receipt restored Successfully');
+                var index = _this6.receipts.map(function (x) {
+                    return x.id;
+                }).indexOf(ReceiptId);
+                _this6.receipts.splice(index, 1);
+            }).catch(function (err) {
+                _this6.sendErrorNotice();
+            });
+        },
+        restoreMultipleReceipts: function restoreMultipleReceipts() {
+            var _this7 = this;
+
+            if (!this.printList.length) {
+                this.sendErrorNotice('Please Select At Least One Reeipt');
+                return;
+            }
+            axios.post(this.scopeApi + '/receipts/restore', {
+                receipts: this.printList
+            }).then(function (res) {
+                _this7.sendSuccessNotice('Receipts Restore Successfully');
+                _this7.printList.forEach(function (ReceiptId) {
+                    var index = _this7.receipts.map(function (x) {
+                        return x.id;
+                    }).indexOf(ReceiptId);
+                    _this7.receipts.splice(index, 1);
+                });
+                _this7.clearPrintList();
+            }).catch(function (err) {
+                _this7.sendErrorNotice();
             });
         },
         loadSinglePdf: function loadSinglePdf(pdf) {
@@ -607,21 +673,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             }
             $('#print-frame').attr('src', url);
         },
-        loadingComplete: function loadingComplete() {
-            if (!window.isMobile()) {
-                __WEBPACK_IMPORTED_MODULE_1__eventHub___default.a.$emit('stop-loading');
-                if (this.loadCount !== 0) {
-                    console.log(this.loadCount);
-                    window.frames['frame'].print();
-                    this.loadCount++;
-                }
-                this.loadCount++;
-            }
-        },
-        loadingFail: function loadingFail() {
-            __WEBPACK_IMPORTED_MODULE_1__eventHub___default.a.$emit('stop-loading');
-            alert('Loading Failed');
-        },
         addToPrintList: function addToPrintList(receiptId) {
             if (this.printList.indexOf(receiptId) === -1) {
                 this.printList.push(receiptId);
@@ -631,133 +682,81 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             var index = this.printList.indexOf(receiptId);
             this.printList.splice(index, 1);
         },
-        print: function print() {
-            var _this7 = this;
-
-            if (this.printList.length) {
-                __WEBPACK_IMPORTED_MODULE_1__eventHub___default.a.$emit('start-loading');
-                axios.post(this.scope + '/receipts/print', {
-                    receipts: this.printList
-                }).then(function (res) {
-                    _this7.loadSinglePdf(res.data.pdfName);
-                });
-            } else {
-                alert('please select atleast on receipt');
-            }
-        },
         updatePageInfo: function updatePageInfo(info) {
             this.pageInfo.current_page = info.current_page;
             this.pageInfo.last_page = info.last_page;
             this.pageInfo.total = info.total;
             this.pageInfo.next_page_url = info.next_page_url;
             this.pageInfo.prev_page_url = info.prev_page_url;
-        }
-    }, _defineProperty(_methods, 'reload', function reload(page) {
-        var _this8 = this;
-
-        axios.get(this.scopeApi + '/receipts?search=' + this.search + '&records=' + this.records + '&page=' + page).then(function (res) {
-            _this8.receipts = res.data.data;
-            _this8.updatePageInfo(res.data);
-        }).catch(function (err) {
-            _this8.sendErrorNotice();
-        });
-    }), _defineProperty(_methods, 'editReceipt', function editReceipt(ReceiptId) {
-        console.log('ajay');
-        this.editIndex = this.receipts.map(function (x) {
-            return x.id;
-        }).indexOf(ReceiptId);
-        __WEBPACK_IMPORTED_MODULE_1__eventHub___default.a.$emit('edit', this.receipts[this.editIndex]);
-    }), _defineProperty(_methods, 'updateReceipt', function updateReceipt(EditedReceipt) {
-        var receipt = this.receipts[this.editIndex];
-        for (var property in receipt) {
-            if (property.includes('address')) {
-                receipt[property] = EditedReceipt[property].replace("\n", '|');
+        },
+        clearPrintList: function clearPrintList() {
+            __WEBPACK_IMPORTED_MODULE_1__eventHub___default.a.$emit('clear-every-receipt');
+            this.printList = [];
+        },
+        downloadCsv: function downloadCsv() {
+            if (this.printList.length) {
+                __WEBPACK_IMPORTED_MODULE_1__eventHub___default.a.$emit('start-loading');
+                var inputs = '';
+                this.printList.forEach(function (element) {
+                    inputs += '<input name="receipts[]" value="' + element + '">';
+                }, this);
+                jQuery('<form action="' + this.scope + '/receipts/csv" method="post" target="csv-frame">\n                      <input name="_token" value="' + Laravel.csrfToken + '">\n                     ' + inputs + '\n                  </form>').appendTo('body').submit().remove();
+                __WEBPACK_IMPORTED_MODULE_1__eventHub___default.a.$emit('stop-loading');
             } else {
-                receipt[property] = EditedReceipt[property];
+                alert('please select atleast on receipt');
             }
+        },
+        selectAll: function selectAll() {
+            if (this.selectAllReceipts) {
+                for (var receipt in this.receipts) {
+                    __WEBPACK_IMPORTED_MODULE_1__eventHub___default.a.$emit('select-' + receipt.id);
+                }
+            } else {
+                for (var _receipt in this.receipts) {
+                    __WEBPACK_IMPORTED_MODULE_1__eventHub___default.a.$emit('deselect-' + _receipt.id);
+                }
+            }
+        },
+        sendErrorNotice: function sendErrorNotice(message) {
+            message = message || 'Something Went Wrong';
+            this.$notify({
+                group: 'notice',
+                type: 'error',
+                title: 'Error ',
+                text: message,
+                duration: 5000,
+                speed: 1000
+            });
+        },
+        sendSuccessNotice: function sendSuccessNotice(message) {
+            message = message || 'Action Was Persormed Successfully';
+            this.$notify({
+                group: 'notice',
+                type: 'success',
+                title: 'Success ',
+                text: message,
+                duration: 5000,
+                speed: 1000
+            });
         }
-    }), _defineProperty(_methods, 'update', function update() {
-        var _this9 = this;
-
-        __WEBPACK_IMPORTED_MODULE_1__eventHub___default.a.$emit('start-loading');
-        this.edit.post(this.scope + '/receipts/' + this.edit.id).then(function (res) {
-            __WEBPACK_IMPORTED_MODULE_1__eventHub___default.a.$emit('stop-loading');
-            _this9.copyFromEdit();
-            $('#edit-receipt').modal('hide');
-            _this9.sendSuccessNotice('Receipt successfully edited');
-        }).catch(function (err) {
-            __WEBPACK_IMPORTED_MODULE_1__eventHub___default.a.$emit('stop-loading');
-            var message = '<ul>';
-            for (var name in _this9.edit.errors.errors) {
-                console.log(name);
-                message += '<li>' + _this9.edit.errors.get(name) + '</li>';
-            }
-            message += '</ul>';
-            _this9.sendErrorNotice(message);
-        });
-    }), _defineProperty(_methods, 'clearPrintList', function clearPrintList() {
-        __WEBPACK_IMPORTED_MODULE_1__eventHub___default.a.$emit('clear-every-receipt');
-        this.printList = [];
-    }), _defineProperty(_methods, 'downloadCsv', function downloadCsv() {
-        if (this.printList.length) {
-            __WEBPACK_IMPORTED_MODULE_1__eventHub___default.a.$emit('start-loading');
-            var inputs = '';
-            this.printList.forEach(function (element) {
-                inputs += '<input name="receipts[]" value="' + element + '">';
-            }, this);
-            jQuery('<form action="' + this.scope + '/receipts/csv" method="post" target="csv-frame">\n                      <input name="_token" value="' + Laravel.csrfToken + '">\n                     ' + inputs + '\n                  </form>').appendTo('body').submit().remove();
-            __WEBPACK_IMPORTED_MODULE_1__eventHub___default.a.$emit('stop-loading');
-        } else {
-            alert('please select atleast on receipt');
-        }
-    }), _defineProperty(_methods, 'selectAll', function selectAll() {
-        if (this.selectAllReceipts) {
-            for (var receipt in this.receipts) {
-                __WEBPACK_IMPORTED_MODULE_1__eventHub___default.a.$emit('select-' + this.receipts[receipt].id);
-            }
-        } else {
-            for (var _receipt in this.receipts) {
-                __WEBPACK_IMPORTED_MODULE_1__eventHub___default.a.$emit('deselect-' + this.receipts[_receipt].id);
-            }
-        }
-    }), _defineProperty(_methods, 'sendErrorNotice', function sendErrorNotice(message) {
-        message = message || 'Something Went Wrong';
-        this.$notify({
-            group: 'notice',
-            type: 'error',
-            title: 'Error ',
-            text: message,
-            duration: 5000,
-            speed: 1000
-        });
-    }), _defineProperty(_methods, 'sendSuccessNotice', function sendSuccessNotice(message) {
-        message = message || 'Action Was Persormed Successfully';
-        this.$notify({
-            group: 'notice',
-            type: 'success',
-            title: 'Success ',
-            text: message,
-            duration: 5000,
-            speed: 1000
-        });
-    }), _methods)
+    }
 });
 
 /***/ }),
 
-/***/ 210:
+/***/ 213:
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(211)
+  __webpack_require__(214)
 }
 var Component = __webpack_require__(5)(
   /* script */
-  __webpack_require__(213),
+  __webpack_require__(216),
   /* template */
-  __webpack_require__(214),
+  __webpack_require__(217),
   /* styles */
   injectStyle,
   /* scopeId */
@@ -765,9 +764,9 @@ var Component = __webpack_require__(5)(
   /* moduleIdentifier (server only) */
   null
 )
-Component.options.__file = "/Users/ajaysingh/code/laravel/app/resources/assets/js/components/receipts/Receipt.vue"
+Component.options.__file = "/Users/ajaysingh/code/laravel/app/resources/assets/js/components/admin/receipts/DeletedReceipt.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] Receipt.vue: functional components are not supported with templates, they should use render functions.")}
+if (Component.options.functional) {console.error("[vue-loader] DeletedReceipt.vue: functional components are not supported with templates, they should use render functions.")}
 
 /* hot reload */
 if (false) {(function () {
@@ -776,9 +775,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-ba2db926", Component.options)
+    hotAPI.createRecord("data-v-06d83bba", Component.options)
   } else {
-    hotAPI.reload("data-v-ba2db926", Component.options)
+    hotAPI.reload("data-v-06d83bba", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -790,23 +789,23 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 211:
+/***/ 214:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(212);
+var content = __webpack_require__(215);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(17)("7de1a1ae", content, false);
+var update = __webpack_require__(132)("c4d5450e", content, false);
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
  if(!content.locals) {
-   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-ba2db926\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Receipt.vue", function() {
-     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-ba2db926\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Receipt.vue");
+   module.hot.accept("!!../../../../../../node_modules/css-loader/index.js!../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-06d83bba\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./DeletedReceipt.vue", function() {
+     var newContent = require("!!../../../../../../node_modules/css-loader/index.js!../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-06d83bba\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./DeletedReceipt.vue");
      if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
      update(newContent);
    });
@@ -817,10 +816,10 @@ if(false) {
 
 /***/ }),
 
-/***/ 212:
+/***/ 215:
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(16)(undefined);
+exports = module.exports = __webpack_require__(131)(undefined);
 // imports
 
 
@@ -832,16 +831,15 @@ exports.push([module.i, "\ntd:not(:first-child){\n    min-width: 140px;\n}\ntd{\
 
 /***/ }),
 
-/***/ 213:
+/***/ 216:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__eventHub__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__eventHub__ = __webpack_require__(9);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__eventHub___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__eventHub__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_moment__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_moment___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_moment__);
-//
 //
 //
 //
@@ -894,13 +892,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     mounted: function mounted() {
         this.localReceipt = this.receipt;
         __WEBPACK_IMPORTED_MODULE_0__eventHub___default.a.$on('clear-every-receipt', this.clearedFromPrintList);
-        __WEBPACK_IMPORTED_MODULE_0__eventHub___default.a.$on('select-' + this.receipt.id, this.selectAll);
-        __WEBPACK_IMPORTED_MODULE_0__eventHub___default.a.$on('deselect-' + this.receipt.id, this.deselectAll);
+        __WEBPACK_IMPORTED_MODULE_0__eventHub___default.a.$on('select-' + this.id, this.selectAll);
+        __WEBPACK_IMPORTED_MODULE_0__eventHub___default.a.$on('deselect-' + this.id, this.deselectAll);
     },
 
     methods: {
-        print: function print() {
-            __WEBPACK_IMPORTED_MODULE_0__eventHub___default.a.$emit('print-single-receipt', this.receipt.id);
+        restore: function restore() {
+            this.$emit('restore', this.receipt.id);
         },
         toggleFromPrintList: function toggleFromPrintList() {
             if (this.addToPrintList) {
@@ -916,8 +914,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             __WEBPACK_IMPORTED_MODULE_0__eventHub___default.a.$emit('edit-receipt', this.receipt.id);
         },
         deleteReceipt: function deleteReceipt() {
-            // alert('are you sure you want to delete ' + this.receipt.id);
             __WEBPACK_IMPORTED_MODULE_0__eventHub___default.a.$emit('delete-receipt', this.receipt.id);
+        },
+        restoreReceipt: function restoreReceipt() {
+            __WEBPACK_IMPORTED_MODULE_0__eventHub___default.a.$emit('restore-receipt', this.receipt.id);
         },
         selectAll: function selectAll() {
             this.addToPrintList = true;
@@ -932,7 +932,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 
-/***/ 214:
+/***/ 217:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -1030,22 +1030,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }), _vm._v(" "), _c('td', [_c('span', {
     staticClass: "pointer",
     on: {
-      "click": _vm.edit
+      "click": _vm.restoreReceipt
     }
   }, [_c('i', {
-    staticClass: "fa fa-edit",
+    staticClass: "fa fa-undo text-primary",
     attrs: {
-      "title": "edit"
-    }
-  })]), _vm._v(" "), _c('span', {
-    staticClass: "pointer",
-    on: {
-      "click": _vm.print
-    }
-  }, [_c('i', {
-    staticClass: "fa fa-print text-primary",
-    attrs: {
-      "title": "print"
+      "title": "restore"
     }
   })]), _vm._v(" "), _c('span', {
     staticClass: "pointer",
@@ -1055,7 +1045,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('i', {
     staticClass: "fa fa-trash-o text-danger",
     attrs: {
-      "title": "print"
+      "title": "delete"
     }
   })])])])
 },staticRenderFns: []}
@@ -1063,119 +1053,13 @@ module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-ba2db926", module.exports)
+     require("vue-hot-reload-api").rerender("data-v-06d83bba", module.exports)
   }
 }
 
 /***/ }),
 
-/***/ 240:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__mixins_Receipts__ = __webpack_require__(204);
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-    data: function data() {
-        return {};
-    },
-
-    components: {
-        receipt: __webpack_require__(210),
-        paginator: __webpack_require__(201)
-    },
-
-    mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins_Receipts__["a" /* default */]],
-    methods: {}
-});
-
-/***/ }),
-
-/***/ 241:
+/***/ 218:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -1318,51 +1202,31 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }), _vm._v(" "), _c('div', {
     staticClass: "form-group"
   }, [_c('span', {
-    staticClass: "btn btn-primary",
+    staticClass: "btn btn-success",
     on: {
-      "click": _vm.print
+      "click": _vm.restoreMultipleReceipts
     }
-  }, [_vm._v("Print\n            "), (_vm.printList.length) ? _c('span', {
-    domProps: {
-      "textContent": _vm._s('(' + _vm.printList.length + ')')
-    }
-  }) : _vm._e()]), _vm._v(" "), (_vm.printList.length) ? _c('span', {
-    staticClass: "btn btn-danger",
-    on: {
-      "click": _vm.clearPrintList
-    }
-  }, [_vm._v("Clear Print List")]) : _vm._e(), _vm._v(" "), _c('span', {
-    staticClass: "btn btn-primary",
-    on: {
-      "click": _vm.downloadCsv
-    }
-  }, [_vm._v("Export")]), _vm._v(" "), _c('br'), _c('br'), _vm._v(" "), _c('span', {
+  }, [_c('i', {
+    staticClass: "fa fa-undo"
+  }), _vm._v(" Restore Selected Receipts")]), _vm._v(" "), _c('span', {
     staticClass: "btn btn-danger",
     on: {
       "click": _vm.deleteMultipleReceipts
     }
-  }, [_vm._v("Delete Selected Receipts")])]), _vm._v(" "), _c('iframe', {
-    staticClass: "hide",
-    attrs: {
-      "id": "print-frame",
-      "name": "frame",
-      "src": "",
-      "frameborder": "0"
-    },
+  }, [_c('i', {
+    staticClass: "fa fa-trash"
+  }), _vm._v(" Delete Selected Receipts")]), _vm._v(" "), (_vm.printList.length) ? _c('span', {
+    staticClass: "btn btn-danger",
     on: {
-      "load": _vm.loadingComplete
+      "click": _vm.clearPrintList
     }
-  }), _vm._v(" "), _c('iframe', {
+  }, [_vm._v("Clear Print List")]) : _vm._e()]), _vm._v(" "), _c('iframe', {
     staticClass: "hide",
     attrs: {
       "id": "csv-frame",
       "name": "csv-frame",
       "src": "",
       "frameborder": "0"
-    }
-  }), _vm._v(" "), _c('edit-receipt', {
-    on: {
-      "update": _vm.updateReceipt
     }
   })], 1)
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -1382,13 +1246,15 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "type": "button"
     }
-  }, [_vm._v("RECORDS")])])
+  }, [_c('span', {
+    staticClass: "small"
+  }, [_vm._v("RECORDS")])])])
 }]}
 module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-84322954", module.exports)
+     require("vue-hot-reload-api").rerender("data-v-504a46ae", module.exports)
   }
 }
 

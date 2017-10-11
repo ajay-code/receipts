@@ -15,7 +15,7 @@
                 <!-- /. ROW  --> 
 
                 <div class="row" >
-            		<admin-receipts-bydate></admin-receipts-bydate> 
+            		<receipts-bydate admin></receipts-bydate> 
                 </div> 
 
             </div>

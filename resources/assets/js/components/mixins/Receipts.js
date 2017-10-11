@@ -16,7 +16,8 @@ export default {
             edit: new Form(emptyReceipt),
             editIndex: '',
             scope: '',
-            scopeApi: '/api'
+            scopeApi: '/api',
+            test: 0,
         }
     },
     props: {
@@ -127,7 +128,7 @@ export default {
         },
         loadingFail() {
             eventHub.$emit('stop-loading')
-            alert('Loading Failed')
+            this.sendErrorNotice('Loading Failed')
         },
         addToPrintList(receiptId) {
             if( this.printList.indexOf(receiptId) === -1){
@@ -147,7 +148,7 @@ export default {
                     this.loadSinglePdf(res.data.pdfName)
                 })
             } else {
-                alert('please select atleast on receipt')
+                this.sendErrorNotice('please select atleast on receipt')
             }
         },
         updatePageInfo(info) {
@@ -166,10 +167,11 @@ export default {
             })
         },
         editReceipt(ReceiptId) {
-            console.log('ajay');
             this.editIndex = this.receipts.map(function (x) {
                 return x.id;
             }).indexOf(ReceiptId);
+            this.test++;
+            console.log(this.test);
             eventHub.$emit('edit', this.receipts[this.editIndex]);
         },
         updateReceipt(EditedReceipt) {
@@ -218,7 +220,7 @@ export default {
                     .appendTo('body').submit().remove()
                 eventHub.$emit('stop-loading')
             } else {
-                alert('please select atleast on receipt')
+                this.sendErrorNotice('please select atleast on receipt')
             }
         },
         selectAll() {

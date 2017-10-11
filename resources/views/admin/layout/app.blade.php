@@ -54,7 +54,7 @@
     <!-- jQuery Js -->
     <script src="{{ asset('js/manifest.js') }}"></script>
     <script src="{{ asset('js/vendor.js') }}"></script>
-    <script src="{{ asset('js/admin/admin.js') }}"></script>
+    <script src="{{ asset('js/app.js') }}"></script>
     @yield('scripts')
     @include('sweet::alert')
 

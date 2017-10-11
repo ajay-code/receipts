@@ -1,4 +1,4 @@
-webpackJsonp([11],[
+webpackJsonp([10],[
 /* 0 */,
 /* 1 */
 /***/ (function(module, exports, __webpack_require__) {
@@ -22418,7 +22418,7 @@ var Component = __webpack_require__(5)(
   /* moduleIdentifier (server only) */
   null
 )
-Component.options.__file = "/Users/ajaysingh/code/laravel/app/resources/assets/js/components/loader/Loader.vue"
+Component.options.__file = "/Users/ajaysingh/code/laravel/app/resources/assets/js/components/global/Loader.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] Loader.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -22429,9 +22429,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-222d9654", Component.options)
+    hotAPI.createRecord("data-v-161ef174", Component.options)
   } else {
-    hotAPI.reload("data-v-222d9654", Component.options)
+    hotAPI.reload("data-v-161ef174", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -22729,7 +22729,7 @@ module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-222d9654", module.exports)
+     require("vue-hot-reload-api").rerender("data-v-161ef174", module.exports)
   }
 }
 
@@ -23042,16 +23042,20 @@ if (false) {
 /* 175 */,
 /* 176 */,
 /* 177 */,
-/* 178 */
+/* 178 */,
+/* 179 */,
+/* 180 */,
+/* 181 */,
+/* 182 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(179);
 __webpack_require__(183);
-module.exports = __webpack_require__(184);
+__webpack_require__(187);
+module.exports = __webpack_require__(188);
 
 
 /***/ }),
-/* 179 */
+/* 183 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -23085,25 +23089,25 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_1_vue_notification___default.a);
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 var AdminReceipts = function AdminReceipts() {
-  return __webpack_require__.e/* import() */(6).then(__webpack_require__.bind(null, 189));
-};
-var AdminUsers = function AdminUsers() {
-  return __webpack_require__.e/* import() */(8).then(__webpack_require__.bind(null, 190));
-};
-var AdminUserReceipts = function AdminUserReceipts() {
-  return __webpack_require__.e/* import() */(4).then(__webpack_require__.bind(null, 191));
-};
-var AdminReceiptsByDate = function AdminReceiptsByDate() {
-  return __webpack_require__.e/* import() */(5).then(__webpack_require__.bind(null, 192));
-};
-var DeletedReceipts = function DeletedReceipts() {
-  return __webpack_require__.e/* import() */(7).then(__webpack_require__.bind(null, 193));
-};
-var EditReceipt = function EditReceipt() {
   return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 176));
 };
+var AdminUsers = function AdminUsers() {
+  return __webpack_require__.e/* import() */(3).then(__webpack_require__.bind(null, 177));
+};
+var AdminUserReceipts = function AdminUserReceipts() {
+  return __webpack_require__.e/* import() */(1).then(__webpack_require__.bind(null, 178));
+};
+var AdminReceiptsByDate = function AdminReceiptsByDate() {
+  return __webpack_require__.e/* import() */(7).then(__webpack_require__.bind(null, 193));
+};
+var DeletedReceipts = function DeletedReceipts() {
+  return __webpack_require__.e/* import() */(2).then(__webpack_require__.bind(null, 179));
+};
+var EditReceipt = function EditReceipt() {
+  return __webpack_require__.e/* import() */(4).then(__webpack_require__.bind(null, 180));
+};
 var NetAmount = function NetAmount() {
-  return __webpack_require__.e/* import() */(1).then(__webpack_require__.bind(null, 177));
+  return __webpack_require__.e/* import() */(5).then(__webpack_require__.bind(null, 181));
 };
 
 Vue.component('loader', __webpack_require__(48));
@@ -23124,19 +23128,19 @@ var app = new Vue({
 __webpack_require__(60);
 
 /***/ }),
-/* 180 */,
-/* 181 */,
-/* 182 */,
-/* 183 */
+/* 184 */,
+/* 185 */,
+/* 186 */,
+/* 187 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
-/* 184 */
+/* 188 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ })
-],[178]);
+],[182]);

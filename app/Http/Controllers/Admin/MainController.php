@@ -14,6 +14,14 @@ class MainController extends Controller
     	$usersCount = User::count();
     	return view('admin.home', compact('usersCount', 'receiptsCount'));
 	}
+
+	public function dashboard_api(Request $request){
+		
+
+		return [
+
+		];
+	}
 	
 	
 }

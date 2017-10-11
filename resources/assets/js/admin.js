@@ -22,7 +22,7 @@ Vue.use(Notifications);
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
-const AdminReceipts = () =>  System.import('./components/admin/receipts/Receipts.vue');
+const AdminReceipts = () =>  System.import('./components/receipts/Receipts.vue');
 const AdminUsers = () =>  System.import('./components/admin/users/Users.vue');
 const AdminUserReceipts = () =>  System.import('./components/admin/receipts/UserReceipts.vue');
 const AdminReceiptsByDate = () =>  System.import('./components/admin/receipts/ReceiptsByDate.vue');
@@ -30,7 +30,7 @@ const DeletedReceipts = () =>  System.import('./components/admin/receipts/Delete
 const EditReceipt = () =>  System.import('./components/receipts/EditReceipt.vue');
 const NetAmount = () =>  System.import('./components/global/NetAmount.vue');
 
-Vue.component('loader', require('./components/loader/Loader.vue'));
+Vue.component('loader', require('./components/global/Loader.vue'));
 Vue.component('alert', require('./components/global/Alert.vue'));
 Vue.component('paginate', Paginate)
 Vue.component('admin-receipts', AdminReceipts);

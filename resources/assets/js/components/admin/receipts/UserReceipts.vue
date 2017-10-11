@@ -258,15 +258,15 @@ export default {
     paginator: require('../../Paginator.vue')
 
   },
-  mounted() {
-    this.loadReceipts();
-    eventHub.$on('print-single-receipt', this.printSingleReceipt)
-    eventHub.$on('add-to-print-list', this.addToPrintList)
-    eventHub.$on('remove-from-print-list', this.removeFromPrintList)
-    eventHub.$on('load-page', this.reload);
-    eventHub.$on('edit-receipt', this.editReceipt);
-    eventHub.$on('delete-receipt', this.deleteReceipt);
-  },
+  // mounted() {
+  //   this.loadReceipts();
+  //   eventHub.$on('print-single-receipt', this.printSingleReceipt)
+  //   eventHub.$on('add-to-print-list', this.addToPrintList)
+  //   eventHub.$on('remove-from-print-list', this.removeFromPrintList)
+  //   eventHub.$on('load-page', this.reload);
+  //   eventHub.$on('edit-receipt', this.editReceipt);
+  //   eventHub.$on('delete-receipt', this.deleteReceipt);
+  // },
   methods: {
     loadReceipts() {
       axios.get(`/api/admin/users/${this.userId}/receipts`).then(res => {

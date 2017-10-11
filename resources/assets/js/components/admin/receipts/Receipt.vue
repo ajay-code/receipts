@@ -20,7 +20,7 @@
             <td>
                 <span class="pointer" @click="edit"><i class="fa fa-edit" title="edit"></i> </span>
                 <span class="pointer" @click="print"> <i class="fa fa-print text-primary"  title="print"></i> </span>
-                <span class="pointer" @click="deleteReceipt"> <i class="fa fa-trash-o text-danger"  title="delete"></i> </span>
+                <span class="pointer" @click="deleteReceipt"> <i class="fa fa-trash-o text-danger"  title="print"></i> </span>
             </td>
         </tr>
 
@@ -50,7 +50,7 @@ import moment from 'moment';
         mounted() {
                 this.localReceipt = this.receipt
                 eventHub.$on('clear-every-receipt', this.clearedFromPrintList);
-                eventHub.$on(`select-${this.receipt.id}`, this.selectAll);              
+                 eventHub.$on(`select-${this.receipt.id}`, this.selectAll);              
                 eventHub.$on(`deselect-${this.receipt.id}`, this.deselectAll);
         },
         methods: {

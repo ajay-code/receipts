@@ -16,7 +16,7 @@ mix.webpackConfig({
         publicPath: '/'
     },
 });
-mix.js('resources/assets/js/admin.js', 'public/js/admin');
+// mix.js('resources/assets/js/admin.js', 'public/js/admin');
 
 mix.js('resources/assets/js/app.js', 'public/js')
 	.extract(['vue','jquery','moment'])

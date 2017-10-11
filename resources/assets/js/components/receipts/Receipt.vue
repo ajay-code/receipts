@@ -71,7 +71,6 @@ import moment from 'moment';
                 eventHub.$emit('edit-receipt', this.receipt.id);
             },
             deleteReceipt(){
-                // alert('are you sure you want to delete ' + this.receipt.id);
                 eventHub.$emit('delete-receipt', this.receipt.id);
             },
             selectAll(){
