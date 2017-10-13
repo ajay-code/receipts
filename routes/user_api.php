@@ -15,3 +15,10 @@ Route::get('receipts/delete/{receipt}', 'ReceiptController@receipts_delete_api')
 Route::get('receipts/date', 'ReceiptController@receipts_by_date_paginated_api')->name('receipts.bydate.api');
 
 Route::get('net/amount', 'ReceiptController@net_amount_api')->name('receipts.netamount.api');
+
+
+// 
+// Dashbpard Api
+// 
+
+Route::get('dashboard', 'HomeController@dashboard_api')->name('dashboard.api');

@@ -33,3 +33,10 @@ Route::post('/users/{user}/update', 'Admin\UserController@update_api');
 // Admin Net Amount
 // 
 Route::get('net/amount', 'Admin\ReceiptController@net_amount_api')->name('receipts.netamount.api');
+
+
+// 
+// Dashbpard Api
+// 
+
+Route::get('dashboard', 'Admin\MainController@dashboard_api')->name('dashboard.api');

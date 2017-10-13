@@ -12939,6 +12939,51 @@ div.DTFC_LeftFootWrapper table {
   color: inherit !important;
 }
 
+.change-date {
+  font-size: 30px;
+}
+
+.dashboard_item {
+  padding: 5px;
+  margin: 5px 0;
+}
+
+.dashboard_item_left {
+  height: 100px;
+  text-align: center;
+  background-color: #f3f6be;
+  color: black;
+}
+
+.dashboard_item_title {
+  padding: 0;
+  padding-top: 5px;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.dashboard_item_value {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.dashboard_item_right {
+  height: 100px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.dashboard_item_icon {
+  font-size: 40px;
+}
+
 /*----------------------------------------------
 Author : www.webthemez.com
 License: Commons Attribution 3.0

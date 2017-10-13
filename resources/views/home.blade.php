@@ -11,8 +11,10 @@
                                     
         </div>
             <div id="page-inner">
+
+                <dashboard></dashboard>
                 
-                <div class="row" >
+                {{--  <div class="row" >
                     @if(auth()->user()->type != 'user')
                     <div class="col-md-3 col-sm-12 col-xs-12">
                         <div class="panel panel-primary text-center no-boder blue">
@@ -82,7 +84,7 @@
                 </div>
                 @if(auth()->user()->has('receipts'))
                     <net-amount scope-api="/api"></net-amount>
-                @endif
+                @endif  --}}
 
             </div>
         <!-- /. PAGE INNER  -->
