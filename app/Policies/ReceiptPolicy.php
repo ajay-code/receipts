@@ -20,7 +20,12 @@ class ReceiptPolicy
      */
     public function view(User $user, Receipt $receipt)
     {
-        return $user->id == $receipt->user_id;
+        if ($user->id == $receipt->user_id) {
+            return true;
+        } elseif ($user->user_id == $receipt->user_id) {
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -29,11 +34,11 @@ class ReceiptPolicy
      * @param  \App\User  $user
      * @return mixed
      */
-    // public function create(User $user)
-    // {
-    //     return false;
-    //     return Auth::check();
-    // }
+    public function create(User $user)
+    {
+        return false;
+        return Auth::check();
+    }
 
     /**
      * Determine whether the user can update the receipt.

@@ -46,24 +46,26 @@ class HomeController extends Controller
         ];
 
         $from = '';
-		$to = '';
+        $to = '';
 
         if ($use == 'Day') {
-			$date = $request->date;
-			$from = Carbon::createFromFormat('F d, Y', $date)->startOfDay();
-			$to = Carbon::createFromFormat('F d, Y', $date)->endOfDay();
+            $date = $request->date;
+            $from = Carbon::createFromFormat('F d, Y', $date)->startOfDay();
+            $to = Carbon::createFromFormat('F d, Y', $date)->endOfDay();
         } elseif ($use == 'Month') {
-			$month = $request->month;
-			$from = Carbon::createFromFormat('F Y', $month)->startOfMonth();
-			$to = Carbon::createFromFormat('F Y', $month)->endOfMonth();        
+            $month = $request->month;
+            $from = Carbon::createFromFormat('F Y', $month)->startOfMonth();
+            $to = Carbon::createFromFormat('F Y', $month)->endOfMonth();
         } elseif ($use == 'Year') {
-			$year = $request->year;
-			$from = Carbon::createFromFormat('Y', $year)->startOfYear();
-			$to = Carbon::createFromFormat('Y', $year)->endOfYear(); 
+            $year = $request->year;
+            $from = Carbon::createFromFormat('Y', $year)->startOfYear();
+            $to = Carbon::createFromFormat('Y', $year)->endOfYear();
         }
         $maxAmount = $user->receipts()->whereBetween("created_at", [$from, $to])->max('amount');
-        $data['totalReceipts'] = $user->receipts()->count();
-        if($maxAmount) $data['topSelling'] = $user->receipts->where('amount', $maxAmount)->first()->receiver_product;
+        $data['totalReceipts'] = $user->receipts()->whereBetween("created_at", [$from, $to])->count();
+        if ($maxAmount) {
+            $data['topSelling'] = $user->receipts->where('amount', $maxAmount)->first()->receiver_product;
+        }
         $data['totalSales'] = $user->receipts()->whereBetween("created_at", [$from, $to])->sum('amount');
         $data['totalProductCost'] = $user->receipts()->whereBetween("created_at", [$from, $to])->sum('product_cost');
         $data['totalDeliveryCost'] = $user->receipts()->whereBetween("created_at", [$from, $to])->sum('postage_cost');

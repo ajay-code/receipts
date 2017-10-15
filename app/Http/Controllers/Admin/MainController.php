@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use DB;
 use App\User;
 use App\Receipt;
 use Carbon\Carbon;
@@ -53,17 +54,24 @@ class MainController extends Controller
 			$to = Carbon::createFromFormat('Y', $year)->endOfYear(); 
 		}
 		
-		$maxAmount = Receipt::whereBetween('created_at', [$from, $to])->max('amount');
-		$data['totalReceipts'] = Receipt::count();
-		$data['totalUsers'] = User::count();
-		$data['totalManufactures'] = User::where('type', 'manufacturer')->count();
-		$data['totalWholesalers'] = User::where('type', 'wholesaler')->count();
-		$data['totalRetailers'] = User::where('type', 'retailer')->count();
-		$data['totalNormalUsers'] = User::where('type', 'user')->count();
-		if($maxAmount) $data['topSelling'] = Receipt::where('amount', $maxAmount)->first()->receiver_product;
-		$data['totalExpiredUsers'] = User::where('expire_at', '<' ,Carbon::now()->toDateString())->count();
-		$data['topUser'] = '';
-		$data['newRegistrations'] = User::whereBetween('created_at', [$from,$to])->count();
+        $maxAmount = Receipt::whereBetween('created_at', [$from, $to])->max('amount');
+        if($maxAmount) $data['topSelling'] = Receipt::where('amount', $maxAmount)->first()->receiver_product;
+
+		$data['totalReceipts'] = Receipt::whereBetween('created_at', [$from, $to])->count();
+		$data['totalUsers'] = User::whereBetween('created_at', [$from, $to])->count();
+		$data['totalManufactures'] = User::whereBetween('created_at', [$from, $to])->where('type', 'manufacturer')->count();
+		$data['totalWholesalers'] = User::whereBetween('created_at', [$from, $to])->where('type', 'wholesaler')->count();
+		$data['totalRetailers'] = User::whereBetween('created_at', [$from, $to])->where('type', 'retailer')->count();
+		$data['totalNormalUsers'] = User::whereBetween('created_at', [$from, $to])->where('type', 'user')->count();
+        $data['totalExpiredUsers'] = User::where('expire_at', '<' ,Carbon::now()->toDateString())->count();
+        
+        $receipts = Receipt::whereBetween('created_at', [$from, $to])->select(DB::raw('*, sum(amount) as total'))->orderBy('total', 'desc')->groupBy('user_id')->first();
+        if($receipts) $topUser = $receipts->user;
+		if(isset($topUser)) $data['topUser'] = $topUser->name;
+        
+        $data['newRegistrations'] = User::whereBetween('created_at', [$from,$to])->count();
+        
         return $data;
     }
 }
+Receipt::select(DB::raw('*, sum(amount) as total'))->orderBy('total', 'desc')->groupBy('user_id')->get();
