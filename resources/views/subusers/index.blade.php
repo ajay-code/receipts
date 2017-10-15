@@ -24,6 +24,7 @@
                                          <th>Name</th>
                                          <th>Email</th>
                                          <th>Id</th>
+                                         <th>Go To</th>
                                          <th>Created at</th>
                                      </thead>
                                      <tbody>
@@ -32,6 +33,7 @@
                                                  <td>{{ $subuser->name }}</td>
                                                  <td>{{ $subuser->email }}</td>
                                                  <td>{{ $subuser->uid}}</td>
+                                                 <td><a href="/subusers/{{ $subuser->id }}/receipts">Receipts...</a></td>
                                                  <td>{{ $subuser->created_at->diffForHumans() }}</td>
                                              </tr>
                                          @endforeach
@@ -50,6 +52,7 @@
                                          <th>Name</th>
                                          <th>Email</th>
                                          <th>Id</th>
+                                         <th>Go To</th>
                                          <th>Created at</th>
                                      </thead>
                                      <tbody>
@@ -58,6 +61,7 @@
                                                  <td>{{ $subretailer->name }}</td>
                                                  <td>{{ $subretailer->email }}</td>
                                                  <td>{{ $subretailer->uid}}</td>
+                                                 <td><a href="/subusers/{{ $subretailer->id }}/receipts">{{ $subretailer->id }}</a></td>
                                                  <td>{{ $subretailer->created_at->diffForHumans() }}</td>
                                              </tr>
                                          @endforeach
@@ -76,6 +80,7 @@
                                          <th>Name</th>
                                          <th>Email</th>
                                          <th>Id</th>
+                                         <th>Go To</th>
                                          <th>Created at</th>
                                      </thead>
                                      <tbody>
@@ -84,6 +89,7 @@
                                                  <td>{{ $subwholesaler->name }}</td>
                                                  <td>{{ $subwholesaler->email }}</td>
                                                  <td>{{ $subwholesaler->uid}}</td>
+                                                 <td><a href="/subusers/{{ $subwholesaler->id }}/receipts">{{ $subwholesaler->id }}</a></td>
                                                  <td>{{ $subwholesaler->created_at->diffForHumans() }}</td>
                                              </tr>
                                          @endforeach

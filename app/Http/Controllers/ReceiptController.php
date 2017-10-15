@@ -127,7 +127,6 @@ class ReceiptController extends Controller
 
     public function update(Request $request, Receipt $receipt)
     {
-
         $this->authorize('update', $receipt);
         
         $this->validate($request, [
