@@ -6,7 +6,7 @@ export default {
     data() {
         return {
             receipts: [],
-            loadCount: 0,
+            // loadCount: 0,
             printList: [],
             selectAllReceipts: false,
             search: '',
@@ -17,7 +17,7 @@ export default {
             editIndex: '',
             scope: '',
             scopeApi: '/api',
-            test: 0,
+            
         }
     },
     props: {
@@ -131,7 +131,7 @@ export default {
             this.sendErrorNotice('Loading Failed')
         },
         addToPrintList(receiptId) {
-            if( this.printList.indexOf(receiptId) === -1){
+            if (this.printList.indexOf(receiptId) === -1) {
                 this.printList.push(receiptId);
             }
         },
@@ -214,9 +214,9 @@ export default {
                     inputs += `<input name="receipts[]" value="${element}">`;
                 }, this);
                 jQuery(`<form action="${this.scope}/receipts/csv" method="post" target="csv-frame">
-                      <input name="_token" value="${Laravel.csrfToken}">
-                     ${inputs}
-                  </form>`)
+                            <input name="_token" value="${Laravel.csrfToken}">
+                            ${inputs}
+                        </form>`)
                     .appendTo('body').submit().remove()
                 eventHub.$emit('stop-loading')
             } else {
@@ -225,11 +225,11 @@ export default {
         },
         selectAll() {
             if (this.selectAllReceipts) {
-                for(let receipt in this.receipts){
+                for (let receipt in this.receipts) {
                     eventHub.$emit(`select-${this.receipts[receipt].id}`);
                 }
             } else {
-                for(let receipt in this.receipts){
+                for (let receipt in this.receipts) {
                     eventHub.$emit(`deselect-${this.receipts[receipt].id}`);
                 }
             }
@@ -256,6 +256,5 @@ export default {
                 speed: 1000
             });
         }
-
     }
 }

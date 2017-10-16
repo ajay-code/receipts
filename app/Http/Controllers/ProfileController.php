@@ -7,10 +7,16 @@ use Illuminate\Http\Request;
 
 class ProfileController extends Controller
 {
-
-    public function __construct(){
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
         $this->middleware(['auth', 'not-expired']);
-    } 
+    }
+    
     /**
      * Display the specified resource.
      *
@@ -25,7 +31,7 @@ class ProfileController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Display the form for editing the user.
      *
      * @param  \App\User  $user
      * @return \Illuminate\Http\Response
@@ -38,7 +44,7 @@ class ProfileController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the user.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\User  $user
@@ -55,7 +61,14 @@ class ProfileController extends Controller
         return back();
     }
 
-    public function set_password(Request $request){
+    /**
+     * Set password for first time.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function set_password(Request $request)
+    {
         $this->validate($request, [
             'password' => 'required|string|min:6|confirmed',
         ]);
@@ -67,11 +80,16 @@ class ProfileController extends Controller
         alert()->success('Password Successfully Set');
 
         return back();
-
-
     }
 
-    public function change_password(Request $request){
+    /**
+     * Change password.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function change_password(Request $request)
+    {
         $this->validate($request, [
             'old_password' => 'required|old_password',
             'password' => 'required|string|min:6|confirmed',

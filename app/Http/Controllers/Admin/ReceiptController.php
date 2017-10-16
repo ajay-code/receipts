@@ -21,28 +21,46 @@ class ReceiptController extends Controller
     {
         $this->middleware('auth:admin');
     }
-    // Shows list of saved receipts
+
+    /**
+     * Display list of saved receipts.
+     *
+     * @return \Illunimate\Http\Response
+     */
     public function index()
     {
         return view('admin.receipts.index');
     }
 
-    public function deleted_receipts(){
+    /**
+     * Display deleted receipts.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function deleted_receipts()
+    {
         return view('admin.receipts.deleted');
     }
 
+
+    /**
+     * Display receipts sorted by date.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function receipts_by_date()
     {
         return view('admin.receipts.by-date');
     }
 
-    // Returns array of saved receipts
-    public function receipts_api()
-    {
-        return Receipt::latest()->get();
-    }
 
-    // Returns array of saved receipts
+    /**
+     * Get list of receipts.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Request $receipt
+     * @return array $receipts
+     */
     public function receipts_paginated_api(Request $request)
     {
         $search = $request->search;
@@ -68,7 +86,13 @@ class ReceiptController extends Controller
 
 
 
-    // Returns array of saved receipts
+    /**
+     * Get list of receipts sorted by date.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Request $receipt
+     * @return array $receipts
+     */
     public function receipts_by_date_paginated_api(Request $request)
     {
         $records = $request->records ? $request->records : 100;
@@ -80,19 +104,37 @@ class ReceiptController extends Controller
         return $receipts;
     }
 
+    /**
+     * Delete single receipt.
+     *
+     * @param \App\Receipt $receipt
+     * @return string 'success'
+     */
     public function receipts_delete_api(Receipt $receipt)
     {
         $receipt->delete();
         return 'success';
     }
 
+    /**
+     * Delete multiple receipts.
+     *
+     * @param \App\Receipt $receipt
+     * @return string 'success'
+     */
     public function multiple_receipts_delete_api(Request $request)
     {
         Receipt::destroy($request->receipts);
         return 'success';
     }
 
-    // Generate pdf for a single record to print
+    /**
+     * Generate pdf for a single record to print.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Request $receipt
+     * @return array
+     */
     public function print_single_receipt(Request $request, Receipt $receipt)
     {
         $user = auth()->user();
@@ -111,7 +153,12 @@ class ReceiptController extends Controller
         ];
     }
 
-    // Generate pdf for a multiple record to print
+    /**
+     * Generate pdf for a multiple record to print.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return array
+     */
     public function print_multiple_receipts(Request $request)
     {
 
@@ -121,9 +168,9 @@ class ReceiptController extends Controller
         $receipts = Receipt::find($request->receipts);
 
         $pdfName = 'receipt-'.str_random(6).'.pdf';
-
         $path = storage_path('app/public/pdf/').$pdfName;
         $html = view('print.stored-receipts-print', compact('receipts', 'user'));
+        $html = compress_html($html);
         PDF::loadHTML($html)->save($path);
 
         return [
@@ -132,9 +179,15 @@ class ReceiptController extends Controller
         ];
     }
 
+    /**
+     * Update receipt.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Receipt $receipt
+     * @return string 'success'
+     */
     public function update(Request $request, Receipt $receipt)
     {
-        // dd($request->all());
         $this->validate($request, [
             "receiver_address" => "required",
             "receiver_name" => "required",
@@ -163,17 +216,24 @@ class ReceiptController extends Controller
         return 'success';
     }
 
-    // users functions
-
+    /**
+     * Display list of users.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function users()
     {
         return view('admin.users.index');
     }
 
-    // Returns array of saved users
+    /**
+     * Get list of users.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return Array $users
+     */
     public function users_paginated_api(Request $request)
     {
-        // return $request->all();
         $search = $request->search;
         $records = $request->records ? $request->records : 100;
         $order = $request->order ? $request->order : 'latest';
@@ -194,9 +254,14 @@ class ReceiptController extends Controller
         return $users;
     }
 
+    /**
+     * Get list of users in CVS format
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return File CVS
+     */
     public function csv_download(Request $request)
     {
-        
         return Excel::create('receipts', function ($excel) use ($request) {
             // Set the title
             $excel->setTitle('Receipts');
@@ -212,43 +277,14 @@ class ReceiptController extends Controller
         })->download('csv');
     }
 
-    public function net_amount_api(Request $request)
+    /**
+     * Get list of soft deleted receipts.
+     *
+     * @param \Illumunate\Http\Request
+     * @return array $receipts
+     */
+    function soft_deleted_receipts_api(Request $request)
     {
-        $net = $request->net;
-        $totalAmount = '';
-        $totalProductCost = '';
-        $totalPostageCost = '';
-
-        $from = '';
-        $to = new Carbon('last day of this month');
-
-        if ($net == 'current') {
-            $from = new Carbon('first day of this month');
-        } elseif ($net == 'last') {
-            $from = new Carbon('first day of last month');
-            $to = new Carbon('last day of last month');
-        } else {
-            $from = new Carbon('last day of this month');
-            $from->subMonths(3);
-        }
-
-        $from->setTime(0, 0, 0);
-        $to->setTime(23, 59, 59);
-
-        $totalAmount = Receipt::whereBetween("created_at", [$from, $to])->sum('amount');
-        $totalProductCost = Receipt::whereBetween("created_at", [$from, $to])->sum('product_cost');
-        $totalPostageCost = Receipt::whereBetween("created_at", [$from, $to])->sum('postage_cost');
-
-        return [
-            'totalAmount' => $totalAmount,
-            'totalProductCost' => $totalProductCost,
-            'totalPostageCost' => $totalPostageCost
-        ];
-    }
-
-    // Soft Deleted Receipts
-
-    function soft_deleted_receipts_api(Request $request){
         $search = $request->search;
         $records = $request->records ? $request->records : 100;
         $order = $request->order ? $request->order : 'latest';
@@ -270,7 +306,12 @@ class ReceiptController extends Controller
         return $receipts;
     }
 
-    // Force Delete Receipts
+    /**
+     * Force delete receipt.
+     *
+     * @param int $receiptId
+     * @return string
+     */
     public function receipts_force_delete_api($receiptId)
     {
         $receipt = Receipt::onlyTrashed()->findOrFail($receiptId);
@@ -278,13 +319,24 @@ class ReceiptController extends Controller
         return 'success';
     }
 
+    /**
+     * Force delete multiple receipts.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return string 'string'
+     */
     public function multiple_receipts_force_delete_api(Request $request)
     {
         $count = Receipt::onlyTrashed()->whereIn('id', $request->receipts)->forceDelete();
-        return 'success ' . $count  ;
+        return 'success';
     }
 
-    // Restore Delete Receipts
+    /**
+     * Restore deleted receipt.
+     *
+     * @param int $receiptId
+     * @return string 'success'
+     */
     public function receipts_restore_api($receiptId)
     {
         $receipt = Receipt::onlyTrashed()->findOrFail($receiptId);
@@ -292,9 +344,15 @@ class ReceiptController extends Controller
         return 'success';
     }
 
+    /**
+     * Restore multiple deleted receipts.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return string 'success'
+     */
     public function multiple_receipts_restore_api(Request $request)
     {
         $count = Receipt::onlyTrashed()->whereIn('id', $request->receipts)->restore();
-        return 'success ' . $count  ;
+        return 'success ' . $count;
     }
 }

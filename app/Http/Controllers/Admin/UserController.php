@@ -9,35 +9,52 @@ use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
 use App\Transformers\UserWithReceiptsInfo;
 use League\Fractal\Pagination\IlluminatePaginatorAdapter;
+
 class UserController extends Controller
 {
-    
-    public function index(){
+    /**
+     * Display users
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
         return view('admin.users.index');
     }
 
-    public function user_receipts(User $user){
+    /**
+     * Display receipts of the user
+     *
+     * @param \App\User $user
+     * @return \Illuminate\Http\Response
+     */
+    public function user_receipts(User $user)
+    {
         return view('admin.users.receipts', compact('user'));
     }
 
-    
-
-    // Returns array of saved users
-    public function users_paginated_api(Request $request){
+    /**
+     * Get lsist of users
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return array $users
+     */
+    public function users_paginated_api(Request $request)
+    {
         $search = $request->search;
         $records = $request->records ? $request->records : 100;
         $order = $request->order ? $request->order : 'latest';
 
-        if($search){
-            if($order == 'latest'){
+        if ($search) {
+            if ($order == 'latest') {
                 $users = User::search($search)->paginate($records);
-            }else{
+            } else {
                 $users = User::search($search)->paginate($records);
             }
-        }else{
-            if($order == 'latest'){
+        } else {
+            if ($order == 'latest') {
                 $users = User::latest()->paginate($records);
-            }else{
+            } else {
                 $users = User::oldest()->paginate($records);
             }
         }
@@ -50,46 +67,61 @@ class UserController extends Controller
         return $users;
     }
 
-    // Returns array of saved users with receipt info
-    public function users_receipts_paginated_api(Request $request, User $user){
+    /**
+     * Get users and receipt info
+     *
+     * @param \Illuminate\Http\Request $request
+     * @param \App\User $user
+     * @return array $receipts
+     */
+    public function users_receipts_paginated_api(Request $request, User $user)
+    {
         // return $request->all();
         $search = $request->search;
         $records = $request->records ? $request->records : 100;
         $order = $request->order ? $request->order : 'latest';
 
-        if($search){
-            if($order == 'latest'){
+        if ($search) {
+            if ($order == 'latest') {
                 $receipts = Receipt::search($search)->where('user_id', $user->id)->paginate($records);
-            }else{
+            } else {
                 $receipts = Receipt::search($search)->where('user_id', $user->id)->paginate($records);
             }
-        }else{
-            if($order == 'latest'){
+        } else {
+            if ($order == 'latest') {
                 $receipts = Receipt::latest()->where('user_id', $user->id)->paginate($records);
-            }else{
+            } else {
                 $receipts = Receipt::oldest()->where('user_id', $user->id)->paginate($records);
             }
         }
 
         return $receipts;
-
-        // return fractal()
-        //         ->collection($users)
-        //         ->transformWith(new UserWithReceiptsInfo)
-        //         ->paginateWith(new IlluminatePaginatorAdapter($users))
-        //         ->toArray();
     }
 
-    public function users_activation_api(User $user){
+    /**
+     * Activate user
+     *
+     * @param \App\User $user
+     * @return string 'success'
+     */
+
+    public function users_activation_api(User $user)
+    {
         $user->update([
             'activated' => true
         ]);
 
         return 'success';
-
     }
 
-    public function users_deactivation_api(User $user){
+    /**
+     * Deactivate user
+     *
+     * @param \App\User $user
+     * @return string 'success'
+     */
+    public function users_deactivation_api(User $user)
+    {
 
         $user->update([
             'activated' => false
@@ -98,7 +130,14 @@ class UserController extends Controller
         return 'success';
     }
 
-    public function update_api(Request $request, User $user){
+    /**
+     * Update user
+     *
+     * @param \App\User $user
+     * @return string 'success'
+     */
+    public function update_api(Request $request, User $user)
+    {
         $this->validate($request, [
             'name' => 'required',
             'email' => 'required|email',

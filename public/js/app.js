@@ -1,4 +1,4 @@
-webpackJsonp([9],[
+webpackJsonp([10],[
 /* 0 */,
 /* 1 */
 /***/ (function(module, exports, __webpack_require__) {
@@ -1726,33 +1726,33 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_1_vue_notification___default.a);
  */
 
 var Dashboard = function Dashboard() {
-    return __webpack_require__.e/* import() */(19).then(__webpack_require__.bind(null, 255));
+    return __webpack_require__.e/* import() */(8).then(__webpack_require__.bind(null, 185));
 };
 var ReceiptForm = function ReceiptForm() {
-    return __webpack_require__.e/* import() */(17).then(__webpack_require__.bind(null, 185));
+    return __webpack_require__.e/* import() */(6).then(__webpack_require__.bind(null, 186));
 };
 var Receipts = function Receipts() {
-    return __webpack_require__.e/* import() */(12).then(__webpack_require__.bind(null, 186));
+    return __webpack_require__.e/* import() */(1).then(__webpack_require__.bind(null, 187));
 };
 var ReceiptsByDate = function ReceiptsByDate() {
-    return __webpack_require__.e/* import() */(11).then(__webpack_require__.bind(null, 187));
+    return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 188));
 };
 var DeletedReceipts = function DeletedReceipts() {
-    return __webpack_require__.e/* import() */(14).then(__webpack_require__.bind(null, 188));
+    return __webpack_require__.e/* import() */(3).then(__webpack_require__.bind(null, 189));
 };
 var EditReceipt = function EditReceipt() {
-    return __webpack_require__.e/* import() */(16).then(__webpack_require__.bind(null, 189));
+    return __webpack_require__.e/* import() */(5).then(__webpack_require__.bind(null, 190));
 };
 var NetAmount = function NetAmount() {
-    return __webpack_require__.e/* import() */(18).then(__webpack_require__.bind(null, 190));
+    return __webpack_require__.e/* import() */(7).then(__webpack_require__.bind(null, 191));
 };
 
 // Admin Components
 var AdminUsers = function AdminUsers() {
-    return __webpack_require__.e/* import() */(15).then(__webpack_require__.bind(null, 191));
+    return __webpack_require__.e/* import() */(4).then(__webpack_require__.bind(null, 192));
 };
 var AdminUserReceipts = function AdminUserReceipts() {
-    return __webpack_require__.e/* import() */(13).then(__webpack_require__.bind(null, 192));
+    return __webpack_require__.e/* import() */(2).then(__webpack_require__.bind(null, 193));
 };
 
 Vue.component('dashboard', Dashboard);

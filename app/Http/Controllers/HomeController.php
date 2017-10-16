@@ -22,7 +22,7 @@ class HomeController extends Controller
     }
 
     /**
-     * Show the application dashboard.
+     * Display dashboard.
      *
      * @return \Illuminate\Http\Response
      */
@@ -31,7 +31,12 @@ class HomeController extends Controller
         return view('home');
     }
 
-    // Api For Dashboard Data
+    /**
+     * Get dashboard data.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return array $data
+     */
     public function dashboard_api(Request $request)
     {
         $use = $request->use;
@@ -74,12 +79,14 @@ class HomeController extends Controller
         return $data;
     }
 
-    
-
-    //  Generate and Save the Receipt
+    /**
+     * Generate pdf of receipt.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return array
+     */
     public function generatePdf(Request $request)
     {
-        // dd($request->all());
         $this->validate($request, [
             'sender' => 'required',
             'receivers' => 'required',
@@ -91,6 +98,7 @@ class HomeController extends Controller
         $date = Carbon::now();
         $user = auth()->user();
         $user->load('settings');
+        
         // Saves the receipt to database
         foreach ($receivers as $receiver) {
             $user->receipts()->create([
@@ -124,20 +132,35 @@ class HomeController extends Controller
         ];
     }
 
-    // Loads the pdf receipt generated
+    /**
+     * Load pdf
+     *
+     * @param string $pdf
+     * @return \Illuminate\Http\Response
+     */
     public function loadPdf($pdf)
     {
         return response()->file(storage_path('app/public/pdf/') . $pdf);
     }
 
 
-    // Downloads the pdf receipt generated
+    /**
+     * Download pdf
+     *
+     * @param string $pdf
+     * @return \Illuminate\Http\Response
+     */
     public function downloadPdf($pdf)
     {
         return response()->download(storage_path('app/public/pdf/') . $pdf);
     }
 
-    // Extracts the information about the senser
+    /**
+     * Extract the info about sender
+     *
+     * @param string $sender
+     * @return array $data
+     */
     public function sender($sender)
     {
         $reg = '/(^\+)?\d{10}/';
@@ -189,13 +212,17 @@ class HomeController extends Controller
         return $data;
     }
 
-    // Extracts the information about the receiver
+    /**
+     * Extract the info about receiver
+     *
+     * @param string $receivers
+     * @return array $data
+     */
     public function receivers($receivers)
     {
         $temps =  preg_split("/\n\r\n|\n\r|\r\n|\n\n/", $receivers);
         $reg = '/(^\+)?\d{10}/';
         
-        // dd($temps);
         $rslt = [];
         foreach ($temps as $receiver) {
             if (!$receiver) {
@@ -269,7 +296,12 @@ class HomeController extends Controller
         return $rslt;
     }
 
-
+    /**
+     * Extract phone number
+     *
+     * @param string $phone
+     * @return string $finalNumber
+     */
     protected function phone_number($phone)
     {
         $finalNumber = '';

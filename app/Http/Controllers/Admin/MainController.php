@@ -11,6 +11,11 @@ use App\Http\Controllers\Controller;
 
 class MainController extends Controller
 {
+    /**
+     * Display dashboard
+     * 
+     * @return \Illuminate\Http\Response 
+     */
     public function index()
     {
         $receiptsCount = Receipt::count();
@@ -18,12 +23,15 @@ class MainController extends Controller
         return view('admin.home', compact('usersCount', 'receiptsCount'));
     }
 
-    // Api For Dashboard Data
+    /**
+     * Get dashboard data
+     * 
+     * @param \Illuminate\Http\Request
+     * @return array $data 
+     */
     public function dashboard_api(Request $request)
     {
-		// return $request->all();
         $use = $request->use;
-        
         $data = [
             'totalReceipts' => 0,
             'totalUsers' => 0,
@@ -74,4 +82,3 @@ class MainController extends Controller
         return $data;
     }
 }
-Receipt::select(DB::raw('*, sum(amount) as total'))->orderBy('total', 'desc')->groupBy('user_id')->get();

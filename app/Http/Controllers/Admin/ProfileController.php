@@ -8,9 +8,16 @@ use App\Http\Controllers\Controller;
 
 class ProfileController extends Controller
 {
-    public function __construct(){
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
         $this->middleware('auth:admin');
-    } 
+    }
+
     /**
      * Display the specified resource.
      *
@@ -20,7 +27,6 @@ class ProfileController extends Controller
     public function show(Admin $admin)
     {
         $admin = auth()->user();
-
         return view('admin.profile.index', compact('admin'));
     }
 
@@ -56,8 +62,14 @@ class ProfileController extends Controller
         return back();
     }
 
-
-    public function change_password(Request $request){
+    /**
+     * Change The Password Of User.
+     * 
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function change_password(Request $request)
+    {
         $this->validate($request, [
             'old_password' => 'required|old_password',
             'password' => 'required|string|min:6|confirmed',

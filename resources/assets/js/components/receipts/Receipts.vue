@@ -1,7 +1,6 @@
 <template>
     <div>
         <div class="row">
-
             <div class="col-xs-6">
                 <form @submit.prevent="reloadFromFirstPage">
                     <div class="input-group">
@@ -14,7 +13,6 @@
                 </form>
             </div>
             <!-- /.col-xs-6 -->
-
             <div class="col-sm-4 col-xs-6 col-xs-offset-0 col-sm-offset-2">
                 <div class="input-group">
                     <span class="input-group-btn">
@@ -71,10 +69,9 @@
             <br><br>
             <span class="btn btn-danger" @click="deleteMultipleReceipts">Delete Selected Receipts</span>
         </div>
+        <edit-receipt @update="updateReceipt"></edit-receipt>
         <iframe id="print-frame" class="hide" name="frame" src="" frameborder="0" @load="loadingComplete"></iframe>
         <iframe id="csv-frame" class="hide" name="csv-frame" src="" frameborder="0"></iframe>
-
-        <edit-receipt @update="updateReceipt"></edit-receipt>
 
     </div>
 </template>
@@ -85,7 +82,6 @@ import mixin from '../mixins/Receipts';
 export default {
     data() {
         return {
-
         }
     },
     components: {
