@@ -1,6 +1,32 @@
 <template>
     <div>
         <div class="row">
+            <div class="col-sm-8 padding-0 form-group">
+                <div class="search-for-label">
+                    <label class="col-sm-4 col-xs-4"  v-for="(field, index) in searchFor" :key="index">
+                        <input type="checkbox" v-model="searchFor[index]"> <span v-text="index"></span>
+                    </label>
+                <div class="clearfix"></div>
+                </div>   
+            </div>
+            <div class="col-sm-4 form-group">
+                <form class="form-horizontal" @submit.prevent="reloadFromFirstPage">
+                    <div class="form-group">
+                        <label for="from" class="col-xs-3 control-label">From</label>
+                        <div class="col-xs-9 col-md-6">
+                            <input type="date" class="form-control" id="from" v-model="from">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="to" class="col-xs-3 control-label">To</label>
+                        <div class="col-xs-9 col-md-6">
+                            <input type="date" class="form-control" id="to" v-model="to">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="row">
 
             <div class="col-xs-6">
                 <form @submit.prevent="reloadFromFirstPage">
@@ -78,9 +104,11 @@
 </template>
 
 <script>
+import moment from 'moment';
 import Form from '../../../Form/Form';
 import eventHub from '../../../eventHub';
 import emptyPageInfo from '../../../empty/PageInfo';
+import ReceiptSearchFor from '../../../empty/ReceiptSearchFor';
 
 export default {
     data() {
@@ -89,9 +117,11 @@ export default {
             loadCount: 0,
             printList: [],
             selectAllReceipts: false,
-            search: '',
-            order: 'latest',
             records: 100,
+            from: moment().subtract(1, 'months').format('YYYY-MM-DD'),
+            to: moment().format('YYYY-MM-DD'),
+            search: '',
+            searchFor: ReceiptSearchFor,
             pageInfo: emptyPageInfo,
             scope: '/admin',
             scopeApi: '/api/admin'
@@ -115,7 +145,10 @@ export default {
 
     methods: {
         loadReceipts() {
-            axios.get(`${this.scopeApi}/receipts/deleted`).then(res => {
+            axios.post(`${this.scopeApi}/receipts/deleted`, {
+                from : this.from,
+                to : this.to
+            }).then(res => {
                 this.receipts = res.data.data;
                 this.updatePageInfo(res.data);
             }).catch(err => {
@@ -123,7 +156,14 @@ export default {
             })
         },
         reload(page) {
-            axios.get(`${this.scopeApi}/receipts/deleted?search=${this.search}&records=${this.records}&page=${page}`).then(res => {
+            axios.post(`${this.scopeApi}/receipts/deleted`, {
+                searchFor: this.searchFor,
+                    search: this.search,
+                    records: this.records,
+                    from : this.from,
+                    to : this.to,
+                    page
+            }).then(res => {
                 this.receipts = res.data.data;
                 this.updatePageInfo(res.data);
             }).catch(err => {
@@ -131,7 +171,13 @@ export default {
             })
         },
         reloadFromFirstPage() {
-            axios.get(`${this.scopeApi}/receipts/deleted?search=${this.search}&records=${this.records}`).then(res => {
+            axios.post(`${this.scopeApi}/receipts/deleted`, {
+                searchFor: this.searchFor,
+                    search: this.search,
+                    records: this.records,
+                    from : this.from,
+                    to : this.to
+            }).then(res => {
                 this.receipts = res.data.data;
                 this.updatePageInfo(res.data);
             }).catch(err => {

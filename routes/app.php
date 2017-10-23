@@ -15,18 +15,15 @@ Route::get('/pdf/{pdf}/download', 'HomeController@downloadPdf')->name('pdf.downl
 // Printing the Saved Receipts
 Route::post('/receipts/print', 'ReceiptController@print_multiple_receipts')->name('receipts.print.multiple');
 Route::get('/receipts/print/{receipt}', 'ReceiptController@print_single_receipt')->name('receipts.print.single');
-
 // Import Receipts In CSV
 Route::post('/receipts/csv/upload', 'ReceiptController@csv_upload')->name('receipts.csv.import');
 // Export Receipts In CSV
 Route::post('/receipts/csv', 'ReceiptController@csv_download')->name('receipts.csv.download');
-
+// Dispaly receipts
 Route::get('/receipts', 'ReceiptController@index')->name('receipts');
-// Get Receipts By Dates
-Route::get('receipts/date', 'ReceiptController@receipts_by_date')->name('receipts.bydate');
 // Receipts Create
 Route::get('receipts/create', 'ReceiptController@create')->name('receipts.create');
-
+// Update receipt
 Route::post('/receipts/{receipt}', 'ReceiptController@update')->name('receipts.update');
 
 

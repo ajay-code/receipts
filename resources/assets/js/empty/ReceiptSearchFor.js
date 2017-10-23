@@ -1,0 +1,17 @@
+module.exports = {
+    receiver_address: false,
+    receiver_email: false,
+    receiver_name: false,
+    receiver_phone: false,
+    receiver_product: false,
+    amount: false,
+    product_cost: false,
+    postage_cost: false,
+    sender_id: false,
+    sender_email: false,
+    sender_name: false,
+    sender_phone: false,
+    tracking: false,
+    receiver_product: false,
+    receiver_postcode: false,
+}

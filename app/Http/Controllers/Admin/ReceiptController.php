@@ -42,18 +42,6 @@ class ReceiptController extends Controller
         return view('admin.receipts.deleted');
     }
 
-
-    /**
-     * Display receipts sorted by date.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function receipts_by_date()
-    {
-        return view('admin.receipts.by-date');
-    }
-
-
     /**
      * Get list of receipts.
      *
@@ -65,42 +53,37 @@ class ReceiptController extends Controller
     {
         $search = $request->search;
         $records = $request->records ? $request->records : 100;
-        $order = $request->order ? $request->order : 'latest';
+        $from = Carbon::createFromFormat('Y-m-d', $request->from)->startOfDay();
+        $to = Carbon::createFromFormat('Y-m-d', $request->to)->endOfDay();
         $receipts = [];
-
+        $query = new Receipt();
+        $searchFor = $this->search_for($request->searchFor);
         if ($search) {
-            if ($order == 'latest') {
-                $receipts = Receipt::search($search)->paginate($records);
-            } else {
-                $receipts = Receipt::search($search)->paginate($records);
-            }
+            $query = $query->where(function ($query) use ($searchFor, $request, $search) {
+                $i = 1;
+                if ($searchFor) {
+                    foreach ($searchFor as $key => $value) {
+                        if ($i == 1) {
+                            $query = $query->Where($key, 'LIKE', "%{$search}%");
+                        }
+                        $query = $query->orWhere($key, 'LIKE', "%{$search}%");
+                        $i++;
+                    }
+                } else {
+                    foreach ($request->searchFor as $key => $value) {
+                        if ($i == 1) {
+                            $query = $query->Where($key, 'LIKE', "%{$search}%");
+                        }
+                        $query = $query->orWhere($key, 'LIKE', "%{$search}%");
+                        $i++;
+                    }
+                }
+            });
         } else {
-            if ($order == 'latest') {
-                $receipts = Receipt::latest()->paginate($records);
-            } else {
-                $receipts = Receipt::oldest()->paginate($records);
-            }
+            $query = $query->latest();
         }
-        return $receipts;
-    }
-
-
-
-    /**
-     * Get list of receipts sorted by date.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Request $receipt
-     * @return array $receipts
-     */
-    public function receipts_by_date_paginated_api(Request $request)
-    {
-        $records = $request->records ? $request->records : 100;
-        $from = $request->from ? date($request->from . ' 00:00:00', time()) : Carbon::now()->subweek()->setTime(00, 00, 00)->toDateTimeString();
-        $to = $request->to ? date($request->to . ' 23:59:59', time()) : Carbon::now()->setTime(23, 59, 59)->toDateTimeString();
-
-        $receipts = Receipt::whereBetween("created_at", [$from, $to])->paginate($records);
-
+        $query = $query->whereBetween('created_at', [$from, $to]);
+        $receipts = $query->paginate($records);
         return $receipts;
     }
 
@@ -154,14 +137,13 @@ class ReceiptController extends Controller
     }
 
     /**
-     * Generate pdf for a multiple record to print.
+     * Generate pdf for a multiple records to print.
      *
      * @param \Illuminate\Http\Request $request
      * @return array
      */
     public function print_multiple_receipts(Request $request)
     {
-
         $user = auth()->user();
         $user->load('settings');
 
@@ -263,7 +245,6 @@ class ReceiptController extends Controller
     public function csv_download(Request $request)
     {
         return Excel::create('receipts', function ($excel) use ($request) {
-            // Set the title
             $excel->setTitle('Receipts');
              $excel->sheet('Sheetname', function ($sheet) use ($request) {
                 $receipts = Receipt::find($request->receipts);
@@ -287,22 +268,38 @@ class ReceiptController extends Controller
     {
         $search = $request->search;
         $records = $request->records ? $request->records : 100;
-        $order = $request->order ? $request->order : 'latest';
+        $from = Carbon::createFromFormat('Y-m-d', $request->from)->startOfDay();
+        $to = Carbon::createFromFormat('Y-m-d', $request->to)->endOfDay();
+        $query = Receipt::onlyTrashed();
         $receipts = [];
-
+        $searchFor = $this->search_for($request->searchFor);
         if ($search) {
-            if ($order == 'latest') {
-                $receipts = Receipt::onlyTrashed()->search($search)->paginate($records);
-            } else {
-                $receipts = Receipt::onlyTrashed()->search($search)->paginate($records);
-            }
+            $query = $query->where(function ($query) use ($searchFor, $request, $search) {
+                $i = 1;
+                if ($searchFor) {
+                    foreach ($searchFor as $key => $value) {
+                        if ($i == 1) {
+                            $query = $query->Where($key, 'LIKE', "%{$search}%");
+                        }
+                        $query = $query->orWhere($key, 'LIKE', "%{$search}%");
+                        $i++;
+                    }
+                } else {
+                    foreach ($request->searchFor as $key => $value) {
+                        if ($i == 1) {
+                            $query = $query->Where($key, 'LIKE', "%{$search}%");
+                        }
+                        $query = $query->orWhere($key, 'LIKE', "%{$search}%");
+                        $i++;
+                    }
+                }
+            });
         } else {
-            if ($order == 'latest') {
-                $receipts = Receipt::onlyTrashed()->latest()->paginate($records);
-            } else {
-                $receipts = Receipt::onlyTrashed()->oldest()->paginate($records);
-            }
+            $query = $query->latest();
         }
+
+        $receipts = $query->whereBetween('created_at', [$from, $to])->paginate($records);
+        
         return $receipts;
     }
 
@@ -355,4 +352,23 @@ class ReceiptController extends Controller
         $count = Receipt::onlyTrashed()->whereIn('id', $request->receipts)->restore();
         return 'success ' . $count;
     }
+
+    /**
+     * Tell what to search for in receipts
+     *
+     * @param array $searchFor
+     * @return $result
+     */
+    protected function search_for($searchFor = null)
+    {
+        if ($searchFor == null) {
+            return;
+        }
+        $result = array_filter($searchFor);
+        if (empty($result)) {
+            $result = null;
+        }
+        return $result;
+    }
+
 }

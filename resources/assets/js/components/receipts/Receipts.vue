@@ -1,7 +1,33 @@
 <template>
     <div>
         <div class="row">
-            <div class="col-xs-6">
+            <div class="col-sm-8 padding-0 form-group">
+                <div class="search-for-label">
+                    <label class="col-sm-4 col-xs-4"  v-for="(field, index) in searchFor" :key="index">
+                        <input type="checkbox" v-model="searchFor[index]"> <span v-text="index"></span>
+                    </label>
+                <div class="clearfix"></div>
+                </div>   
+            </div>
+            <div class="col-sm-4 form-group">
+                <form class="form-horizontal" @submit.prevent="reloadFromFirstPage">
+                    <div class="form-group">
+                        <label for="from" class="col-xs-3 control-label">From</label>
+                        <div class="col-xs-9 col-md-6">
+                            <input type="date" class="form-control" id="from" v-model="from">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="to" class="col-xs-3 control-label">To</label>
+                        <div class="col-xs-9 col-md-6">
+                            <input type="date" class="form-control" id="to" v-model="to">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 form-group">
                 <form @submit.prevent="reloadFromFirstPage">
                     <div class="input-group">
                         <input type="text" class="form-control" placeholder="Search for..." v-model="search">
@@ -13,8 +39,8 @@
                 </form>
             </div>
             <!-- /.col-xs-6 -->
-            <div class="col-sm-4 col-xs-6 col-xs-offset-0 col-sm-offset-2">
-                <div class="input-group">
+            <div class="col-sm-5 col-sm-offset-1 col-md-3">
+                <div class="input-group ">
                     <span class="input-group-btn">
                         <button class="btn btn-default" type="button">RECORDS</button>
                     </span>
@@ -77,21 +103,18 @@
 </template>
 
 <script>
-import mixin from '../mixins/Receipts';
+import mixin from "../mixins/Receipts";
 
 export default {
-    data() {
-        return {
-        }
-    },
-    components: {
-        receipt: require('./Receipt.vue'),
-        paginator: require('../Paginator.vue')
-    },
+  data() {
+    return {};
+  },
+  components: {
+    receipt: require("./Receipt.vue"),
+    paginator: require("../Paginator.vue")
+  },
 
-    mixins: [mixin],
-    methods: {
-
-    }
-}
+  mixins: [mixin],
+  methods: {}
+};
 </script>

@@ -80,6 +80,40 @@ class HomeController extends Controller
     }
 
     /**
+     * Get dashboard summary.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return array $data
+     */
+    public function summary_api(Request $request)
+    {
+        $use = $request->use;
+        $user = auth()->user();
+        $data = [];
+        $from = '';
+        $to = '';
+
+        if ($use == 'Day') {
+            $date = $request->date;
+            $from = Carbon::createFromFormat('F d, Y', $date)->startOfDay();
+            $to = Carbon::createFromFormat('F d, Y', $date)->endOfDay();
+            $data = $this->summary_of_day($from, $to);
+        } elseif ($use == 'Month') {
+            $month = $request->month;
+            $from = Carbon::createFromFormat('F Y', $month)->startOfMonth();
+            $to = Carbon::createFromFormat('F Y', $month)->endOfMonth();
+            $data = $this->summary_of_month($from, $to);
+        } elseif ($use == 'Year') {
+            $year = $request->year;
+            $from = Carbon::createFromFormat('Y', $year)->startOfYear();
+            $to = Carbon::createFromFormat('Y', $year)->endOfYear();
+            $data = $this->summary_of_year($from, $to);
+        }
+
+        return $data;
+    }
+
+    /**
      * Generate pdf of receipt.
      *
      * @param \Illuminate\Http\Request $request
@@ -316,5 +350,17 @@ class HomeController extends Controller
         }
 
         return $finalNumber;
+    }
+
+
+    /**
+     * Get summary of the day
+     */
+    protected function summary_of_day($from = null, $to = null)
+    {
+        if(!($from && $to)){
+            return [];
+        }
+        
     }
 }

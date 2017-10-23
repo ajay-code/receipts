@@ -10,7 +10,11 @@ class SubuserController extends Controller
     	$this->middleware(['auth', 'not-expired']);
     }
 
-    // Show Uses Under The Current User
+    /** 
+     * Display Subusers
+     * 
+     * @return \Illuminate\Http\Response
+     */
     public function index(){
     	$CurrentUser = auth()->user();
 

@@ -1,23 +1,24 @@
+import moment from 'moment';
 import Form from '../../Form/Form';
 import eventHub from '../../eventHub';
-import emptyReceipt from '../../empty/Receipt';
 import emptyPageInfo from '../../empty/PageInfo';
+import ReceiptSearchFor from '../../empty/ReceiptSearchFor';
 export default {
     data() {
         return {
             receipts: [],
-            // loadCount: 0,
+            loadCount: 0,
             printList: [],
             selectAllReceipts: false,
-            search: '',
-            order: 'latest',
             records: 100,
+            from: moment().subtract(1, 'months').format('YYYY-MM-DD'),
+            to: moment().format('YYYY-MM-DD'),
+            search: '',
+            searchFor: ReceiptSearchFor,
             pageInfo: emptyPageInfo,
-            edit: new Form(emptyReceipt),
             editIndex: '',
             scope: '',
-            scopeApi: '/api',
-            
+            scopeApi: '/api'
         }
     },
     props: {
@@ -42,36 +43,53 @@ export default {
     },
     methods: {
         loadReceipts() {
-            axios.get(`${this.scopeApi}/receipts`).then(res => {
-                this.receipts = res.data.data;
-                this.updatePageInfo(res.data);
-            }).catch(err => {
-                this.sendErrorNotice();
-            })
+            axios.post(`${this.scopeApi}/receipts`, {
+                from : this.from,
+                to : this.to
+            }).then(res => {
+                    this.receipts = res.data.data;
+                    this.updatePageInfo(res.data);
+                })
+                .catch(err => {
+                    this.sendErrorNotice();
+                })
         },
         reload(page) {
-            axios.get(`${this.scopeApi}/receipts?search=${this.search}&records=${this.records}&page=${page}`).then(res => {
-                this.receipts = res.data.data;
-                this.updatePageInfo(res.data);
-            }).catch(err => {
-                this.sendErrorNotice();
-            })
+            axios.post(`${this.scopeApi}/receipts`, {
+                    searchFor: this.searchFor,
+                    search: this.search,
+                    records: this.records,
+                    from : this.from,
+                    to : this.to,
+                    page
+                }).then(res => {
+                    this.receipts = res.data.data;
+                    this.updatePageInfo(res.data);
+                })
+                .catch(err => {
+                    this.sendErrorNotice();
+                })
         },
         reloadFromFirstPage() {
-            axios.get(`${this.scopeApi}/receipts?search=${this.search}&records=${this.records}`).then(res => {
-                this.receipts = res.data.data;
-                this.updatePageInfo(res.data);
-            }).catch(err => {
-                this.sendErrorNotice();
-            })
+            axios.post(`${this.scopeApi}/receipts`, {
+                    searchFor: this.searchFor,
+                    search: this.search,
+                    records: this.records,
+                    from : this.from,
+                    to : this.to,
+                }).then(res => {
+                    this.receipts = res.data.data;
+                    this.updatePageInfo(res.data);
+                })
+                .catch(err => {
+                    this.sendErrorNotice();
+                })
         },
         deleteReceipt(ReceiptId) {
             axios.get(`${this.scopeApi}/receipts/delete/${ReceiptId}`)
                 .then(res => {
                     this.sendSuccessNotice('Receipt Deleted Successfully');
-                    let index = this.receipts.map(function (x) {
-                        return x.id;
-                    }).indexOf(ReceiptId);
+                    let index = this.receipts.map((x) => x.id).indexOf(ReceiptId);
                     this.receipts.splice(index, 1);
                 })
                 .catch(err => {
@@ -83,16 +101,24 @@ export default {
                 this.sendErrorNotice('Please Select At Least One Reeipt')
                 return;
             }
-            window.axios.post(`${this.scopeApi}/receipts/delete`, {
+            axios.post(`${this.scopeApi}/receipts/delete`, {
                     receipts: this.printList
-                }).then(res => {
+                })
+                .then(res => {
                     this.sendSuccessNotice('Receipt Deleted Successfully');
-                    this.printList.forEach((ReceiptId) => {
-                        let index = this.receipts.map(function (x) {
-                            return x.id;
-                        }).indexOf(ReceiptId);
-                        this.receipts.splice(index, 1);
-                    });
+                    this
+                        .printList
+                        .forEach((ReceiptId) => {
+                            let index = this
+                                .receipts
+                                .map(function (x) {
+                                    return x.id;
+                                })
+                                .indexOf(ReceiptId);
+                            this
+                                .receipts
+                                .splice(index, 1);
+                        });
                     this.clearPrintList();
                 })
                 .catch(err => {
@@ -101,9 +127,11 @@ export default {
         },
         printSingleReceipt(receiptId) {
             eventHub.$emit('start-loading');
-            axios.get(`${this.scope}/receipts/print/${receiptId}`).then(res => {
-                this.loadSinglePdf(res.data.pdfName)
-            })
+            axios
+                .get(`${this.scope}/receipts/print/${receiptId}`)
+                .then(res => {
+                    this.loadSinglePdf(res.data.pdfName)
+                })
         },
         loadSinglePdf(pdf) {
             let url = '';
@@ -132,21 +160,29 @@ export default {
         },
         addToPrintList(receiptId) {
             if (this.printList.indexOf(receiptId) === -1) {
-                this.printList.push(receiptId);
+                this
+                    .printList
+                    .push(receiptId);
             }
         },
         removeFromPrintList(receiptId) {
-            var index = this.printList.indexOf(receiptId);
-            this.printList.splice(index, 1);
+            var index = this
+                .printList
+                .indexOf(receiptId);
+            this
+                .printList
+                .splice(index, 1);
         },
         print() {
             if (this.printList.length) {
                 eventHub.$emit('start-loading');
-                axios.post(`${this.scope}/receipts/print`, {
-                    receipts: this.printList
-                }).then(res => {
-                    this.loadSinglePdf(res.data.pdfName)
-                })
+                axios
+                    .post(`${this.scope}/receipts/print`, {
+                        receipts: this.printList
+                    })
+                    .then(res => {
+                        this.loadSinglePdf(res.data.pdfName)
+                    })
             } else {
                 this.sendErrorNotice('please select atleast on receipt')
             }
@@ -158,18 +194,14 @@ export default {
             this.pageInfo.next_page_url = info.next_page_url;
             this.pageInfo.prev_page_url = info.prev_page_url;
         },
-        reload(page) {
-            axios.get(`${this.scopeApi}/receipts?search=${this.search}&records=${this.records}&page=${page}`).then(res => {
-                this.receipts = res.data.data;
-                this.updatePageInfo(res.data);
-            }).catch(err => {
-                this.sendErrorNotice();
-            })
-        },
+
         editReceipt(ReceiptId) {
-            this.editIndex = this.receipts.map(function (x) {
-                return x.id;
-            }).indexOf(ReceiptId);
+            this.editIndex = this
+                .receipts
+                .map(function (x) {
+                    return x.id;
+                })
+                .indexOf(ReceiptId);
             this.test++;
             console.log(this.test);
             eventHub.$emit('edit', this.receipts[this.editIndex]);
@@ -186,21 +218,28 @@ export default {
         },
         update() {
             eventHub.$emit('start-loading');
-            this.edit.post(`${this.scope}/receipts/${this.edit.id}`).then(res => {
-                eventHub.$emit('stop-loading')
-                this.copyFromEdit();
-                $('#edit-receipt').modal('hide');
-                this.sendSuccessNotice('Receipt successfully edited')
-            }).catch(err => {
-                eventHub.$emit('stop-loading')
-                let message = '<ul>';
-                for (let name in this.edit.errors.errors) {
-                    console.log(name)
-                    message += '<li>' + this.edit.errors.get(name) + '</li>';
-                }
-                message += '</ul>';
-                this.sendErrorNotice(message);
-            })
+            this
+                .edit
+                .post(`${this.scope}/receipts/${this.edit.id}`)
+                .then(res => {
+                    eventHub.$emit('stop-loading')
+                    this.copyFromEdit();
+                    $('#edit-receipt').modal('hide');
+                    this.sendSuccessNotice('Receipt successfully edited')
+                })
+                .catch(err => {
+                    eventHub.$emit('stop-loading')
+                    let message = '<ul>';
+                    for (let name in this.edit.errors.errors) {
+                        console.log(name)
+                        message += '<li>' + this
+                            .edit
+                            .errors
+                            .get(name) + '</li>';
+                    }
+                    message += '</ul>';
+                    this.sendErrorNotice(message);
+                })
         },
         clearPrintList() {
             eventHub.$emit('clear-every-receipt');
@@ -210,14 +249,18 @@ export default {
             if (this.printList.length) {
                 eventHub.$emit('start-loading');
                 let inputs = '';
-                this.printList.forEach(function (element) {
-                    inputs += `<input name="receipts[]" value="${element}">`;
-                }, this);
+                this
+                    .printList
+                    .forEach(function (element) {
+                        inputs += `<input name="receipts[]" value="${element}">`;
+                    }, this);
                 jQuery(`<form action="${this.scope}/receipts/csv" method="post" target="csv-frame">
                             <input name="_token" value="${Laravel.csrfToken}">
                             ${inputs}
                         </form>`)
-                    .appendTo('body').submit().remove()
+                    .appendTo('body')
+                    .submit()
+                    .remove()
                 eventHub.$emit('stop-loading')
             } else {
                 this.sendErrorNotice('please select atleast on receipt')

@@ -1732,7 +1732,7 @@ var ReceiptForm = function ReceiptForm() {
     return __webpack_require__.e/* import() */(6).then(__webpack_require__.bind(null, 186));
 };
 var Receipts = function Receipts() {
-    return __webpack_require__.e/* import() */(1).then(__webpack_require__.bind(null, 187));
+    return __webpack_require__.e/* import() */(2).then(__webpack_require__.bind(null, 187));
 };
 var ReceiptsByDate = function ReceiptsByDate() {
     return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 188));
@@ -1752,7 +1752,7 @@ var AdminUsers = function AdminUsers() {
     return __webpack_require__.e/* import() */(4).then(__webpack_require__.bind(null, 192));
 };
 var AdminUserReceipts = function AdminUserReceipts() {
-    return __webpack_require__.e/* import() */(2).then(__webpack_require__.bind(null, 193));
+    return __webpack_require__.e/* import() */(1).then(__webpack_require__.bind(null, 193));
 };
 
 Vue.component('dashboard', Dashboard);

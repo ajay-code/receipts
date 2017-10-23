@@ -33,7 +33,6 @@
 	z-index: 999;
 	span p{
 	padding: 5px 40px;
-
 	}
 }
 
@@ -100,5 +99,28 @@
 		.dashboard_item_icon{
 			font-size: 40px;
 		}
+	}
+}
+
+.search-for-label{
+	width: 100%;
+	font-size: 12px;
+}
+.padding-0 {
+	padding: 0 !important;
+}
+.search-for-label > .col-sm-4{
+	padding: 2px;
+}
+@media(max-width:500px){
+	.search-for-label{
+		font-size: 10px;
+		padding: 0
+	}
+}
+@media(max-width:350px){
+	.search-for-label{
+		font-size: 8px;
+		padding: 0
 	}
 }

@@ -6,16 +6,31 @@ use Illuminate\Http\Request;
 
 class settingsController extends Controller
 {
+	/**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
     public function __construct(){
     	$this->middleware(['auth', 'not-expired']);
     }
 
+	/** 
+	 * Display Settings
+	 * 
+	 * @return \Illuminate\Http\Response
+	 */
     public function index(){
     	$user = auth()->user();
 
     	return view('settings.edit', compact('user'));
     }
 
+	/**
+     * Update settings
+     *
+     * @return \Illumunate\Http\Response
+     */
     public function update(Request $request){
     	$this->validate($request, [
             'font' => 'required', 

@@ -1,15 +1,5 @@
 <?php
 
-// Route::get('/', function () {
-//     $users[] = Auth::user();
-//     $users[] = Auth::guard()->user();
-//     $users[] = Auth::guard('admin')->user();
-
-//     dd($users);
-
-//     return view('admin.home');
-// })->name('home');
-
 Route::get('/', 'Admin\MainController@index')->name('index');
 Route::get('/home', 'Admin\MainController@index')->name('home');
 
@@ -28,11 +18,6 @@ Route::post('/receipts/csv', 'Admin\ReceiptController@csv_download')->name('rece
 Route::get('receipts', 'Admin\ReceiptController@index')->name('receipts');
 Route::get('receipts/deleted', 'Admin\ReceiptController@deleted_receipts')->name('receipts.deleted');
 Route::post('receipts/{receipt}', 'Admin\ReceiptController@update')->name('receipts.update');
-
-// Get Receipts By Dates
-Route::get('receipts/date', 'Admin\ReceiptController@receipts_by_date')->name('receipts.bydate');
-
-
 
 
 // 

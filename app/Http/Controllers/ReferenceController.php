@@ -9,12 +9,21 @@ use Illuminate\Http\Request;
 
 class ReferenceController extends Controller
 {
-
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
 	public function __construct()
 	{
         $this->middleware(['auth', 'not-expired']);
 	}
 
+    /** 
+     * Display list of references.
+     * 
+     * @return \Illuminate\Http\Response
+     */
     public function index()
     {
     	if(auth()->user()->type == 'user'){
@@ -50,7 +59,6 @@ class ReferenceController extends Controller
 
     	try{
     		// Try To create Reference Code
-    		// throw new \Exception('this is Exception message');
     		Reference::create([
     			'reference_code' => $ref_code, 
     			'creator_type' => get_class(auth()->user()), 
@@ -74,6 +82,11 @@ class ReferenceController extends Controller
         return back();
     }
 
+    /** 
+     * Redirect to home page is user type is 'user'
+     * 
+     * @return \Illuminate\Http\Response
+     */
    	public function redirectIfUser()
    	{
    		if(auth()->user()->type == 'user'){
@@ -81,10 +94,21 @@ class ReferenceController extends Controller
     	}
    	}
 
-    public function use_reference_code_form(Request $request){
+    /** 
+     * Display form to use reference code
+     * 
+     * @return \Illuminate\Http\Response  
+     */   
+    public function use_reference_code_form(){
         return view('reference.use-reference-code-form');
     }
 
+    /** 
+     * Apply the reference code
+     * 
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Response 
+     */
     public function use_reference_code(Request $request){
         $reference = Reference::where('reference_code', $request->reference_code)->first();
         // return $reference;
@@ -116,6 +140,11 @@ class ReferenceController extends Controller
         return back();
     }
 
+    /** 
+     * Delete reference code
+     * 
+     * @return \Illuminate\Http\Response 
+     */
     public function destroy(Reference $reference){
         // dd($reference);
         if($reference->creator_id = auth()->user()->id){

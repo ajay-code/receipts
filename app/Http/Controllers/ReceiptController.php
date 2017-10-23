@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use DB;
 use PDF;
 use Excel;
 use Input;
@@ -21,54 +22,80 @@ class ReceiptController extends Controller
     {
         $this->middleware(['auth', 'not-expired']);
     }
-    // Shows list of saved receipts
+
+    /**
+     * Display receipts
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function index()
     {
         return view('receipts.index');
     }
 
-    // Create New Receipts
+    /**
+     * Display receipt creating form
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function create()
     {
         return view('create');
     }
 
-    public function receipts_by_date()
-    {
-        return view('receipts.by-date');
-    }
-
-    // Returns array of saved receipts
-    public function receipts_api()
-    {
-        return auth()->user()->receipts()->latest()->get();
-    }
-
-    // Returns array of saved receipts
+    /**
+     * Get list of receipts
+     *
+     * @param \Illuminate\Http\Response $request
+     * @return array $receipts
+     */
     public function receipts_paginated_api(Request $request)
     {
-        // return $request->all();
+        $user = auth()->user();
         $search = $request->search;
         $records = $request->records ? $request->records : 100;
-        $order = $request->order ? $request->order : 'latest';
-
+        $from = Carbon::createFromFormat('Y-m-d', $request->from)->startOfDay();
+        $to = Carbon::createFromFormat('Y-m-d', $request->to)->endOfDay();
+        $receipts = [];
+        $query = $user->receipts();
+        $searchFor = $this->search_for($request->searchFor);
         if ($search) {
-            if ($order == 'latest') {
-                $receipts = Receipt::search($search)->where('user_id', auth()->user()->id)->paginate($records);
-            } else {
-                $receipts = Receipt::search($search)->where('user_id', auth()->user()->id)->paginate($records);
-            }
+            $query = $query->where(function ($query) use ($searchFor, $request, $search) {
+                $i = 1;
+                if ($searchFor) {
+                    foreach ($searchFor as $key => $value) {
+                        if ($i == 1) {
+                            $query = $query->Where($key, 'LIKE', "%{$search}%");
+                        }
+                        $query = $query->orWhere($key, 'LIKE', "%{$search}%");
+                        $i++;
+                    }
+                } else {
+                    foreach ($request->searchFor as $key => $value) {
+                        if ($i == 1) {
+                            $query = $query->Where($key, 'LIKE', "%{$search}%");
+                        }
+                        $query = $query->orWhere($key, 'LIKE', "%{$search}%");
+                        $i++;
+                    }
+                }
+            });
         } else {
-            if ($order == 'latest') {
-                $receipts = Receipt::where('user_id', auth()->user()->id)->latest()->paginate($records);
-            } else {
-                $receipts = Receipt::where('user_id', auth()->user()->id)->oldest()->paginate($records);
-            }
+            $query = $query->latest();
         }
+        $receipts = $query->whereBetween('created_at', [$from, $to])->paginate($records);
+        // dd($query->toSql());
+        
         return $receipts;
     }
 
-    // Generate pdf for a single record to print
+    /**
+     * Generate pdf for a single record to print.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Receipt $receipt
+     * @return array
+     */
     public function print_single_receipt(Request $request, Receipt $receipt)
     {
         $this->authorize('view', $receipt);
@@ -89,6 +116,12 @@ class ReceiptController extends Controller
         ];
     }
 
+    /**
+     * Delete single receipt.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return string 'success'
+     */
     public function receipts_delete_api(Receipt $receipt)
     {
         if (auth()->user()->id !== $receipt->user_id) {
@@ -98,13 +131,25 @@ class ReceiptController extends Controller
         return 'success';
     }
 
+
+    /**
+     * Delete multiple receipts.
+     *
+     * @param \App\Receipt $receipt
+     * @return string 'success'
+     */
     public function multiple_receipts_delete_api(Request $request)
     {
         Receipt::where('id', $request->receipts)->where('user_id', auth()->user()->id)->delete();
         return 'success';
     }
 
-    // Generate pdf for a multiple record to print
+    /**
+     * Generate pdf for a multiple records to print.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return array
+     */
     public function print_multiple_receipts(Request $request)
     {
         $user = auth()->user();
@@ -125,6 +170,13 @@ class ReceiptController extends Controller
         ];
     }
 
+    /**
+     * Update receipt.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Receipt $receipt
+     * @return string 'success'
+     */
     public function update(Request $request, Receipt $receipt)
     {
         $this->authorize('update', $receipt);
@@ -144,18 +196,12 @@ class ReceiptController extends Controller
         return 'success';
     }
 
-    // Returns array of saved receipts
-    public function receipts_by_date_paginated_api(Request $request)
-    {
-        $records = $request->records ? $request->records : 100;
-        $from = $request->from ? date($request->from . ' 00:00:00', time()) : Carbon::now()->subweek()->setTime(00, 00, 00)->toDateTimeString();
-        $to = $request->to ? date($request->to . ' 23:59:59', time()) : Carbon::now()->setTime(23, 59, 59)->toDateTimeString();
-
-        $receipts = Receipt::where('user_id', auth()->user()->id)->whereBetween("created_at", [$from, $to])->paginate($records);
-
-        return $receipts;
-    }
-
+    /**
+     * Upload receipts in form of CVS.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return array
+     */
     public function csv_upload(Request $request)
     {
         Validator::make([
@@ -190,6 +236,12 @@ class ReceiptController extends Controller
         ];
     }
 
+    /**
+     * Get list of users in CVS format
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return File CVS
+     */
     public function csv_download(Request $request)
     {
         return Excel::create('receipts', function ($excel) use ($request) {
@@ -207,37 +259,21 @@ class ReceiptController extends Controller
         })->download('csv');
     }
 
-    public function net_amount_api(Request $request)
+    /**
+     * Tell what to search for in receipts
+     *
+     * @param array $searchFor
+     * @return $result
+     */
+    protected function search_for($searchFor = null)
     {
-        $net = $request->net;
-        $totalAmount = '';
-        $totalProductCost = '';
-        $totalPostageCost = '';
-
-        $from = '';
-        $to = new Carbon('last day of this month');
-
-        if ($net == 'current') {
-            $from = new Carbon('first day of this month');
-        } elseif ($net == 'last') {
-            $from = new Carbon('first day of last month');
-            $to = new Carbon('last day of last month');
-        } else {
-            $from = new Carbon('last day of this month');
-            $from->subMonths(3);
+        if ($searchFor == null) {
+            return;
         }
-
-        $from->setTime(0, 0, 0);
-        $to->setTime(23, 59, 59);
-
-        $totalAmount = auth()->user()->receipts()->whereBetween("created_at", [$from, $to])->sum('amount');
-        $totalProductCost = auth()->user()->receipts()->whereBetween("created_at", [$from, $to])->sum('product_cost');
-        $totalPostageCost = auth()->user()->receipts()->whereBetween("created_at", [$from, $to])->sum('postage_cost');
-
-        return [
-            'totalAmount' => $totalAmount,
-            'totalProductCost' => $totalProductCost,
-            'totalPostageCost' => $totalPostageCost
-        ];
+        $result = array_filter($searchFor);
+        if (empty($result)) {
+            $result = null;
+        }
+        return $result;
     }
 }
