@@ -48,6 +48,7 @@ Route::post('/references/use', 'ReferenceController@use_reference_code');
 */
 
 Route::get('/subusers', 'SubuserController@index')->name('subusers');
+Route::get('/subusers/{user}/receipts', 'SubuserController@user_receipts')->name('subusers.CreateReceiptsTable');
 
 
 

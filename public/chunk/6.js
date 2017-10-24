@@ -1,51 +1,10 @@
 webpackJsonp([6],{
 
-/***/ 186:
-/***/ (function(module, exports, __webpack_require__) {
-
-var disposed = false
-var Component = __webpack_require__(5)(
-  /* script */
-  __webpack_require__(209),
-  /* template */
-  __webpack_require__(210),
-  /* styles */
-  null,
-  /* scopeId */
-  null,
-  /* moduleIdentifier (server only) */
-  null
-)
-Component.options.__file = "/Users/ajaysingh/code/laravel/app/resources/assets/js/components/ReceiptForm.vue"
-if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] ReceiptForm.vue: functional components are not supported with templates, they should use render functions.")}
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-ba7bc93a", Component.options)
-  } else {
-    hotAPI.reload("data-v-ba7bc93a", Component.options)
-  }
-  module.hot.dispose(function (data) {
-    disposed = true
-  })
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
-
-/***/ 194:
+/***/ 193:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Errors__ = __webpack_require__(195);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Errors__ = __webpack_require__(194);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -206,7 +165,7 @@ var Form = function () {
 
 /***/ }),
 
-/***/ 195:
+/***/ 194:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -299,14 +258,58 @@ var Errors = function () {
 
 /***/ }),
 
-/***/ 209:
+/***/ 261:
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var Component = __webpack_require__(5)(
+  /* script */
+  __webpack_require__(262),
+  /* template */
+  __webpack_require__(263),
+  /* styles */
+  null,
+  /* scopeId */
+  null,
+  /* moduleIdentifier (server only) */
+  null
+)
+Component.options.__file = "/Users/ajaysingh/code/laravel/app/resources/assets/js/components/receipts/ReceiptForm.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] ReceiptForm.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-3fd91fd1", Component.options)
+  } else {
+    hotAPI.reload("data-v-3fd91fd1", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+
+/***/ 262:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Form_Form__ = __webpack_require__(194);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Form_Form__ = __webpack_require__(193);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__eventHub__ = __webpack_require__(9);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__eventHub___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__eventHub__);
+//
+//
+//
 //
 //
 //
@@ -381,6 +384,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             importForm: new __WEBPACK_IMPORTED_MODULE_0__Form_Form__["a" /* default */]({
                 receipts: ''
             }),
+            src: '',
+            buttonDeactivate: false,
             loadCount: 0,
             senderPlaceholder: 'Name \nAddress \nPhone \nEmail',
             receiverPlaceholder: 'Receiver 1 Name \nAddress \nPhone \nEmail \nProducts \namount (starting with "$")  \n\r\nReceiver 2 Name \nAddress \nPhone \nEmail \nProduct \namount (starting with "$")',
@@ -394,23 +399,33 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         csrf: function csrf() {
             return window.token.content;
         },
-        onMobile: function onMobile() {
-            return this.isMobile();
+        isDisabled: function isDisabled() {
+            return !this.form.sender || !this.form.receivers || this.buttonDeactivate;
+        },
+        canPrint: function canPrint() {
+            return !!this.src;
         }
     },
     methods: {
+        print: function print() {
+            window.frames['frame'].print();
+        },
         submit: function submit() {
             var _this = this;
 
             this.loading = true;
+            this.buttonDeactivate = true;
             this.form.post('/print', this.form).then(function (res) {
-                // this.resetReceiver();
+                _this.resetReceiver();
+                _this.buttonDeactivate = false;
+
                 console.log(res);
                 if (res.pdfName) {
                     _this.pdfName = res.pdfName;
                     _this.loadPdf(res);
                 } else {
                     _this.loading = false;
+
                     _this.$notify({
                         group: 'notice',
                         type: 'error',
@@ -421,6 +436,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     });
                 }
             }).catch(function (error) {
+                _this.loading = false;
+                _this.buttonDeactivate = false;
+
                 _this.$notify({
                     group: 'notice',
                     type: 'error',
@@ -434,10 +452,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         loadPdf: function loadPdf(res) {
             window.data = res;
             if (!this.isMobile()) {
-                $('#frame').attr('src', '/pdf/' + this.pdfName);
+                this.src = '/pdf/' + this.pdfName;
             } else {
                 this.loading = false;
-                $('#frame').attr('src', '/pdf/' + this.pdfName + '/download');
+                this.src = '/pdf/' + this.pdfName + '/download';
             }
         },
         loadingComplete: function loadingComplete() {
@@ -448,10 +466,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 }
                 this.loadCount++;
             }
-        },
-        loadingFail: function loadingFail() {
-            this.loading = false;
-            alert('Loading Failed');
         },
         isMobile: function isMobile() {
             return window.isMobile();
@@ -495,7 +509,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 
-/***/ 210:
+/***/ 263:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -507,18 +521,15 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }), _vm._v(" "), _c('form', {
     staticClass: "form-horizontal",
     attrs: {
-      "id": "print-form",
-      "action": "/print",
-      "method": "post",
-      "target": "_blank"
+      "id": "print-form"
+    },
+    on: {
+      "submit": function($event) {
+        $event.preventDefault();
+        0
+      }
     }
-  }, [(_vm.onMobile) ? _c('input', {
-    attrs: {
-      "type": "hidden",
-      "name": "mobile",
-      "value": "true"
-    }
-  }) : _vm._e(), _vm._v(" "), _c('input', {
+  }, [_c('input', {
     attrs: {
       "type": "hidden",
       "name": "_token"
@@ -597,25 +608,38 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.form.receivers = $event.target.value
       }
     }
-  })]), _vm._v(" "), _c('br'), _vm._v(" "), _c('br'), _vm._v(" "), _c('div', {
+  })]), _vm._v(" "), _c('br'), _vm._v(" "), _c('div', {
     staticClass: "form-group"
   }, [_c('span', {
+    staticClass: "btn btn-primary padding-",
+    on: {
+      "click": _vm.reset
+    }
+  }, [_vm._v("Reset Form")])]), _vm._v(" "), _c('br'), _vm._v(" "), _c('div', {
+    staticClass: "form-group"
+  }, [_c('button', {
+    staticClass: "btn btn-primary",
+    attrs: {
+      "disabled": _vm.isDisabled
+    },
+    on: {
+      "click": _vm.submit
+    }
+  }, [_vm._v("Store & Print")]), _vm._v(" "), _c('button', {
+    staticClass: "btn btn-success",
+    attrs: {
+      "disabled": !_vm.canPrint
+    },
+    on: {
+      "click": _vm.print
+    }
+  }, [_vm._v("Print")]), _vm._v(" "), _c('span', {
     staticClass: "btn btn-primary",
     attrs: {
       "data-toggle": "modal",
       "data-target": "#import-receipts"
     }
-  }, [_vm._v("Import")]), _vm._v(" "), _c('span', {
-    staticClass: "btn btn-primary",
-    on: {
-      "click": _vm.reset
-    }
-  }, [_vm._v("Reset")]), _vm._v(" "), _c('span', {
-    staticClass: "btn btn-primary",
-    on: {
-      "click": _vm.submit
-    }
-  }, [_vm._v("Print")])])]), _vm._v(" "), _c('div', {
+  }, [_vm._v("Import")])])]), _vm._v(" "), _c('div', {
     staticClass: "modal fade",
     attrs: {
       "id": "import-receipts",
@@ -661,21 +685,22 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_vm._v("Choose file to upload")]), _vm._v(" "), _c('input', {
     attrs: {
       "type": "file",
-      "name": "file"
+      "name": "file",
+      "required": ""
     },
     on: {
       "change": _vm.fileUploaded
     }
   })]), _vm._v(" "), _c('button', {
     staticClass: "btn btn-primary"
-  }, [_vm._v("Print")])])])])])]), _vm._v(" "), (_vm.loading) ? _c('div', {
+  }, [_vm._v("Store & Print")])])])])])]), _vm._v(" "), (_vm.loading) ? _c('div', {
     staticClass: "overlay"
   }, [_c('loader')], 1) : _vm._e(), _vm._v(" "), _c('iframe', {
     staticClass: "hide",
     attrs: {
       "id": "frame",
       "name": "frame",
-      "src": ""
+      "src": _vm.src
     },
     on: {
       "load": _vm.loadingComplete
@@ -703,7 +728,7 @@ module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-ba7bc93a", module.exports)
+     require("vue-hot-reload-api").rerender("data-v-3fd91fd1", module.exports)
   }
 }
 

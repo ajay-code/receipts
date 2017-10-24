@@ -14,5 +14,13 @@ Route::get('receipts/delete/{receipt}', 'ReceiptController@receipts_delete_api')
 // Dashbpard Api
 // 
 
-Route::get('dashboard', 'HomeController@dashboard_api')->name('dashboard.api');
-Route::get('summary', 'HomeController@summary_api')->name('summary.api');
+Route::get('dashboard', 'DashboardController@dashboard_api')->name('dashboard.api');
+Route::get('summary', 'DashboardController@summary_api')->name('summary.api');
+
+
+// 
+// SubUser Api
+// 
+Route::get('/users/{user}/receipts', 'SubuserController@users_receipts_paginated_api');
+Route::get('/users/{user}/activate', 'SubuserController@users_activation_api');
+Route::get('/users/{user}/deactivate', 'SubuserController@users_deactivation_api');

@@ -232,8 +232,15 @@
                         </div>
                         <div class="clearfix"></div>
                     </div>  
+
+                    <div class="dashboard_item">
+                        <report :use="use" :date="date" :month="month" :year="year"></report>
+                        <div class="clearfix"></div>
+                    </div>  
                 </div>
+                
             </div>
+            
         </div>
 
     </div>
@@ -272,6 +279,9 @@ export default {
         admin: {
             type: Boolean,
         }
+    },
+    components: {
+        'report': require('./Report.vue') 
     },
     created() {
         if (this.admin) {

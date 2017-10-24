@@ -32,88 +32,6 @@ class HomeController extends Controller
     }
 
     /**
-     * Get dashboard data.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @return array $data
-     */
-    public function dashboard_api(Request $request)
-    {
-        $use = $request->use;
-        $user = auth()->user();
-        $data = [
-            'totalReceipts' => 0,
-            'topSelling' => '',
-            'totalSales' => 0,
-            'totalProductCost' => 0,
-            'totalDeliveryCost' => 0,
-            'netProfit' => 0
-        ];
-
-        $from = '';
-        $to = '';
-
-        if ($use == 'Day') {
-            $date = $request->date;
-            $from = Carbon::createFromFormat('F d, Y', $date)->startOfDay();
-            $to = Carbon::createFromFormat('F d, Y', $date)->endOfDay();
-        } elseif ($use == 'Month') {
-            $month = $request->month;
-            $from = Carbon::createFromFormat('F Y', $month)->startOfMonth();
-            $to = Carbon::createFromFormat('F Y', $month)->endOfMonth();
-        } elseif ($use == 'Year') {
-            $year = $request->year;
-            $from = Carbon::createFromFormat('Y', $year)->startOfYear();
-            $to = Carbon::createFromFormat('Y', $year)->endOfYear();
-        }
-        $maxAmount = $user->receipts()->whereBetween("created_at", [$from, $to])->max('amount');
-        $data['totalReceipts'] = $user->receipts()->whereBetween("created_at", [$from, $to])->count();
-        if ($maxAmount) {
-            $data['topSelling'] = $user->receipts->where('amount', $maxAmount)->first()->receiver_product;
-        }
-        $data['totalSales'] = $user->receipts()->whereBetween("created_at", [$from, $to])->sum('amount');
-        $data['totalProductCost'] = $user->receipts()->whereBetween("created_at", [$from, $to])->sum('product_cost');
-        $data['totalDeliveryCost'] = $user->receipts()->whereBetween("created_at", [$from, $to])->sum('postage_cost');
-        $data['netProfit'] = $data['totalSales'] - ($data['totalProductCost'] + $data['totalDeliveryCost']);
-
-        return $data;
-    }
-
-    /**
-     * Get dashboard summary.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @return array $data
-     */
-    public function summary_api(Request $request)
-    {
-        $use = $request->use;
-        $user = auth()->user();
-        $data = [];
-        $from = '';
-        $to = '';
-
-        if ($use == 'Day') {
-            $date = $request->date;
-            $from = Carbon::createFromFormat('F d, Y', $date)->startOfDay();
-            $to = Carbon::createFromFormat('F d, Y', $date)->endOfDay();
-            $data = $this->summary_of_day($from, $to);
-        } elseif ($use == 'Month') {
-            $month = $request->month;
-            $from = Carbon::createFromFormat('F Y', $month)->startOfMonth();
-            $to = Carbon::createFromFormat('F Y', $month)->endOfMonth();
-            $data = $this->summary_of_month($from, $to);
-        } elseif ($use == 'Year') {
-            $year = $request->year;
-            $from = Carbon::createFromFormat('Y', $year)->startOfYear();
-            $to = Carbon::createFromFormat('Y', $year)->endOfYear();
-            $data = $this->summary_of_year($from, $to);
-        }
-
-        return $data;
-    }
-
-    /**
      * Generate pdf of receipt.
      *
      * @param \Illuminate\Http\Request $request
@@ -352,15 +270,4 @@ class HomeController extends Controller
         return $finalNumber;
     }
 
-
-    /**
-     * Get summary of the day
-     */
-    protected function summary_of_day($from = null, $to = null)
-    {
-        if(!($from && $to)){
-            return [];
-        }
-        
-    }
 }

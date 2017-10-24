@@ -1,8 +1,7 @@
 <template>
     <div class="">
         <notifications group="notice" classes="vue-notification z-index" />
-        <form id="print-form" class="form-horizontal" action="/print" method="post" target="_blank">
-            <input v-if="onMobile" type="hidden" name="mobile" value="true">
+        <form id="print-form" class="form-horizontal" @submit.prevent="0">
             <input type="hidden" name="_token" :value="csrf">
             <h3>Sender</h3>
 
@@ -20,11 +19,15 @@
             </div>
 
             <br>
+            <div class="form-group">
+                <span class="btn btn-primary padding-" @click="reset">Reset Form</span>
+            </div>
+            
             <br>
             <div class="form-group">
+                <button class="btn btn-primary" @click="submit" :disabled="isDisabled">Store & Print</button>
+                <button class="btn btn-success" @click="print" :disabled="!canPrint">Print</button>
                 <span class="btn btn-primary" data-toggle="modal" data-target="#import-receipts">Import</span>
-                <span class="btn btn-primary" @click="reset">Reset</span>
-                <span class="btn btn-primary" @click="submit">Print</span>
             </div>
         </form>
 
@@ -42,9 +45,9 @@
                             <input type="hidden" name="_token" :value="csrf">
                             <div class="form-group">
                                 <label for="file">Choose file to upload</label>
-                                <input type="file" name="file" @change="fileUploaded">
+                                <input type="file" name="file" @change="fileUploaded" required>
                             </div>
-                            <button class="btn btn-primary">Print</button>
+                            <button class="btn btn-primary">Store & Print</button>
                         </form>
                     </div>
                 </div>
@@ -54,13 +57,13 @@
         <div class="overlay" v-if="loading">
             <loader></loader>
         </div>
-        <iframe id="frame" name="frame" src="" class="hide" @load="loadingComplete"></iframe>
+        <iframe id="frame" name="frame" :src="src" class="hide" @load="loadingComplete"></iframe>
     </div>
 </template>
 
 <script>
-import Form from '../Form/Form';
-import eventHub from '../eventHub';
+import Form from '../../Form/Form';
+import eventHub from '../../eventHub';
 export default {
     data() {
         return {
@@ -72,6 +75,8 @@ export default {
             importForm: new Form({
                 receipts: '',
             }),
+            src: '',
+            buttonDeactivate: false,
             loadCount: 0,
             senderPlaceholder: 'Name \nAddress \nPhone \nEmail',
             receiverPlaceholder: 'Receiver 1 Name \nAddress \nPhone \nEmail \nProducts \namount (starting with "$")  \n\r\nReceiver 2 Name \nAddress \nPhone \nEmail \nProduct \namount (starting with "$")',
@@ -85,21 +90,31 @@ export default {
         csrf() {
             return window.token.content;
         },
-        onMobile() {
-            return this.isMobile();
+        isDisabled(){
+            return (!this.form.sender || !this.form.receivers || this.buttonDeactivate)
+        },
+        canPrint(){
+            return !!(this.src);
         }
     },
     methods: {
+        print(){
+            window.frames['frame'].print();
+        },
         submit() {
             this.loading = true;
+            this.buttonDeactivate = true;
             this.form.post('/print', this.form).then(res => {
-                // this.resetReceiver();
+                this.resetReceiver(); 
+                this.buttonDeactivate = false;
+                
                 console.log(res);
                 if (res.pdfName) {
                     this.pdfName = res.pdfName;
                     this.loadPdf(res);
                 } else {
                     this.loading = false;
+                    
                     this.$notify({
                         group: 'notice',
                         type: 'error',
@@ -110,6 +125,9 @@ export default {
                     });
                 }
             }).catch((error) => {
+                this.loading = false;
+                this.buttonDeactivate = false;
+                
                 this.$notify({
                     group: 'notice',
                     type: 'error',
@@ -124,10 +142,10 @@ export default {
         loadPdf(res) {
             window.data = res;
             if (!this.isMobile()) {
-                $('#frame').attr('src', '/pdf/' + this.pdfName);
+                this.src = '/pdf/' + this.pdfName;
             } else {
                 this.loading = false;
-                $('#frame').attr('src', '/pdf/' + this.pdfName + '/download');
+                this.src = '/pdf/' + this.pdfName +  '/download';
             }
         },
 
@@ -140,14 +158,9 @@ export default {
                 this.loadCount++;
             }
         },
-        loadingFail() {
-            this.loading = false;
-            alert('Loading Failed')
-        },
         isMobile() {
             return window.isMobile();
         },
-
 
         resetReceiver() {
             this.form.receivers = '';

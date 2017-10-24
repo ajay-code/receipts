@@ -246,8 +246,8 @@ export default {
       pageInfo: emptyPageInfo,
       edit: new Form(emptyReceipt),
       editIndex: '',
-      scope: '/admin',
-      scopeApi: '/api/admin',
+      scope: '',
+      scopeApi: '/api',
 
     }
   },
@@ -258,30 +258,22 @@ export default {
     paginator: require('../../Paginator.vue')
 
   },
-  // mounted() {
-  //   this.loadReceipts();
-  //   eventHub.$on('print-single-receipt', this.printSingleReceipt)
-  //   eventHub.$on('add-to-print-list', this.addToPrintList)
-  //   eventHub.$on('remove-from-print-list', this.removeFromPrintList)
-  //   eventHub.$on('load-page', this.reload);
-  //   eventHub.$on('edit-receipt', this.editReceipt);
-  //   eventHub.$on('delete-receipt', this.deleteReceipt);
-  // },
+  
   methods: {
     loadReceipts() {
-      axios.get(`/api/admin/users/${this.userId}/receipts`).then(res => {
+      axios.get(`${this.scopeApi}/users/${this.userId}/receipts`).then(res => {
         this.receipts = res.data.data;
         this.updatePageInfo(res.data);
       }).catch(err => {
         alert(err);
       })
     },
-    printSingleReceipt(receiptId) {
-      this.loading = true;
-      axios.get(`/admin/receipts/print/${receiptId}`).then(res => {
-        this.loadSinglePdf(res.data.pdfName)
-      })
-    },
+    // printSingleReceipt(receiptId) {
+    //   this.loading = true;
+    //   axios.get(`/admin/receipts/print/${receiptId}`).then(res => {
+    //     this.loadSinglePdf(res.data.pdfName)
+    //   })
+    // },
 
 
     reload(page) {

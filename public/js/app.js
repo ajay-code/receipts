@@ -1,4 +1,4 @@
-webpackJsonp([10],[
+webpackJsonp([9],[
 /* 0 */,
 /* 1 */
 /***/ (function(module, exports, __webpack_require__) {
@@ -1726,33 +1726,30 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_1_vue_notification___default.a);
  */
 
 var Dashboard = function Dashboard() {
-    return __webpack_require__.e/* import() */(8).then(__webpack_require__.bind(null, 185));
+  return __webpack_require__.e/* import() */(4).then(__webpack_require__.bind(null, 185));
 };
 var ReceiptForm = function ReceiptForm() {
-    return __webpack_require__.e/* import() */(6).then(__webpack_require__.bind(null, 186));
+  return __webpack_require__.e/* import() */(6).then(__webpack_require__.bind(null, 261));
 };
 var Receipts = function Receipts() {
-    return __webpack_require__.e/* import() */(2).then(__webpack_require__.bind(null, 187));
-};
-var ReceiptsByDate = function ReceiptsByDate() {
-    return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 188));
+  return __webpack_require__.e/* import() */(1).then(__webpack_require__.bind(null, 187));
 };
 var DeletedReceipts = function DeletedReceipts() {
-    return __webpack_require__.e/* import() */(3).then(__webpack_require__.bind(null, 189));
+  return __webpack_require__.e/* import() */(2).then(__webpack_require__.bind(null, 188));
 };
 var EditReceipt = function EditReceipt() {
-    return __webpack_require__.e/* import() */(5).then(__webpack_require__.bind(null, 190));
+  return __webpack_require__.e/* import() */(5).then(__webpack_require__.bind(null, 189));
 };
 var NetAmount = function NetAmount() {
-    return __webpack_require__.e/* import() */(7).then(__webpack_require__.bind(null, 191));
+  return __webpack_require__.e/* import() */(7).then(__webpack_require__.bind(null, 190));
 };
 
 // Admin Components
 var AdminUsers = function AdminUsers() {
-    return __webpack_require__.e/* import() */(4).then(__webpack_require__.bind(null, 192));
+  return __webpack_require__.e/* import() */(3).then(__webpack_require__.bind(null, 191));
 };
 var AdminUserReceipts = function AdminUserReceipts() {
-    return __webpack_require__.e/* import() */(1).then(__webpack_require__.bind(null, 193));
+  return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 192));
 };
 
 Vue.component('dashboard', Dashboard);
@@ -1761,27 +1758,14 @@ Vue.component('loader', __webpack_require__(166));
 Vue.component('alert', __webpack_require__(175));
 Vue.component('paginate', __WEBPACK_IMPORTED_MODULE_0_vuejs_paginate___default.a);
 Vue.component('receipts', Receipts);
-Vue.component('receipts-bydate', ReceiptsByDate);
 Vue.component('deleted-receipts', DeletedReceipts);
 Vue.component('admin-users', AdminUsers);
-Vue.component('admin-users-receipts', AdminUserReceipts);
+Vue.component('users-receipts', AdminUserReceipts);
 Vue.component('edit-receipt', EditReceipt);
 Vue.component('net-amount', NetAmount);
 
 var app = new Vue({
-    el: '#app',
-    filter: {
-        dateFilter: function dateFilter(value) {
-            console.log(value);
-            return value.format('LL');
-        },
-        monthFilter: function monthFilter(value) {
-            return value.format('MMMM YYYY');
-        },
-        yearFilter: function yearFilter(value) {
-            return value.format('YYYY');
-        }
-    }
+  el: '#app'
 });
 
 __webpack_require__(178);

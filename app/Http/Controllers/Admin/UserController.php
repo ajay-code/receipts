@@ -43,20 +43,11 @@ class UserController extends Controller
     {
         $search = $request->search;
         $records = $request->records ? $request->records : 100;
-        $order = $request->order ? $request->order : 'latest';
 
         if ($search) {
-            if ($order == 'latest') {
                 $users = User::search($search)->paginate($records);
-            } else {
-                $users = User::search($search)->paginate($records);
-            }
         } else {
-            if ($order == 'latest') {
                 $users = User::latest()->paginate($records);
-            } else {
-                $users = User::oldest()->paginate($records);
-            }
         }
 
         return fractal()
@@ -67,34 +58,12 @@ class UserController extends Controller
         return $users;
     }
 
-    /**
-     * Get users and receipt info
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param \App\User $user
-     * @return array $receipts
-     */
-    public function users_receipts_paginated_api(Request $request, User $user)
-    {
-        // return $request->all();
+
+    public function users_receipts_paginated_api(Request $request, User $user){
         $search = $request->search;
         $records = $request->records ? $request->records : 100;
-        $order = $request->order ? $request->order : 'latest';
-
-        if ($search) {
-            if ($order == 'latest') {
-                $receipts = Receipt::search($search)->where('user_id', $user->id)->paginate($records);
-            } else {
-                $receipts = Receipt::search($search)->where('user_id', $user->id)->paginate($records);
-            }
-        } else {
-            if ($order == 'latest') {
-                $receipts = Receipt::latest()->where('user_id', $user->id)->paginate($records);
-            } else {
-                $receipts = Receipt::oldest()->where('user_id', $user->id)->paginate($records);
-            }
-        }
-
+        
+        $receipts = $user->receipts()->paginate($records);
         return $receipts;
     }
 

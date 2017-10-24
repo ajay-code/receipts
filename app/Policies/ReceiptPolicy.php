@@ -22,7 +22,7 @@ class ReceiptPolicy
     {
         if ($user->id == $receipt->user_id) {
             return true;
-        } elseif ($user->user_id == $receipt->user_id) {
+        } elseif ($user->id == $receipt->user->user_id) {
             return true;
         }
         return false;
@@ -49,7 +49,7 @@ class ReceiptPolicy
      */
     public function update(User $user, Receipt $receipt)
     {
-        return $user->id == $receipt->user_id;
+        return $user->id == $receipt->user_id || $user->id == $receipt->user->user_id;
     }
 
     /**
@@ -61,6 +61,6 @@ class ReceiptPolicy
      */
     public function delete(User $user, Receipt $receipt)
     {
-        return false;
+        return $user->id == $receipt->user_id || $user->id == $receipt->user->user_id;
     }
 }

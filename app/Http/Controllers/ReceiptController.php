@@ -124,9 +124,8 @@ class ReceiptController extends Controller
      */
     public function receipts_delete_api(Receipt $receipt)
     {
-        if (auth()->user()->id !== $receipt->user_id) {
-            throw new \Exception('Not Authorized');
-        }
+        $this->authorize('delete', $receipt);
+        
         $receipt->delete();
         return 'success';
     }
