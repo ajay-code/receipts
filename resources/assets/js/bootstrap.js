@@ -1,4 +1,3 @@
-
 // window._ = require('lodash');
 
 /**
@@ -59,12 +58,16 @@ require('datatables.net');
 
 // window.swal = require('sweetalert');
 
-/* Modernizer */  
-// Modernizr = require('modernizr')
 
-window.isMobile = function(){
-	if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/i.test(navigator.userAgent)){
-	    return true;
-	}
-	return false;
+
+window.isMobile = function () {
+    is_safari = (navigator.userAgent.indexOf('Safari') != -1 && navigator.userAgent.indexOf('Chrome') == -1);
+    
+    if(is_safari){
+        return false;
+    }
+    if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/i.test(navigator.userAgent)) {
+        return true;
+    }
+    return false;
 }

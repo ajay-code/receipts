@@ -2919,7 +2919,6 @@ module.exports = function listToStyles (parentId, list) {
 /* 138 */
 /***/ (function(module, exports, __webpack_require__) {
 
-
 // window._ = require('lodash');
 
 /**
@@ -2929,9 +2928,9 @@ module.exports = function listToStyles (parentId, list) {
  */
 
 try {
-  window.$ = window.jQuery = __webpack_require__(7);
+    window.$ = window.jQuery = __webpack_require__(7);
 
-  __webpack_require__(139);
+    __webpack_require__(139);
 } catch (e) {}
 
 /**
@@ -2953,9 +2952,9 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 window.token = document.head.querySelector('meta[name="csrf-token"]');
 
 if (token) {
-  window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
+    window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
 } else {
-  console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
+    console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
 }
 
 /**
@@ -2980,14 +2979,17 @@ __webpack_require__(165);
 
 // window.swal = require('sweetalert');
 
-/* Modernizer */
-// Modernizr = require('modernizr')
 
 window.isMobile = function () {
-  if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/i.test(navigator.userAgent)) {
-    return true;
-  }
-  return false;
+    is_safari = navigator.userAgent.indexOf('Safari') != -1 && navigator.userAgent.indexOf('Chrome') == -1;
+
+    if (is_safari) {
+        return false;
+    }
+    if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/i.test(navigator.userAgent)) {
+        return true;
+    }
+    return false;
 };
 
 /***/ }),

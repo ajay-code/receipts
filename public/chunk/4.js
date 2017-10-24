@@ -533,6 +533,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -544,6 +546,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         month: [],
         year: []
       },
+      src: '',
       url: "/api/summary",
       changed: true
     };
@@ -571,28 +574,39 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       }
     },
     printDateSummary: function printDateSummary() {
-      __WEBPACK_IMPORTED_MODULE_0__eventHub___default.a.$emit("start-loading");
+      var _this = this;
+
       axios.get(this.url + "?use=" + this.use + "&date=" + this.date).then(function (res) {
         console.log(res.data);
-        $("#report").attr("src", "/pdf/" + res.data.pdfName);
+        _this.loadPdf(res);
       });
       this.changed = false;
     },
     printMonthSummary: function printMonthSummary() {
-      __WEBPACK_IMPORTED_MODULE_0__eventHub___default.a.$emit("start-loading");
+      var _this2 = this;
+
       axios.get(this.url + "?use=" + this.use + "&month=" + this.month).then(function (res) {
         console.log(res.data);
-        $("#report").attr("src", "/pdf/" + res.data.pdfName);
+        _this2.loadPdf(res);
       });
       this.changed = false;
     },
     printYearSummary: function printYearSummary() {
-      __WEBPACK_IMPORTED_MODULE_0__eventHub___default.a.$emit("start-loading");
+      var _this3 = this;
+
       axios.get(this.url + "?use=" + this.use + "&year=" + this.year).then(function (res) {
         console.log(res.data);
-        $("#report").attr("src", "/pdf/" + res.data.pdfName);
+        _this3.loadPdf(res);
       });
       this.changed = false;
+    },
+    loadPdf: function loadPdf(res) {
+      if (window.isMobile()) {
+        this.src = "/pdf/" + res.data.pdfName + "/download";
+      } else {
+        __WEBPACK_IMPORTED_MODULE_0__eventHub___default.a.$emit("start-loading");
+        this.src = "/pdf/" + res.data.pdfName;
+      }
     },
     print: function print() {
       __WEBPACK_IMPORTED_MODULE_0__eventHub___default.a.$emit("stop-loading");
@@ -622,13 +636,13 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "click": _vm.getSummary
     }
-  }, [_vm._v("\n            Print Summary\n        ")])]), _vm._v(" "), _vm._m(0), _vm._v(" "), _c('iframe', {
+  }, [_vm._v("\n            Print Summary\n            "), _c('br'), _vm._v("\n            " + _vm._s(this.src) + "\n        ")])]), _vm._v(" "), _vm._m(0), _vm._v(" "), _c('iframe', {
     staticClass: "hide",
     attrs: {
       "id": "report",
+      "src": _vm.src,
       "name": "report",
       "type": "application/pdf",
-      "src": "",
       "frameborder": "0"
     },
     on: {

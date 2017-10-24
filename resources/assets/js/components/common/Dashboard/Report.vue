@@ -3,6 +3,8 @@
     <div class="col-sm-12">
         <div class="blue summary-text" @click="getSummary">
             Print Summary
+            <br>
+            {{ this.src }}
         </div>
     </div>    
     <div id="print" class="hide print">
@@ -10,7 +12,7 @@
         <div class="month">Month</div>
         <div class="year">Year</div>
     </div>
-    <iframe id="report" name="report" type="application/pdf" class="hide" src="" frameborder="0" @load="print"></iframe>
+    <iframe id="report" :src="src" name="report" type="application/pdf" class="hide" frameborder="0" @load="print"></iframe>
 </div>
 </template>
 
@@ -25,6 +27,7 @@ export default {
         month: [],
         year: []
       },
+      src:'',
       url: "/api/summary",
       changed: true
     };
@@ -39,7 +42,8 @@ export default {
       this.changed = true;
     }
   },
-  mounted() {},
+  mounted() {
+  },
   props: ["use", "date", "month", "year"],
   methods: {
     getSummary() {
@@ -52,28 +56,33 @@ export default {
       }
     },
     printDateSummary() {
-      eventHub.$emit("start-loading");
       axios.get(`${this.url}?use=${this.use}&date=${this.date}`).then(res => {
         console.log(res.data);
-        $("#report").attr("src", "/pdf/" + res.data.pdfName);
+        this.loadPdf(res);
       });
       this.changed = false;
     },
     printMonthSummary() {
-      eventHub.$emit("start-loading");
       axios.get(`${this.url}?use=${this.use}&month=${this.month}`).then(res => {
         console.log(res.data);
-        $("#report").attr("src", "/pdf/" + res.data.pdfName);
+        this.loadPdf(res);
       });
       this.changed = false;
     },
     printYearSummary() {
-      eventHub.$emit("start-loading");
       axios.get(`${this.url}?use=${this.use}&year=${this.year}`).then(res => {
         console.log(res.data);
-        $("#report").attr("src", "/pdf/" + res.data.pdfName);
+        this.loadPdf(res);
       });
       this.changed = false;
+    },
+    loadPdf(res) {
+      if (window.isMobile()) {
+        this.src = "/pdf/" + res.data.pdfName + "/download";
+      } else {
+        eventHub.$emit("start-loading");
+        this.src = "/pdf/" + res.data.pdfName;
+      }
     },
     print() {
       eventHub.$emit("stop-loading");
