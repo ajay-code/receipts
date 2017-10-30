@@ -44,12 +44,24 @@
     .date{
     	position: absolute;
     	left: {{$user->settings->left_date ? $user->settings->left_date :  14}}mm;
-		top: {{$user->settings->top_date ? $user->settings->top_date :  1}}mm;
+		top: {{$user->settings->posttop_postcodeuser->settings->top_date :  1}}mm;
     }
     .amount{
     	position: absolute;
     	left: {{$user->settings->left_amount ? $user->settings->left_amount :  300}}mm;
 		top: {{$user->settings->top_amount ? $user->settings->top_amount :  1400}}mm;
+    }
+
+	.postcode{
+    	position: absolute;
+    	left: {{$user->settings->left_postcode ? $user->settings->left_postcode :  0}}mm;
+		top: {{$user->settings->top_postcode ? $user->settings->top_postcode :  0}}mm;
+    }
+
+	.phone{
+    	position: absolute;
+    	left: {{$user->settings->left_phone ? $user->settings->left_phone :  0}}mm;
+		top: {{$user->settings->top_phone ? $user->settings->top_phone :  0}}mm;
     }
    
 		
@@ -97,12 +109,27 @@
 						${{ $receipt->amount ? $receipt->amount : ''}}
 					</div>
 				@endif
+
+				@if ($user->settings->top_postcode != 0 && $user->settings->left_postcode != 0)
+					<div class="postcode">
+						${{ $receipt->receiver_postcode ? $receipt->receiver_postcode : ''}}
+					</div>
+				@endif
+
+				@if ($user->settings->top_phone != 0 && $user->settings->left_phone != 0)
+					<div class="phone">
+						${{ $receipt->receiver_phone ? $receipt->receiver_phone : ''}}
+					</div>
+				@endif
 				
 				@if ($user->settings->top_date != 0 && $user->settings->left_date != 0)
 					<div class="date">
 						{{ $receipt->created_at->format('D, d M Y') }}
 					</div>
 				@endif
+
+								
+
 			</div>
 
 		@if (!$loop->last)

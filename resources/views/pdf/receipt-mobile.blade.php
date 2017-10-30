@@ -41,19 +41,38 @@
     	left: {{$user->settings->left_date ? $user->settings->left_date :  14}}mm;
 		top: {{$user->settings->top_date ? $user->settings->top_date :  1}}mm;
     }
+	.amount{
+    	position: absolute;
+    	left: {{$user->settings->left_amount ? $user->settings->left_amount :  110}}mm;
+		top: {{$user->settings->top_amount ? $user->settings->top_amount :  42}}mm;
+    }
+	.postcode{
+    	position: absolute;
+    	left: {{$user->settings->left_postcode ? $user->settings->left_postcode :  0}}mm;
+		top: {{$user->settings->top_postcode ? $user->settings->top_postcode :  0}}mm;
+    }
+
+	.phone{
+    	position: absolute;
+    	left: {{$user->settings->left_phone ? $user->settings->left_phone :  0}}mm;
+		top: {{$user->settings->top_phone ? $user->settings->top_phone :  0}}mm;
+    }
+
 	</style>
 
 </head>
 
-<body  >
+<body>
 
 	@foreach ($receivers as $receiver)
 		<div class="page" id="page" >
-
-			<div class="sender-id">
-				{{ $sender['sender_id'] ? $sender['sender_id']:''}}
-			</div>
+			@if ($user->settings->top_sender_id != 0 && $user->settings->left_sender_id != 0)
+				<div class="sender-id">
+					{{ $sender['sender_id'] ? $sender['sender_id']:''}}
+				</div>
+			@endif
 			
+			@if ($user->settings->top_sender != 0 && $user->settings->left_sender != 0)
 			<div class="sender">
 				{{ $sender['name'] ? $sender['name']:''}} <br>
 				{!! $sender['address'] ? str_replace("|","<br/>", $sender['address'])  : ''!!} <br>
@@ -62,6 +81,9 @@
 					{{ $sender['email']}} <br>
 				@endif
 			</div>
+			@endif
+			
+			@if ($user->settings->top_receiver != 0 && $user->settings->left_receiver != 0)
 			<div class="receiver">
 				{{ $receiver['name'] ? $receiver['name']:''}} <br>
 				{!! $receiver['address'] ? str_replace("|","<br/>", $receiver['address']) : ''!!} <br>
@@ -70,15 +92,37 @@
 					{{ $receiver['email']}} <br>
 				@endif
 			</div>
+			@endif
+			@if ($user->settings->top_product != 0 && $user->settings->left_product != 0)
+				<div class="products">
+					{{ $receiver['products'] ? $receiver['products']:''}} <br>
+				</div>
+			@endif
 
-			<div class="products">
-				{{ $receiver['products'] ? $receiver['products']:''}} <br>
-				
-			</div>
+			@if ($user->settings->top_amount != 0 && $user->settings->left_amount != 0)
+					<div class="amount">
+						${{ $receiver['amount'] ? $receiver['amount']:''}}
+					</div>
+			@endif
 
-			<div class="date">
-				{{ $date->format('D, d M Y') }}
-			</div>
+			@if ($user->settings->top_postcode != 0 && $user->settings->left_postcode != 0)
+				<div class="postcode">
+					${{ $receiver['receiver_postcode'] ? $receiver['receiver_postcode'] : ''}}
+				</div>
+			@endif
+
+			@if ($user->settings->top_phone != 0 && $user->settings->left_phone != 0)
+				<div class="phone">
+					${{ $receiver['receiver_phone'] ? $receiver['receiver_phone'] : ''}}
+				</div>
+			@endif
+
+			
+			@if ($user->settings->top_date != 0 && $user->settings->left_date != 0)
+				<div class="date">
+					{{ $date->format('D, d M Y') }}
+				</div>
+			@endif
 
 		</div>
 

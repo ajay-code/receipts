@@ -49,6 +49,18 @@
     	left: {{$user->settings->left_amount ? $user->settings->left_amount :  300}}mm;
 		top: {{$user->settings->top_amount ? $user->settings->top_amount :  1400}}mm;
     }
+
+	.postcode{
+    	position: absolute;
+    	left: {{$user->settings->left_postcode ? $user->settings->left_postcode :  0}}mm;
+		top: {{$user->settings->top_postcode ? $user->settings->top_postcode :  0}}mm;
+    }
+
+	.phone{
+    	position: absolute;
+    	left: {{$user->settings->left_phone ? $user->settings->left_phone :  0}}mm;
+		top: {{$user->settings->top_phone ? $user->settings->top_phone :  0}}mm;
+    }
    
 		
 	</style>
@@ -93,6 +105,18 @@
 				@if ($user->settings->top_amount != 0 && $user->settings->left_amount != 0)
 					<div class="amount">
 						${{ $receipt->amount ? $receipt->amount : ''}}
+					</div>
+				@endif
+
+				@if ($user->settings->top_postcode != 0 && $user->settings->left_postcode != 0)
+					<div class="postcode">
+						${{ $receipt->receiver_postcode ? $receipt->receiver_postcode : ''}}
+					</div>
+				@endif
+
+				@if ($user->settings->top_phone != 0 && $user->settings->left_phone != 0)
+					<div class="phone">
+						${{ $receipt->receiver_phone ? $receipt->receiver_phone : ''}}
 					</div>
 				@endif
 				
