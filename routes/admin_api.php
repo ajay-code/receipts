@@ -1,7 +1,7 @@
 <?php
-// 
-// Recepts Routes
-// 
+/* 
+    Recepts Routes 
+*/
 Route::post('receipts/', 'Admin\ReceiptController@receipts_paginated_api')->name('receipts.paginated');
 
 // Delete Receipts
@@ -18,9 +18,9 @@ Route::post('receipts/force-delete', 'Admin\ReceiptController@multiple_receipts_
 Route::get('receipts/restore/{receipt}', 'Admin\ReceiptController@receipts_restore_api')->name('receipts.restore');
 Route::post('receipts/restore', 'Admin\ReceiptController@multiple_receipts_restore_api')->name('receipts.restore.multiple');
 
-// 
-// Admin user routes
-// 
+/* 
+    Admin user routes 
+*/
 Route::get('users/', 'Admin\UserController@users_paginated_api')->name('users.paginated');
 Route::get('/users/{user}/receipts', 'Admin\UserController@users_receipts_paginated_api');
 Route::get('/users/{user}/activate', 'Admin\UserController@users_activation_api');
@@ -28,7 +28,13 @@ Route::get('/users/{user}/deactivate', 'Admin\UserController@users_deactivation_
 Route::post('/users/{user}/update', 'Admin\UserController@update_api');
 
 
-// 
-// Dashbpard Api
-// 
+/* 
+    Dashbpard Api
+*/
 Route::get('dashboard', 'Admin\MainController@dashboard_api')->name('dashboard.api');
+
+
+/* 
+    get predefined print settings
+*/
+Route::get('/settings/predefined', 'Admin\settingsController@get_predefined_settings_api')->name('settings.get-predefined');

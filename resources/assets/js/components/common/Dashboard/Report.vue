@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import eventHub from "../../../eventHub";
+import eventHub from "@/eventHub";
 export default {
   data() {
     return {

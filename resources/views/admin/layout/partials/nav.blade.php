@@ -60,6 +60,9 @@
                 <a class="{{ \Request::is('admin/receipts/deleted') ? 'active-menu':''}}" href="{{ url('/admin/receipts/deleted') }}"><i class="fa fa-trash"></i> Deleted Receipts</a>
             </li>
 
+            <li>
+                <a class="{{ \Request::is('admin/print-settings') ? 'active-menu':''}}" href="{{ url('/admin/print-settings') }}"><i class="fa fa-print"></i> Print Settings</a>
+            </li>
         </ul>
 
     </div>

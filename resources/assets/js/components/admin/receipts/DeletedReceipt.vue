@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import eventHub from '../../../eventHub'
+import eventHub from '@/eventHub'
 import moment from 'moment';
 
     export default {

@@ -798,7 +798,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__empty_Receipt___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__empty_Receipt__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__empty_PageInfo__ = __webpack_require__(195);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__empty_PageInfo___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__empty_PageInfo__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__mixins_Receipts__ = __webpack_require__(200);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_mixins_Receipts__ = __webpack_require__(200);
 //
 //
 //
@@ -1054,7 +1054,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   },
 
   props: ['userId'],
-  mixins: [__WEBPACK_IMPORTED_MODULE_4__mixins_Receipts__["a" /* default */]],
+  mixins: [__WEBPACK_IMPORTED_MODULE_4__components_mixins_Receipts__["a" /* default */]],
   components: {
     receipt: __webpack_require__(236),
     paginator: __webpack_require__(196)

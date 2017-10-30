@@ -226,11 +226,11 @@
 </template>
 
 <script>
-import Form from '../../../Form/Form';
-import eventHub from '../../../eventHub';
-import emptyReceipt from '../../../empty/Receipt';
-import emptyPageInfo from '../../../empty/PageInfo';
-import mixin from '../../mixins/Receipts';
+import Form from '@/Form/Form';
+import eventHub from '@/eventHub';
+import emptyReceipt from '@/empty/Receipt';
+import emptyPageInfo from '@/empty/PageInfo';
+import mixin from '@/components/mixins/Receipts';
 
 export default {
   data() {

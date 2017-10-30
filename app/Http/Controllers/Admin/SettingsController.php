@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\PrintSetting;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreUserSetting;
 
 class SettingsController extends Controller
 {
@@ -33,26 +35,8 @@ class SettingsController extends Controller
      *
      * @return \Illumunate\Http\Response
      */
-    public function update(Request $request)
+    public function update(StoreUserSetting $request)
     {
-        $this->validate($request, [
-            'font' => 'required',
-            'font_size' => 'required|integer',
-            'page_width' => 'required|integer',
-            'page_height' => 'required|integer',
-            'top_sender_id' => 'required|integer',
-            'left_sender_id' => 'required|integer',
-            'top_sender' => 'required|integer',
-            'left_sender' => 'required|integer',
-            'top_receiver' => 'required|integer',
-            'left_receiver' => 'required|integer',
-            'left_product' => 'required|integer',
-            'top_product' => 'required|integer',
-            'top_date' => 'required|integer',
-            'left_date' => 'required|integer',
-            'left_amount' => 'required|integer',
-            'top_amount' => 'required|integer',
-        ]);
 
         auth()->user()->settings()->update($request->except(['_token']));
 
@@ -60,4 +44,40 @@ class SettingsController extends Controller
 
         return back();
     }
+
+    /**
+     * Select predefined settings
+     *
+     * @return \Illumunate\Http\Response
+     */
+    public function select_predefined_settings()
+    {
+        $printSettings = PrintSetting::all();
+        return view('admin.settings.select-predefied', compact('printSettings'));
+    }
+    
+    /**
+     * Store predefined setting
+     *
+     * @return \Illumunate\Http\Response
+     */
+    public function store_predefined_settings(Request $request)
+    {
+        $printSetting = PrintSetting::where('id', $request->setting)->exclude(['id', 'name', 'created_at', 'updated_at'])->first();
+        auth()->user()->settings()->update($printSetting->toArray());
+        alert()->success("Settings Successfully updated to {$printSetting->name}");
+
+        return redirect('/admin/settings');
+    }
+
+    /** 
+     * Get predefined print settings
+     * 
+     * @return array 
+     */
+    public function get_predefined_settings_api(){
+        return PrintSetting::all();
+    }
+
+
 }

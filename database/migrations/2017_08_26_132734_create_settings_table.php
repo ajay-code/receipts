@@ -50,6 +50,14 @@ class CreateSettingsTable extends Migration
             $table->integer('top_amount')->default(42);
             $table->integer('left_amount')->default(110);
 
+            // PostCode
+            $table->integer('top_postcode')->default(0);
+            $table->integer('left_postcode')->default(0);
+
+            // Phone
+            $table->integer('top_phone')->default(0);
+            $table->integer('left_phone')->default(0);
+
         });
     }
 

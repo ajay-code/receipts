@@ -62,8 +62,8 @@
 </template>
 
 <script>
-import Form from '../../Form/Form';
-import eventHub from '../../eventHub';
+import Form from '@/Form/Form';
+import eventHub from '@/eventHub';
 export default {
     data() {
         return {

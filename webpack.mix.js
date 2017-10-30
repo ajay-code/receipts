@@ -15,11 +15,14 @@ mix.webpackConfig({
         chunkFilename: 'chunk/[name].js',
         publicPath: '/'
     },
+    resolve: {
+        alias: {
+            '@': path.join(__dirname, 'resources/assets/js')
+        }
+    }
 });
-// mix.js('resources/assets/js/admin.js', 'public/js/admin');
 
 mix.js('resources/assets/js/app.js', 'public/js')
-	.extract(['vue','jquery','moment'])
-   .sass('resources/assets/sass/app.scss', 'public/css')
-   .sass('resources/assets/sass/auth.scss', 'public/css');
-
+    .extract(['vue', 'jquery', 'moment'])
+    .sass('resources/assets/sass/app.scss', 'public/css')
+    .sass('resources/assets/sass/auth.scss', 'public/css');

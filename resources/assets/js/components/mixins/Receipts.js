@@ -1,8 +1,8 @@
 import moment from 'moment';
-import Form from '../../Form/Form';
-import eventHub from '../../eventHub';
-import emptyPageInfo from '../../empty/PageInfo';
-import ReceiptSearchFor from '../../empty/ReceiptSearchFor';
+import Form from '@/Form/Form';
+import eventHub from '@/eventHub';
+import emptyPageInfo from '@/empty/PageInfo';
+import ReceiptSearchFor from '@/empty/ReceiptSearchFor';
 export default {
     data() {
         return {

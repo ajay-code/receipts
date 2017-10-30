@@ -62,8 +62,8 @@ require('datatables.net');
 
 window.isMobile = function () {
     is_safari = (navigator.userAgent.indexOf('Safari') != -1 && navigator.userAgent.indexOf('Chrome') == -1);
-    
-    if(is_safari){
+
+    if (is_safari) {
         return false;
     }
     if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/i.test(navigator.userAgent)) {
@@ -71,3 +71,19 @@ window.isMobile = function () {
     }
     return false;
 }
+
+$.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+});
+
+window.deletePrintSetting = function(self) {
+    var $this = $(self);
+    $.post({
+        type: $this.data('method'),
+        url: $this.attr('href')
+    }).done(function (data) {
+        window.location.reload();
+    });
+};
