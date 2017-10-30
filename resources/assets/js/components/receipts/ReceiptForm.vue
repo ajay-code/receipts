@@ -20,13 +20,15 @@
 
             <br>
             <div class="form-group">
-                <span class="btn btn-primary padding-" @click="reset">Reset Form</span>
+                <button class="btn btn-primary" @click="submit" :disabled="isDisabled">Store & Print</button>
+                <button class="btn btn-success" @click="print" :disabled="!canPrint">Print</button>
+                
             </div>
             
             <br>
             <div class="form-group">
-                <button class="btn btn-primary" @click="submit" :disabled="isDisabled">Store & Print</button>
-                <button class="btn btn-success" @click="print" :disabled="!canPrint">Print</button>
+                <span class="btn btn-primary padding-" @click="reset">Reset Form</span>
+                
                 <span class="btn btn-primary" data-toggle="modal" data-target="#import-receipts">Import</span>
             </div>
         </form>
@@ -68,7 +70,7 @@ export default {
     data() {
         return {
             form: new Form({
-                sender_id: '',
+                sender_id: getCookie('sender_id'),
                 sender: '',
                 receivers: '',
             }),
@@ -104,6 +106,7 @@ export default {
         submit() {
             this.loading = true;
             this.buttonDeactivate = true;
+            setCookie('sender_id', this.form.sender_id);
             this.form.post('/print', this.form).then(res => {
                 this.resetReceiver(); 
                 this.buttonDeactivate = false;

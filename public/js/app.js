@@ -1735,10 +1735,10 @@ var Dashboard = function Dashboard() {
   return __webpack_require__.e/* import() */(4).then(__webpack_require__.bind(null, 185));
 };
 var Settings = function Settings() {
-  return __webpack_require__.e/* import() */(7).then(__webpack_require__.bind(null, 186));
+  return __webpack_require__.e/* import() */(6).then(__webpack_require__.bind(null, 186));
 };
 var ReceiptForm = function ReceiptForm() {
-  return __webpack_require__.e/* import() */(6).then(__webpack_require__.bind(null, 187));
+  return __webpack_require__.e/* import() */(7).then(__webpack_require__.bind(null, 187));
 };
 var Receipts = function Receipts() {
   return __webpack_require__.e/* import() */(1).then(__webpack_require__.bind(null, 188));
@@ -3012,6 +3012,36 @@ window.deletePrintSetting = function (self) {
     }).done(function (data) {
         window.location.reload();
     });
+};
+
+/*********************************************************
+gets the value of a cookie
+**********************************************************/
+window.getCookie = function (sName) {
+    sName = sName.toLowerCase();
+    var oCrumbles = document.cookie.split(';');
+    for (var i = 0; i < oCrumbles.length; i++) {
+        var oPair = oCrumbles[i].split('=');
+        var sKey = decodeURIComponent(oPair[0].trim().toLowerCase());
+        var sValue = oPair.length > 1 ? oPair[1] : '';
+        if (sKey == sName) return decodeURIComponent(sValue);
+    }
+    return '';
+};
+/*********************************************************
+sets the value of a cookie
+**********************************************************/
+window.setCookie = function (sName, sValue) {
+    var oDate = new Date();
+    oDate.setYear(oDate.getFullYear() + 1);
+    var sCookie = encodeURIComponent(sName) + '=' + encodeURIComponent(sValue) + ';expires=' + oDate.toGMTString() + ';path=/';
+    document.cookie = sCookie;
+};
+/*********************************************************
+removes the value of a cookie
+**********************************************************/
+window.clearCookie = function (sName) {
+    setCookie(sName, '');
 };
 
 /***/ }),
