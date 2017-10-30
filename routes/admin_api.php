@@ -37,4 +37,4 @@ Route::get('dashboard', 'Admin\MainController@dashboard_api')->name('dashboard.a
 /* 
     get predefined print settings
 */
-Route::get('/settings/predefined', 'Admin\settingsController@get_predefined_settings_api')->name('settings.get-predefined');
+Route::get('/settings/predefined', 'Admin\SettingsController@get_predefined_settings_api')->name('settings.get-predefined');

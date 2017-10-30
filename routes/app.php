@@ -58,8 +58,8 @@ Route::get('/subusers/{user}/receipts', 'SubuserController@user_receipts')->name
 
 Route::get('/settings', 'SettingsController@index')->name('settings');
 Route::post('/settings', 'SettingsController@update')->name('settings.update');
-Route::get('/settings/select', 'settingsController@select_predefined_settings')->name('settings.select-predefined');
-Route::post('/settings/store', 'settingsController@store_predefined_settings')->name('settings.store-predefined');
+Route::get('/settings/select', 'SettingsController@select_predefined_settings')->name('settings.select-predefined');
+Route::post('/settings/store', 'SettingsController@store_predefined_settings')->name('settings.store-predefined');
 
 
 /*
