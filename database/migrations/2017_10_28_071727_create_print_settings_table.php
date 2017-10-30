@@ -15,7 +15,7 @@ class CreatePrintSettingsTable extends Migration
     {
         Schema::create('print_settings', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name', 197)->unique();
+            $table->string('name', 190)->unique();
 
             // Font
             $table->enum('font', ['courier', 'times-roman', 'arial'])->default('arial');
