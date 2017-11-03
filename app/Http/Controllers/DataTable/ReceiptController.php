@@ -96,4 +96,15 @@ class ReceiptController extends DataTableController
         $this->authorize('delete', $receipt);
         $receipt->delete();
     }
+
+    /**
+     * Delete the given records
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return void
+     */
+    public function delete_multiple(Request $request)
+    {
+        return Receipt::whereIn('id', $request->receipts)->where('user_id', auth()->user()->id)->delete();
+    }
 }

@@ -44,7 +44,7 @@
     .date{
     	position: absolute;
     	left: {{$user->settings->left_date ? $user->settings->left_date :  14}}mm;
-		top: {{$user->settings->posttop_postcodeuser->settings->top_date :  1}}mm;
+		top: {{$user->settings->posttop_postcode? $user->settings->top_date :  1}}mm;
     }
     .amount{
     	position: absolute;

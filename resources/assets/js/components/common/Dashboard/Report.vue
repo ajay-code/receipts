@@ -57,21 +57,18 @@ export default {
     },
     printDateSummary() {
       axios.get(`${this.url}?use=${this.use}&date=${this.date}`).then(res => {
-        console.log(res.data);
         this.loadPdf(res);
       });
       this.changed = false;
     },
     printMonthSummary() {
       axios.get(`${this.url}?use=${this.use}&month=${this.month}`).then(res => {
-        console.log(res.data);
         this.loadPdf(res);
       });
       this.changed = false;
     },
     printYearSummary() {
       axios.get(`${this.url}?use=${this.use}&year=${this.year}`).then(res => {
-        console.log(res.data);
         this.loadPdf(res);
       });
       this.changed = false;

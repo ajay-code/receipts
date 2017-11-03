@@ -4,6 +4,7 @@
 	Receipts Datatable
 */
 Route::resource('datatable/receipts', 'DataTable\ReceiptController');
+Route::post('datatable/receipts/delete', 'DataTable\ReceiptController@delete_multiple');
 
 /* 
 	Printing while Creating

@@ -103,24 +103,27 @@
                                 </template>
                             </td>
                             <td>
-                                <a href="#" @click.prevent="edit(record)" v-if="editing.id !== record.id">Edit</a>
-                                <a class="text-danger" href="#" @click.prevent="deleteRecord(record)" v-if="editing.id !== record.id">Delete</a>
+                                <a href="#" @click.prevent="edit(record)" v-if="editing.id !== record.id"><i class="fa fa-edit"></i></a>
+                                <a class="text-success" href="#" @click.prevent="print(record)" v-if="editing.id !== record.id"><i class="fa fa-print"></i></a>
+                                <a class="text-danger" href="#" @click.prevent="deleteRecord(record)" v-if="editing.id !== record.id"><i class="fa fa-trash"></i></a>
 
                                 <template v-if="editing.id === record.id">
-                                    <a href="#" @click.prevent="update">Save</a><br>
-                                    <a href="#" @click.prevent="editing.id = null">Cancel</a>
+                                    <a href="#" @click.prevent="update"><i class="fa fa-save"></i></a><br>
+                                    <a href="#" @click.prevent="editing.id = null"><i class="fa fa-times"></i></a>
                                 </template>
                             </td>
                         </tr>
                     </tbody>
                 </table>
+                <br>
                 <div class="form-group">
-                  <button class="btn btn-success" @click="printSelected" :disabled="selected.length">Print</button>
-                  <button class="btn btn-danger" @click="deleteSelected" :disabled="selected.length">Delete</button>
+                  <button class="btn btn-success" @click="printSelected" :disabled="!selected.length">Print</button>
+                  <button class="btn btn-danger" @click="deleteSelected" :disabled="!selected.length">Delete</button>
                 </div>
                 <paginator v-if="response.pageInfo" :page-info="response.pageInfo"></paginator>
             </div>
         </div>
+        <print :receipt="printReceipt" :selected="selected"></print>
     </div>
 </template>
 
@@ -157,13 +160,15 @@ export default {
       page: {
         current: 1
       },
+      filterColumns: "",
       selectAll: false,
       selected: [],
-      filterColumns: ""
+      printReceipt: null
     };
   },
   components: {
-    paginator: require("@/components/Paginator.vue")
+    paginator: require("@/components/Paginator.vue"),
+    print: require("@/components/print/PrintReceipts.vue")
   },
   computed: {
     filteredRecords() {
@@ -268,10 +273,11 @@ export default {
     },
     deleteSelected() {
       axios
-        .post(`${this.endpoint}`, {
+        .post(`${this.endpoint}/delete`, {
           receipts: this.selected
         })
         .then(res => {
+          this.getRecords();
           this.sendSuccessNotice();
         })
         .catch(err => {
@@ -312,6 +318,23 @@ export default {
       } else {
         this.selected = [];
       }
+    },
+
+    /* 
+      Print functions
+    */
+    printSelected() {
+      if (this.selected.length) {
+        eventHub.$emit("print-selected");
+      } else {
+        this.sendErrorNotice("Please at least select one receipt");
+      }
+    },
+    print(record) {
+      this.printReceipt = record.id;
+      setTimeout(function() {
+        eventHub.$emit("print-receipt");
+      }, 500);
     },
 
     /* 

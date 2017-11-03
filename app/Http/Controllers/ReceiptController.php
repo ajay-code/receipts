@@ -139,7 +139,7 @@ class ReceiptController extends Controller
      */
     public function multiple_receipts_delete_api(Request $request)
     {
-        Receipt::where('id', $request->receipts)->where('user_id', auth()->user()->id)->delete();
+        Receipt::whereIn('id', $request->receipts)->where('user_id', auth()->user()->id)->delete();
         return 'success';
     }
 
