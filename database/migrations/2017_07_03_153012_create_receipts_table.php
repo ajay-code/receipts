@@ -34,6 +34,7 @@ class CreateReceiptsTable extends Migration
             $table->integer('postage_cost')->nullable();
             
             $table->string('tracking')->nullable();
+            $table->string('remark')->nullable();
 
             $table->timestamps();
             $table->softDeletes();

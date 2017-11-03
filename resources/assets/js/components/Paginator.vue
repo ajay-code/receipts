@@ -7,11 +7,15 @@
 </template>
 
 <script>
-import eventHub from '@/eventHub'
+import eventHub from '@/eventHub';
+import Paginate from 'vuejs-paginate';
 
 export default {
     props: ['pageInfo'],
     mounted() {
+    },
+    components: {
+        paginate: Paginate
     },
     computed: {
         pages() {

@@ -71,7 +71,7 @@ export default {
         return {
             form: new Form({
                 sender_id: getCookie('sender_id'),
-                sender: '',
+                sender: getCookie('sender'),
                 receivers: '',
             }),
             importForm: new Form({
@@ -107,6 +107,7 @@ export default {
             this.loading = true;
             this.buttonDeactivate = true;
             setCookie('sender_id', this.form.sender_id);
+            setCookie('sender', this.form.sender);
             this.form.post('/print', this.form).then(res => {
                 this.resetReceiver(); 
                 this.buttonDeactivate = false;

@@ -31,7 +31,7 @@ class ReceiptController extends DataTableController
      *
      * @var boolean
      */
-    protected $allowCreation = false;
+    protected $allowCreation = true;
 
     /**
      * Get the builder for the entity.
@@ -51,7 +51,17 @@ class ReceiptController extends DataTableController
      */
     public function getDisplayableColumns()
     {
-        return ["id","user_id","sender_id","sender_name","sender_address","sender_postcode","sender_phone","sender_email","receiver_name","receiver_address","receiver_postcode","receiver_phone","receiver_email","receiver_product","amount","product_cost","postage_cost","tracking","created_at","updated_at"];
+        return ["id","receiver_name","receiver_address","receiver_postcode","receiver_phone","receiver_product","tracking", "remark"];
+    }
+
+    /**
+     * Get the columns that we can update.
+     *
+     * @return array
+     */
+    public function getUpdatableColumns()
+    {
+        return ["receiver_name","receiver_address","receiver_postcode","receiver_phone","receiver_product","tracking", "remark"];
     }
 
     /**
@@ -75,5 +85,15 @@ class ReceiptController extends DataTableController
         }
     }
 
-    
+    /**
+     * Delete the given record
+     *
+     * @param \App\Receipt $receipt
+     * @return void
+     */
+    public function destroy(Receipt $receipt)
+    {
+        $this->authorize('delete', $receipt);
+        $receipt->delete();
+    }
 }

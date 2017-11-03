@@ -18,7 +18,7 @@ class Receipt extends Model
     protected $fillable = [
     'sender_name', 'sender_id', 'sender_address', 'sender_postcode', 'sender_phone', 'sender_email',
     'receiver_name', 'receiver_address', 'receiver_postcode', 'receiver_phone', 'receiver_email', 'receiver_product', 'amount', 'product_cost', 'postage_cost',
-    'tracking'
+    'tracking', 'remark'
     ];
 
     /**
@@ -49,7 +49,7 @@ class Receipt extends Model
     public function toSearchableArray()
     {
         $array = $this->toArray();
-        $array = array_except($array, 'sender_address', 'sender_postcode','sender_address','receiver_address', 'receiver_postcode','receiver_address');
+        $array = array_except($array, 'sender_address', 'sender_postcode', 'sender_address', 'receiver_address', 'receiver_postcode', 'receiver_address');
         return $array;
     }
    
@@ -57,7 +57,8 @@ class Receipt extends Model
 
 
     // Relations
-    public function user(){
-    	return $this->belongsTo(User::class);
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }

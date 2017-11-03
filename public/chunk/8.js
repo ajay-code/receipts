@@ -380,7 +380,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         return {
             form: new __WEBPACK_IMPORTED_MODULE_0__Form_Form__["a" /* default */]({
                 sender_id: getCookie('sender_id'),
-                sender: '',
+                sender: getCookie('sender'),
                 receivers: ''
             }),
             importForm: new __WEBPACK_IMPORTED_MODULE_0__Form_Form__["a" /* default */]({
@@ -418,6 +418,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.loading = true;
             this.buttonDeactivate = true;
             setCookie('sender_id', this.form.sender_id);
+            setCookie('sender', this.form.sender);
             this.form.post('/print', this.form).then(function (res) {
                 _this.resetReceiver();
                 _this.buttonDeactivate = false;
