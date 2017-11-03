@@ -42,7 +42,6 @@ Route::get('/settings', 'Admin\SettingsController@index')->name('settings');
 Route::post('/settings', 'Admin\SettingsController@update')->name('settings.update');
 Route::get('/settings/select', 'Admin\SettingsController@select_predefined_settings')->name('settings.select-predefined');
 Route::post('/settings/store', 'Admin\SettingsController@store_predefined_settings')->name('settings.store-predefined');
-
 /*
 	Profile Routes
 */

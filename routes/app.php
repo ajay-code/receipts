@@ -1,7 +1,13 @@
 <?php
 
+/* 
+	Receipts Datatable
+*/
+Route::resource('datatable/receipts', 'DataTable\ReceiptController');
 
-// Printing while Creating
+/* 
+	Printing while Creating
+ */
 Route::get('/', 'HomeController@index')->name('index');
 Route::get('/home', 'HomeController@index')->name('home');
 Route::post('/print', 'HomeController@generatePdf')->name('print');

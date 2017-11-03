@@ -16,7 +16,9 @@
                 <!-- /. ROW  --> 
 
                 <div class="row" >
-            		<receipts></receipts> 
+            		{{--  <receipts></receipts>   --}}
+
+                    <data-table endpoint="/datatable/receipts"></data-table>
                 </div> 
 
             </div>

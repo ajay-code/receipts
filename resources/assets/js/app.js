@@ -8,7 +8,6 @@ import Notifications from 'vue-notification'
  */
 
 require('./bootstrap');
-window.Vue = require('vue');
 Vue.use(Notifications);
 
 
@@ -23,6 +22,7 @@ const Settings = () => System.import('./components/common/settings/Settings.vue'
 const ReceiptForm = () => System.import('./components/receipts/ReceiptForm.vue');
 const Receipts = () => System.import('./components/receipts/Receipts.vue');
 const DeletedReceipts = () => System.import('./components/admin/receipts/DeletedReceipts.vue');
+const DataTable = () => System.import('./components/DataTable.vue');
 const EditReceipt = () => System.import('./components/receipts/EditReceipt.vue');
 
 // Admin Components
@@ -40,12 +40,14 @@ Vue.component('deleted-receipts', DeletedReceipts);
 Vue.component('admin-users', AdminUsers);
 Vue.component('users-receipts', AdminUserReceipts);
 Vue.component('edit-receipt', EditReceipt);
+Vue.component('data-table', DataTable);
 
 
 const app = new Vue({
     el: '#app',
 });
 
-require('./custom-scripts');
+require('./vueRoutes');
 
+require('./custom-scripts');
 require('./user');
