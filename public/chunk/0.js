@@ -6,9 +6,9 @@ webpackJsonp([0],{
 var disposed = false
 var Component = __webpack_require__(5)(
   /* script */
-  __webpack_require__(248),
+  __webpack_require__(253),
   /* template */
-  __webpack_require__(254),
+  __webpack_require__(259),
   /* styles */
   null,
   /* scopeId */
@@ -378,6 +378,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
         totalPages: function totalPages() {
             return this.pageInfo.total_pages || this.pageInfo.last_page;
+        },
+        changePage: function changePage() {
+            return this.pageInfo.current_page;
+        }
+    },
+    watch: {
+        changePage: function changePage() {
+            this.$refs.paginate.selected = this.pageInfo.current_page - 1;
         }
     },
     methods: {
@@ -415,6 +423,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return (_vm.totalPages) ? _c('div', [_c('paginate', {
+    ref: "paginate",
     attrs: {
       "page-count": _vm.totalPages,
       "click-handler": _vm.loadPage,
@@ -799,7 +808,7 @@ module.exports = (_module$exports = {
 
 /***/ }),
 
-/***/ 248:
+/***/ 253:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1069,7 +1078,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   props: ['userId'],
   mixins: [__WEBPACK_IMPORTED_MODULE_4__components_mixins_Receipts__["a" /* default */]],
   components: {
-    receipt: __webpack_require__(249),
+    receipt: __webpack_require__(254),
     paginator: __webpack_require__(197)
 
   },
@@ -1146,19 +1155,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 
-/***/ 249:
+/***/ 254:
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(250)
+  __webpack_require__(255)
 }
 var Component = __webpack_require__(5)(
   /* script */
-  __webpack_require__(252),
+  __webpack_require__(257),
   /* template */
-  __webpack_require__(253),
+  __webpack_require__(258),
   /* styles */
   injectStyle,
   /* scopeId */
@@ -1191,13 +1200,13 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 250:
+/***/ 255:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(251);
+var content = __webpack_require__(256);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -1218,7 +1227,7 @@ if(false) {
 
 /***/ }),
 
-/***/ 251:
+/***/ 256:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(133)(undefined);
@@ -1233,7 +1242,7 @@ exports.push([module.i, "\ntd:not(:first-child){\n    min-width: 140px;\n}\ntd{\
 
 /***/ }),
 
-/***/ 252:
+/***/ 257:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1333,7 +1342,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 
-/***/ 253:
+/***/ 258:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -1470,7 +1479,7 @@ if (false) {
 
 /***/ }),
 
-/***/ 254:
+/***/ 259:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;

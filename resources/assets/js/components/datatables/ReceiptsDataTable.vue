@@ -123,7 +123,7 @@
                 <paginator v-if="response.pageInfo" :page-info="response.pageInfo"></paginator>
             </div>
         </div>
-        <print :receipt="printReceipt" :selected="selected"></print>
+        <print :receipt="printReceipt" :selected="selected" :admin="admin"></print>
     </div>
 </template>
 
@@ -132,7 +132,6 @@ import queryString from "query-string";
 import eventHub from "@/eventHub";
 
 export default {
-  props: ["endpoint"],
   data() {
     return {
       response: {
@@ -165,6 +164,14 @@ export default {
       selected: [],
       printReceipt: null
     };
+  },
+  props: {
+    admin: {
+      type: Boolean
+    },
+    endpoint: {
+      type: String
+    }
   },
   components: {
     paginator: require("@/components/Paginator.vue"),
@@ -205,7 +212,6 @@ export default {
 
     displayable() {
       let filterColumns = this.filterColumns;
-      console.log("as");
       let array = [];
       _.each(this.filterColumns, (val, key, index) => {
         if (val) array.push(key);
@@ -308,7 +314,6 @@ export default {
       }
     },
     toggleSelectAll() {
-      console.log("sds");
       if (this.selectAll) {
         _.each(this.response.records, record => {
           if (!this.selected.includes(record.id)) {
@@ -334,7 +339,7 @@ export default {
       this.printReceipt = record.id;
       setTimeout(function() {
         eventHub.$emit("print-receipt");
-      }, 500);
+      }, 100);
     },
 
     /* 

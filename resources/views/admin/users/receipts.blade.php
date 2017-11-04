@@ -15,7 +15,8 @@
                 <!-- /. ROW  --> 
 
                 <div class="row" >
-            		<users-receipts user-id="{{$user->id}}" admin></users-receipts> 
+            		{{--  <users-receipts user-id="{{$user->id}}" admin></users-receipts>   --}}
+                <receipts-data-table endpoint="/admin/datatable/users/{{$user->id}}/receipts" admin></receipts-data-table>
                 </div> 
     
             </div>

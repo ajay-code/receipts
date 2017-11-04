@@ -378,6 +378,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
         totalPages: function totalPages() {
             return this.pageInfo.total_pages || this.pageInfo.last_page;
+        },
+        changePage: function changePage() {
+            return this.pageInfo.current_page;
+        }
+    },
+    watch: {
+        changePage: function changePage() {
+            this.$refs.paginate.selected = this.pageInfo.current_page - 1;
         }
     },
     methods: {
@@ -415,6 +423,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return (_vm.totalPages) ? _c('div', [_c('paginate', {
+    ref: "paginate",
     attrs: {
       "page-count": _vm.totalPages,
       "click-handler": _vm.loadPage,

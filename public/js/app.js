@@ -1742,10 +1742,10 @@ var Receipts = function Receipts() {
   return __webpack_require__.e/* import() */(1).then(__webpack_require__.bind(null, 189));
 };
 var DeletedReceipts = function DeletedReceipts() {
-  return __webpack_require__.e/* import() */(2).then(__webpack_require__.bind(null, 190));
+  return __webpack_require__.e/* import() */(3).then(__webpack_require__.bind(null, 190));
 };
 var ReceiptsDataTable = function ReceiptsDataTable() {
-  return __webpack_require__.e/* import() */(4).then(__webpack_require__.bind(null, 191));
+  return __webpack_require__.e/* import() */(2).then(__webpack_require__.bind(null, 191));
 };
 var EditReceipt = function EditReceipt() {
   return __webpack_require__.e/* import() */(6).then(__webpack_require__.bind(null, 192));
@@ -1753,7 +1753,7 @@ var EditReceipt = function EditReceipt() {
 
 // Admin Components
 var AdminUsers = function AdminUsers() {
-  return __webpack_require__.e/* import() */(3).then(__webpack_require__.bind(null, 193));
+  return __webpack_require__.e/* import() */(4).then(__webpack_require__.bind(null, 193));
 };
 var AdminUserReceipts = function AdminUserReceipts() {
   return __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 194));

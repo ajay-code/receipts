@@ -16,7 +16,9 @@
                 <!-- /. ROW  --> 
 
                 <div class="row" >
-            		<receipts admin></receipts> 
+            		{{--  <receipts admin></receipts>   --}}
+                    <receipts-data-table endpoint="/admin/datatable/receipts" admin></receipts-data-table>
+
                 </div> 
 
             </div>

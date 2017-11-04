@@ -1,5 +1,17 @@
 <?php
 
+/* 
+	Receipts Datatable
+*/
+Route::resource('datatable/receipts', 'Admin\DataTable\ReceiptController');
+Route::post('datatable/receipts/delete', 'Admin\DataTable\ReceiptController@delete_multiple');
+
+Route::resource('datatable/users/{user}/receipts', 'Admin\DataTable\UserReceiptController');
+Route::post('datatable/users/{user}/receipts/delete', 'Admin\DataTable\UserReceiptController@delete_multiple');
+
+/* 
+	Main page
+*/
 Route::get('/', 'Admin\MainController@index')->name('index');
 Route::get('/home', 'Admin\MainController@index')->name('home');
 

@@ -1,6 +1,6 @@
 <template>
     <div v-if="totalPages">
-        <paginate :page-count="totalPages" :click-handler="loadPage" :prev-text="'Prev'" :next-text="'Next'" :container-class="'Page pagination'">
+        <paginate ref="paginate" :page-count="totalPages" :click-handler="loadPage" :prev-text="'Prev'" :next-text="'Next'" :container-class="'Page pagination'">
             >
         </paginate>
     </div>
@@ -27,8 +27,16 @@ export default {
         },
         totalPages() {
             return this.pageInfo.total_pages || this.pageInfo.last_page;
+        },
+        changePage(){
+            return this.pageInfo.current_page;
         }
 
+    },
+    watch: {
+        changePage(){
+            this.$refs.paginate.selected = this.pageInfo.current_page - 1;
+        }
     },
     methods: {
         prev() {
